@@ -9,6 +9,7 @@ Run locally:  uvicorn app.main:app --reload
 
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
 
@@ -16,6 +17,7 @@ from app.api import auth, health
 from app.auth.ratelimit import FailureLimiter
 from app.config import get_settings
 from app.db import create_pool
+from app.spa import mount_spa
 
 
 @asynccontextmanager
@@ -27,7 +29,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         await app.state.pool.close()
 
 
-def create_app(*, use_lifespan: bool = True) -> FastAPI:
+def create_app(*, use_lifespan: bool = True, frontend_dist: Path | None = None) -> FastAPI:
     s = get_settings()
     app = FastAPI(title="Vyayam", lifespan=lifespan if use_lifespan else None)
 
@@ -37,6 +39,11 @@ def create_app(*, use_lifespan: bool = True) -> FastAPI:
 
     app.include_router(health.router, prefix="/api")
     app.include_router(auth.router, prefix="/api")
+
+    # Registered last, so every /api route above wins over the catch-all.
+    dist = frontend_dist if frontend_dist is not None else s.frontend_dist
+    if (dist / "index.html").is_file():
+        mount_spa(app, dist)
     return app
 
 

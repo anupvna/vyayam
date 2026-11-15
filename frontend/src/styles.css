@@ -1,0 +1,162 @@
+/* Mobile-first, dark theme. Colours live in variables so the whole app stays consistent. */
+:root {
+  --bg: #0f1115;
+  --surface: #181b22;
+  --border: #2a2f3a;
+  --text: #e9ecf1;
+  --muted: #9aa3b2;
+  --accent: #ff7a1a;
+  --accent-text: #1a0d00;
+  --danger: #ff5c5c;
+  --radius: 14px;
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  /* keep content clear of the iPhone notch and home bar */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+}
+
+h1,
+h2 {
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+/* --- forms --- */
+form.card {
+  display: grid;
+  gap: 1rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  font: inherit;
+  font-size: 16px; /* 16px stops iOS from zooming into inputs */
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 0.85rem;
+}
+
+input:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.password-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  min-height: 44px; /* comfortable tap target */
+  padding: 0 1rem;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+button.primary {
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+button.link {
+  background: none;
+  color: var(--accent);
+  padding: 0;
+}
+
+.error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+/* --- screens --- */
+.auth {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.brand {
+  text-align: center;
+}
+
+.brand img {
+  border-radius: 14px;
+}
+
+.disclaimer {
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.home {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.splash {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  color: var(--muted);
+}
