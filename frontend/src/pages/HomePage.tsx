@@ -1,23 +1,28 @@
-// Home ("Today"): today's workout from the planner, with controls to shorten it,
-// change it, or skip it. Below: your week, your goal and your gym.
+// Home ("Today"): check in, then do today's workout: targets per exercise, log each
+// set, rest timer, PR celebrations. The safety layer comes first: a red flag in the
+// check-in replaces the workout with "stop and get help".
 import { useCallback, useEffect, useState } from "react";
 import { Link, Navigate } from "react-router";
 
 import { ApiError, api } from "../api";
+import { CheckInCard } from "../components/CheckInCard";
 import { EquipmentArt } from "../components/EquipmentArt";
+import { ExerciseLogger } from "../components/ExerciseLogger";
+import { RestTimer } from "../components/RestTimer";
 import { TabBar } from "../components/TabBar";
-import { WorkoutList } from "../components/WorkoutList";
 import { goalName } from "../labels";
+import { formatWeight } from "../logging";
 import { WEEKDAY, WEEKDAY_FULL, localISO, parseISO } from "../plan";
-import type { Catalog, Gym, PlanDay, Profile, Week } from "../types";
+import type { Catalog, Gym, LoggedSet, Profile, TrainingToday, Week } from "../types";
 import { kgToLb, round1 } from "../units";
 
+type Base = { profile: Profile; gym: Gym | undefined; week: Week; catalog: Catalog };
 type Load =
   | { state: "loading" }
   | { state: "needs-onboarding" }
   | { state: "needs-split" }
   | { state: "error" }
-  | { state: "ready"; profile: Profile; gym: Gym | undefined; week: Week; catalog: Catalog };
+  | ({ state: "ready" } & Base);
 
 function greeting(hour: number): string {
   if (hour < 5) return "Up late";
@@ -28,15 +33,37 @@ function greeting(hour: number): string {
 
 const TIME_OPTIONS = [30, 45, 60];
 
+function skippedCheckInKey(day: string) {
+  return `vy-checkin-skipped-${day}`;
+}
+
 export function HomePage() {
   const today = localISO();
   const [load, setLoad] = useState<Load>({ state: "loading" });
-  const [day, setDay] = useState<PlanDay | null>(null);
+  const [training, setTraining] = useState<TrainingToday | null>(null);
   const [minutes, setMinutes] = useState<number | null>(null);
+  const [checkInSkipped, setCheckInSkipped] = useState(() => {
+    try {
+      return localStorage.getItem(skippedCheckInKey(today)) === "1";
+    } catch {
+      return false;
+    }
+  });
+  const [easyChosen, setEasyChosen] = useState(false);
   const [changing, setChanging] = useState(false);
   const [pickMuscles, setPickMuscles] = useState<string[]>([]);
+  const [rest, setRest] = useState<{ endsAt: number; total: number } | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const loadTraining = useCallback(
+    async (m: number | null) => {
+      const q = m ? `&minutes=${m}` : "";
+      setTraining(await api<TrainingToday>(`/training/today?today=${today}${q}`));
+    },
+    [today],
+  );
 
   const refresh = useCallback(async () => {
     try {
@@ -49,31 +76,46 @@ export function HomePage() {
         if (err instanceof ApiError && err.status === 404) return setLoad({ state: "needs-split" });
         throw err;
       }
-      setLoad({ state: "ready", profile, gym: gyms.find((g) => g.is_active), week, catalog });
-      setDay(week.days.find((d) => d.date === today) ?? null);
+      await loadTraining(null);
       setMinutes(null);
+      setLoad({ state: "ready", profile, gym: gyms.find((g) => g.is_active), week, catalog });
     } catch (err) {
       setLoad(err instanceof ApiError && err.status === 404 ? { state: "needs-onboarding" } : { state: "error" });
     }
-  }, [today]);
+  }, [today, loadTraining]);
 
   useEffect(() => {
     void refresh();
   }, [refresh]);
 
+  useEffect(() => {
+    if (!toast) return;
+    const id = window.setTimeout(() => setToast(null), 4000);
+    return () => window.clearTimeout(id);
+  }, [toast]);
+
+  const endRest = useCallback(() => setRest(null), []);
+
   if (load.state === "loading") return <div className="splash">Loading…</div>;
   if (load.state === "needs-onboarding") return <Navigate to="/onboarding" replace />;
   if (load.state === "needs-split") return <Navigate to="/plan/split" replace />;
-  if (load.state === "error") return <div className="splash">Couldn't load. Check your connection and refresh.</div>;
+  if (load.state === "error" || !training)
+    return <div className="splash">Couldn't load. Check your connection and refresh.</div>;
 
   const { profile: p, gym, week, catalog } = load;
-  const weight = (kg: number) => (p.unit_system === "metric" ? `${round1(kg)} kg` : `${round1(kgToLb(kg))} lb`);
+  const units = p.unit_system;
+  const weight = (kg: number) => (units === "metric" ? `${round1(kg)} kg` : `${round1(kgToLb(kg))} lb`);
   const timeline = p.advice.find((a) => a.code === "timeline");
   const gear = gym?.equipment.slice(0, 4) ?? [];
   const now = new Date();
-  const fullDay = week.days.find((d) => d.date === today);
+  const day = training.day;
+  const fullMinutes = week.days.find((d) => d.date === today)?.minutes ?? day.minutes;
   const next = week.days.find((d) => d.date > today && d.status === "planned");
   const muscleName = (id: string) => catalog.muscles.find((m) => m.id === id)?.name ?? id;
+  const needsCheckIn = day.status === "planned" && !training.readiness && !checkInSkipped;
+  const planned = day.status === "planned" && !training.stop;
+  const setsDone = training.exercises.reduce((n, e) => n + e.logged.length, 0);
+  const setsTotal = day.exercises.reduce((n, e) => n + e.sets, 0);
 
   async function run(action: () => Promise<unknown>) {
     setBusy(true);
@@ -92,8 +134,42 @@ export function HomePage() {
 
   async function shorten(m: number | null) {
     setMinutes(m);
-    if (m === null) return setDay(fullDay ?? null);
-    setDay(await api<PlanDay>(`/plan/today?today=${today}&minutes=${m}`));
+    await loadTraining(m);
+  }
+
+  function onLogged(exerciseId: string, set: LoggedSet) {
+    if (!training) return;
+    setTraining({
+      ...training,
+      exercises: training.exercises.map((x) =>
+        x.exercise_id === exerciseId ? { ...x, logged: [...x.logged.filter((s) => s.id !== set.id), set] } : x,
+      ),
+    });
+    const ex = day.exercises.find((x) => x.exercise_id === exerciseId);
+    if (ex) setRest({ endsAt: Date.now() + ex.rest_seconds * 1000, total: ex.rest_seconds });
+    if (set.pr) {
+      setToast(`New personal record! ${ex?.name}: ${formatWeight(set.weight_kg, units)} × ${set.reps}`);
+      navigator.vibrate?.(80);
+    }
+  }
+
+  function onDeleted(exerciseId: string, id: string) {
+    if (!training) return;
+    setTraining({
+      ...training,
+      exercises: training.exercises.map((x) =>
+        x.exercise_id === exerciseId ? { ...x, logged: x.logged.filter((s) => s.id !== id) } : x,
+      ),
+    });
+  }
+
+  function skipCheckIn() {
+    setCheckInSkipped(true);
+    try {
+      localStorage.setItem(skippedCheckInKey(today), "1");
+    } catch {
+      // storage unavailable: skipping still works for this visit
+    }
   }
 
   return (
@@ -104,163 +180,226 @@ export function HomePage() {
             <p className="greeting">{greeting(now.getHours())}</p>
             <h1>Today</h1>
           </div>
+          {planned && setsDone > 0 && (
+            <span className="badge">
+              {setsDone}/{setsTotal} sets
+            </span>
+          )}
         </header>
 
-        <section className="today" aria-label="Today's workout">
-          <div>
-            <div className="today-day">{WEEKDAY_FULL[now.getDay()]}</div>
-            {day?.status === "planned" && (
-              <p className="today-state">
-                {day.session_name}, about {day.minutes} minutes
-              </p>
-            )}
-            {day?.status === "rest" && <p className="today-state">Rest day</p>}
-            {day?.status === "skipped" && <p className="today-state">Skipped</p>}
-            {week.deload && <p className="muted small">Deload week: lighter on purpose.</p>}
-          </div>
+        {training.stop && (
+          <section className="stop-card" role="alert">
+            <h2>Stop. No training today.</h2>
+            {training.readiness?.messages.map((m) => <p key={m}>{m}</p>)}
+            <p className="small">You can update today's check-in if you ticked something by mistake.</p>
+            <button type="button" className="secondary" onClick={() => setTraining({ ...training, readiness: null, stop: false })}>
+              Redo check-in
+            </button>
+          </section>
+        )}
 
-          {day?.status === "planned" && (
-            <>
-              <div className="time-row" role="group" aria-label="Time available">
-                <span className="muted small">Time today</span>
-                <div className="segmented">
-                  <button type="button" aria-pressed={minutes === null} onClick={() => shorten(null)}>
-                    Full
+        {!training.stop && needsCheckIn && (
+          <CheckInCard
+            today={today}
+            catalog={catalog}
+            onDone={() => {
+              window.scrollTo(0, 0);
+              void loadTraining(minutes);
+            }}
+            onSkip={() => {
+              window.scrollTo(0, 0);
+              skipCheckIn();
+            }}
+          />
+        )}
+
+        {!training.stop && !needsCheckIn && (
+          <section className="today" aria-label="Today's workout">
+            <div>
+              <div className="today-day">{WEEKDAY_FULL[now.getDay()]}</div>
+              {day.status === "planned" && (
+                <p className="today-state">
+                  {day.session_name}, about {day.minutes} minutes
+                </p>
+              )}
+              {day.status === "rest" && <p className="today-state">Rest day</p>}
+              {day.status === "skipped" && <p className="today-state">Skipped</p>}
+              {training.deload && <p className="muted small">Deload week: lighter on purpose.</p>}
+            </div>
+
+            {training.suggest_rest && !easyChosen && (
+              <div className="advice-block">
+                <p>{training.readiness?.messages[0]}</p>
+                <div className="actions">
+                  <button
+                    type="button"
+                    className="primary"
+                    disabled={busy}
+                    onClick={() => run(() => api(`/plan/days/${today}/skip`, { method: "POST", body: { today } }))}
+                  >
+                    Rest today
                   </button>
-                  {TIME_OPTIONS.filter((m) => m < (fullDay?.minutes ?? 0)).map((m) => (
-                    <button key={m} type="button" aria-pressed={minutes === m} onClick={() => shorten(m)}>
-                      {m} min
-                    </button>
-                  ))}
+                  <button type="button" className="secondary" onClick={() => setEasyChosen(true)}>
+                    Do the easy version
+                  </button>
                 </div>
               </div>
-              {day.notes.map((n) => (
-                <p key={n} className="muted small">
-                  {n}
-                </p>
-              ))}
-              <WorkoutList exercises={day.exercises} />
+            )}
+
+            {planned && (!training.suggest_rest || easyChosen) && (
+              <>
+                <div className="time-row" role="group" aria-label="Time available">
+                  <span className="muted small">Time today</span>
+                  <div className="segmented">
+                    <button type="button" aria-pressed={minutes === null} onClick={() => shorten(null)}>
+                      Full
+                    </button>
+                    {TIME_OPTIONS.filter((m) => m < fullMinutes).map((m) => (
+                      <button key={m} type="button" aria-pressed={minutes === m} onClick={() => shorten(m)}>
+                        {m} min
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                {day.notes.map((n) => (
+                  <p key={n} className="muted small">
+                    {n}
+                  </p>
+                ))}
+                <ol className="workout">
+                  {day.exercises.map((e) => {
+                    const t = training.exercises.find((x) => x.exercise_id === e.exercise_id);
+                    return t ? (
+                      <ExerciseLogger
+                        key={`${e.exercise_id}-${minutes}`}
+                        exercise={e}
+                        target={t.target}
+                        logged={t.logged}
+                        units={units}
+                        day={today}
+                        onLogged={(s) => onLogged(e.exercise_id, s)}
+                        onDeleted={(id) => onDeleted(e.exercise_id, id)}
+                      />
+                    ) : null;
+                  })}
+                </ol>
+                {setsDone === 0 && (
+                  <div className="actions">
+                    <button type="button" className="secondary" onClick={() => setChanging(!changing)}>
+                      {changing ? "Keep this workout" : "Change today's workout"}
+                    </button>
+                    <button
+                      type="button"
+                      className="link danger"
+                      disabled={busy}
+                      onClick={() => {
+                        if (window.confirm("Skip today? The rest of your week will be re-planned around it.")) {
+                          void run(() => api(`/plan/days/${today}/skip`, { method: "POST", body: { today } }));
+                        }
+                      }}
+                    >
+                      Skip today
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+
+            {day.status === "rest" && (
+              <p className="muted">
+                Recovery is when muscle is built.
+                {next && ` Next: ${next.session_name} on ${WEEKDAY_FULL[parseISO(next.date).getDay()]}.`}
+              </p>
+            )}
+
+            {day.status === "skipped" && (
               <div className="actions">
-                <button type="button" className="secondary" onClick={() => setChanging(!changing)}>
-                  {changing ? "Keep this workout" : "Change today's workout"}
-                </button>
+                <p className="muted">Your week was re-planned around it.</p>
                 <button
                   type="button"
-                  className="link danger"
+                  className="link"
                   disabled={busy}
-                  onClick={() => {
-                    if (window.confirm("Skip today? The rest of your week will be re-planned around it.")) {
-                      void run(() => api(`/plan/days/${today}/skip`, { method: "POST", body: { today } }));
-                    }
-                  }}
+                  onClick={() => run(() => api(`/plan/days/${today}`, { method: "DELETE" }))}
                 >
-                  Skip today
+                  Train today after all
                 </button>
               </div>
-            </>
-          )}
+            )}
 
-          {day?.status === "rest" && (
-            <p className="muted">
-              Recovery is when muscle is built.
-              {next && ` Next: ${next.session_name} on ${WEEKDAY_FULL[parseISO(next.date).getDay()]}.`}
-            </p>
-          )}
-
-          {day?.status === "skipped" && (
-            <div className="actions">
-              <p className="muted">Your week was re-planned around it.</p>
-              <button
-                type="button"
-                className="link"
-                disabled={busy}
-                onClick={() => run(() => api(`/plan/days/${today}`, { method: "DELETE" }))}
-              >
-                Train today after all
-              </button>
-            </div>
-          )}
-
-          {changing && day?.status === "planned" && (
-            <div className="change-panel">
-              <h3>Do a different session</h3>
-              <div className="choices">
-                {week.split.sessions
-                  .filter((s) => s.key !== day.session_key)
-                  .map((s) => (
-                    <button
-                      key={s.key}
-                      type="button"
-                      className="choice"
-                      disabled={busy}
-                      onClick={() =>
-                        run(() =>
-                          api(`/plan/days/${today}/swap`, { method: "POST", body: { session_key: s.key, today } }),
-                        )
-                      }
-                    >
-                      <strong>{s.name}</strong>
-                      <small>{s.focus.map(muscleName).join(", ")}</small>
-                    </button>
-                  ))}
-              </div>
-              <h3>Or pick the muscles</h3>
-              <div className="pills">
-                {catalog.muscles.map((m) => {
-                  const on = pickMuscles.includes(m.id);
-                  return (
-                    <button
-                      key={m.id}
-                      type="button"
-                      className="pill"
-                      aria-pressed={on}
-                      onClick={() =>
-                        setPickMuscles(on ? pickMuscles.filter((x) => x !== m.id) : [...pickMuscles, m.id].slice(0, 6))
-                      }
-                    >
-                      {m.name}
-                    </button>
-                  );
-                })}
-              </div>
-              <button
-                type="button"
-                className="primary"
-                disabled={busy || pickMuscles.length === 0}
-                onClick={() =>
-                  run(() => api(`/plan/days/${today}/swap`, { method: "POST", body: { muscles: pickMuscles, today } }))
-                }
-              >
-                Build my session
-              </button>
-              <p className="hint">
-                Your planned session moves later in the week. Muscles trained yesterday are kept light.
-              </p>
-            </div>
-          )}
-          {error && (
-            <p className="error" role="alert">
-              {error}
-            </p>
-          )}
-
-          <div className="week" aria-label="This week">
-            {week.days.map((d) => {
-              const date = parseISO(d.date);
-              return (
-                <Link
-                  to="/plan"
-                  key={d.date}
-                  className={`${d.status === "planned" ? "train" : d.status} ${d.date === today ? "is-today" : ""}`}
-                  aria-label={`${WEEKDAY_FULL[date.getDay()]}: ${d.status === "planned" ? d.session_name : d.status}`}
+            {changing && planned && (
+              <div className="change-panel">
+                <h3>Do a different session</h3>
+                <div className="choices">
+                  {week.split.sessions
+                    .filter((s) => s.key !== day.session_key)
+                    .map((s) => (
+                      <button
+                        key={s.key}
+                        type="button"
+                        className="choice"
+                        disabled={busy}
+                        onClick={() =>
+                          run(() => api(`/plan/days/${today}/swap`, { method: "POST", body: { session_key: s.key, today } }))
+                        }
+                      >
+                        <strong>{s.name}</strong>
+                        <small>{s.focus.map(muscleName).join(", ")}</small>
+                      </button>
+                    ))}
+                </div>
+                <h3>Or pick the muscles</h3>
+                <div className="pills">
+                  {catalog.muscles.map((m) => {
+                    const on = pickMuscles.includes(m.id);
+                    return (
+                      <button
+                        key={m.id}
+                        type="button"
+                        className="pill"
+                        aria-pressed={on}
+                        onClick={() => setPickMuscles(on ? pickMuscles.filter((x) => x !== m.id) : [...pickMuscles, m.id].slice(0, 6))}
+                      >
+                        {m.name}
+                      </button>
+                    );
+                  })}
+                </div>
+                <button
+                  type="button"
+                  className="primary"
+                  disabled={busy || pickMuscles.length === 0}
+                  onClick={() => run(() => api(`/plan/days/${today}/swap`, { method: "POST", body: { muscles: pickMuscles, today } }))}
                 >
-                  <i />
-                  {WEEKDAY[date.getDay()].slice(0, 2)}
-                </Link>
-              );
-            })}
-          </div>
-        </section>
+                  Build my session
+                </button>
+                <p className="hint">Your planned session moves later in the week. Muscles trained yesterday are kept light.</p>
+              </div>
+            )}
+            {error && (
+              <p className="error" role="alert">
+                {error}
+              </p>
+            )}
+
+            <div className="week" aria-label="This week">
+              {week.days.map((d) => {
+                const date = parseISO(d.date);
+                const doneDay = (d.logged_sets ?? 0) > 0 || (d.date === today && setsDone > 0);
+                return (
+                  <Link
+                    to="/plan"
+                    key={d.date}
+                    className={`${d.status === "planned" ? "train" : d.status} ${d.date === today ? "is-today" : ""} ${doneDay ? "done" : ""}`}
+                    aria-label={`${WEEKDAY_FULL[date.getDay()]}: ${doneDay ? "done" : d.status === "planned" ? d.session_name : d.status}`}
+                  >
+                    <i>{doneDay ? "✓" : ""}</i>
+                    {WEEKDAY[date.getDay()].slice(0, 2)}
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
 
         <section className="card">
           <div className="card-head">
@@ -307,13 +446,17 @@ export function HomePage() {
                   <EquipmentArt id={id} size={34} />
                 </span>
               ))}
-              {gym && gym.equipment.length > gear.length && (
-                <span className="more">+{gym.equipment.length - gear.length}</span>
-              )}
+              {gym && gym.equipment.length > gear.length && <span className="more">+{gym.equipment.length - gear.length}</span>}
             </div>
           )}
         </section>
       </main>
+      {toast && (
+        <div className="toast" role="status">
+          {toast}
+        </div>
+      )}
+      {rest && <RestTimer endsAt={rest.endsAt} total={rest.total} onDone={endRest} />}
       <TabBar />
     </>
   );

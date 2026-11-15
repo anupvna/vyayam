@@ -9,6 +9,7 @@ user's time zone, not the server's.
 """
 
 import json
+from dataclasses import replace
 from datetime import date, timedelta
 from typing import Literal
 
@@ -122,6 +123,7 @@ class DayOut(BaseModel):
     notes: list[str]
     swapped: bool
     moved: bool
+    logged_sets: int = 0
 
 
 class WeekOut(BaseModel):
@@ -250,10 +252,33 @@ def _split_out(split_id: str, custom: list[dict] | None, days: tuple[int, ...]) 
     )
 
 
+FATIGUE_MIN_CHECKINS = 3
+FATIGUE_SCORE = 45  # average readiness below this over recent days -> deload
+
+
+async def _run_down(conn: asyncpg.Connection, user: CurrentUser, today: date) -> bool:
+    """Fatigue signal: at least 3 check-ins in the last 10 days averaging below 45."""
+    row = await conn.fetchrow(
+        """SELECT count(*) AS n, avg(score) AS avg FROM readiness_checkins
+           WHERE user_id = $1 AND day BETWEEN $2 AND $3""",
+        user.id,
+        today - timedelta(days=9),
+        today,
+    )
+    return row["n"] >= FATIGUE_MIN_CHECKINS and float(row["avg"]) < FATIGUE_SCORE
+
+
 async def _week(
-    conn: asyncpg.Connection, user: CurrentUser, any_day: date, today: date
+    conn: asyncpg.Connection,
+    user: CurrentUser,
+    any_day: date,
+    today: date,
+    *,
+    extra_injured: frozenset[str] = frozenset(),
 ) -> tuple[WeekPlan, SplitOut]:
     ctx = await _context(conn, user)
+    if extra_injured:  # areas that hurt today (from the readiness check-in)
+        ctx = replace(ctx, injured=ctx.injured | extra_injured)
     split_id, custom, started_on = await _split(conn, user)
     cyc = _cycle(split_id, custom)
     library = list(load_library().values())
@@ -274,6 +299,7 @@ async def _week(
         )
         previous_hard = hard_muscles(prev.days[-1])
 
+    tired = start <= today < start + timedelta(days=7) and await _run_down(conn, user, today)
     week = plan_week(
         ctx,
         cyc,
@@ -283,7 +309,12 @@ async def _week(
         overrides=await _overrides(conn, user, start),
         today=today,
         previous_hard=previous_hard,
+        force_deload=tired,
     )
+    if tired:
+        week.notes.insert(
+            0, "Your recent check-ins show you're run down, so this week is a deload."
+        )
     return week, _split_out(split_id, custom, ctx.training_days)
 
 
@@ -379,13 +410,25 @@ async def get_week(
     conn: asyncpg.Connection = Depends(get_conn),
 ) -> WeekOut:
     week, split = await _week(conn, user, day or today, today)
+    counts = dict(
+        await conn.fetch(
+            """SELECT day, count(*) FROM set_logs WHERE user_id = $1 AND day BETWEEN $2 AND $3
+               GROUP BY day""",
+            user.id,
+            week.start,
+            week.start + timedelta(days=6),
+        )
+    )
+    days = [_day_out(d) for d in week.days]
+    for d in days:
+        d.logged_sets = counts.get(d.date, 0)
     return WeekOut(
         start=week.start,
         week_index=week.week_index,
         deload=week.deload,
         notes=week.notes,
         split=split,
-        days=[_day_out(d) for d in week.days],
+        days=days,
     )
 
 

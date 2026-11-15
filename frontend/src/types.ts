@@ -92,6 +92,7 @@ export type PlanDay = {
   notes: string[];
   swapped: boolean;
   moved: boolean;
+  logged_sets?: number;
 };
 
 export type SplitSession = { key: string; name: string; focus: string[] };
@@ -114,4 +115,41 @@ export type Week = {
   notes: string[];
   split: Split;
   days: PlanDay[];
+};
+
+export type Target = {
+  weight_kg: number | null;
+  reps: number;
+  reason: string;
+  change: "first" | "increase" | "hold" | "more_reps" | "reduce" | "light" | "deload";
+};
+
+export type LoggedSet = {
+  id: string;
+  day: string;
+  exercise_id: string;
+  set_index: number;
+  weight_kg: number;
+  reps: number;
+  rir: number | null;
+  note: string;
+  e1rm: number | null;
+  pr: boolean;
+};
+
+export type Assessment = {
+  verdict: "stop" | "rest" | "lighter" | "normal";
+  score: number;
+  messages: string[];
+  avoid_areas: string[];
+  sore_areas: string[];
+};
+
+export type TrainingToday = {
+  day: PlanDay & { logged_sets: number };
+  stop: boolean;
+  suggest_rest: boolean;
+  deload: boolean;
+  readiness: Assessment | null;
+  exercises: { exercise_id: string; target: Target; logged: LoggedSet[] }[];
 };
