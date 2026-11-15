@@ -26,7 +26,8 @@ build/
 .vite/
 
 # Local data and photos
-data/
+# Only the top-level data/ folder; backend/app/data holds source files.
+/data/
 photos/
 *.sqlite
 *.db

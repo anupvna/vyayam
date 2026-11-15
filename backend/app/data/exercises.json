@@ -1,0 +1,2953 @@
+[
+ {
+  "id": "back_squat",
+  "name": "Barbell back squat",
+  "pattern": "squat",
+  "kind": "main",
+  "primary": [
+   "quads",
+   "glutes"
+  ],
+  "secondary": [
+   "adductors",
+   "lower_back",
+   "abs"
+  ],
+  "equipment": [
+   [
+    "barbell",
+    "squat_rack"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "knee",
+   "hip",
+   "lower_back"
+  ],
+  "setup": [
+   "Set the bar in the rack at mid-chest height.",
+   "Bar sits on your upper back, below the bony bump of your neck. Feet shoulder-width, toes turned out slightly."
+  ],
+  "execution": [
+   "Break at hips and knees together and sit down between your heels.",
+   "Go as deep as you can while your back stays neutral.",
+   "Drive up through the whole foot, chest and hips rising at the same speed."
+  ],
+  "breathing": "Big breath into your belly and brace before each rep; breathe out near the top.",
+  "mistakes": [
+   "Knees caving in on the way up.",
+   "Heels lifting off the floor.",
+   "Hips shooting up first, turning it into a good morning."
+  ],
+  "safety": "Set the safety pins just below your bottom position, every time.",
+  "source": "Barbell_Full_Squat"
+ },
+ {
+  "id": "front_squat",
+  "name": "Barbell front squat",
+  "pattern": "squat",
+  "kind": "main",
+  "primary": [
+   "quads"
+  ],
+  "secondary": [
+   "glutes",
+   "upper_back",
+   "abs"
+  ],
+  "equipment": [
+   [
+    "barbell",
+    "squat_rack"
+   ]
+  ],
+  "difficulty": 3,
+  "unilateral": false,
+  "loads": [
+   "knee",
+   "wrist",
+   "lower_back"
+  ],
+  "setup": [
+   "Bar rests on the front of your shoulders, close to your throat.",
+   "Elbows high, fingertips under the bar; the grip can be loose."
+  ],
+  "execution": [
+   "Sit straight down, keeping your torso tall.",
+   "Push your knees forward and out over your toes.",
+   "Stand up leading with your elbows."
+  ],
+  "breathing": "Brace hard before you descend; exhale through the top.",
+  "mistakes": [
+   "Elbows dropping, so the bar rolls forward.",
+   "Rounding the upper back."
+  ],
+  "safety": "If the bar rolls forward, push it away and step back. Use the safety pins.",
+  "source": "Front_Barbell_Squat"
+ },
+ {
+  "id": "goblet_squat",
+  "name": "Goblet squat",
+  "pattern": "squat",
+  "kind": "accessory",
+  "primary": [
+   "quads",
+   "glutes"
+  ],
+  "secondary": [
+   "adductors",
+   "abs"
+  ],
+  "equipment": [
+   [
+    "dumbbells"
+   ],
+   [
+    "kettlebells"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "knee",
+   "hip"
+  ],
+  "setup": [
+   "Hold one dumbbell or kettlebell against your chest with both hands.",
+   "Feet a little wider than your hips."
+  ],
+  "execution": [
+   "Sit down between your heels, elbows travelling inside your knees.",
+   "Pause briefly at the bottom, then stand tall."
+  ],
+  "breathing": "Breathe in on the way down, out as you stand.",
+  "mistakes": [
+   "Letting the weight drift away from your chest.",
+   "Rounding forward at the bottom."
+  ],
+  "safety": "A great way to learn the squat before loading a barbell.",
+  "source": "Goblet_Squat"
+ },
+ {
+  "id": "leg_press",
+  "name": "Leg press",
+  "pattern": "squat",
+  "kind": "main",
+  "primary": [
+   "quads",
+   "glutes"
+  ],
+  "secondary": [
+   "hamstrings",
+   "adductors"
+  ],
+  "equipment": [
+   [
+    "leg_press"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "knee",
+   "hip"
+  ],
+  "setup": [
+   "Back and hips flat against the pad.",
+   "Feet shoulder-width in the middle of the platform."
+  ],
+  "execution": [
+   "Release the safeties and lower until your knees reach about 90 degrees.",
+   "Press back up without locking your knees hard."
+  ],
+  "breathing": "In on the way down, out as you press.",
+  "mistakes": [
+   "Lowering so far that your hips peel off the seat.",
+   "Snapping the knees straight at the top."
+  ],
+  "safety": "Keep your lower back on the pad. If it lifts, shorten the range.",
+  "source": "Leg_Press"
+ },
+ {
+  "id": "hack_squat",
+  "name": "Hack squat",
+  "pattern": "squat",
+  "kind": "main",
+  "primary": [
+   "quads"
+  ],
+  "secondary": [
+   "glutes",
+   "adductors"
+  ],
+  "equipment": [
+   [
+    "hack_squat"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "knee",
+   "hip"
+  ],
+  "setup": [
+   "Shoulders under the pads, back flat on the backrest.",
+   "Feet shoulder-width, slightly forward on the plate."
+  ],
+  "execution": [
+   "Release the handles and lower under control.",
+   "Drive back up through your mid-foot."
+  ],
+  "breathing": "Brace before each rep; breathe out near the top.",
+  "mistakes": [
+   "Heels lifting.",
+   "Bouncing out of the bottom."
+  ],
+  "safety": "Re-engage the safety handles before stepping out.",
+  "source": "Barbell_Hack_Squat"
+ },
+ {
+  "id": "smith_squat",
+  "name": "Smith machine squat",
+  "pattern": "squat",
+  "kind": "main",
+  "primary": [
+   "quads",
+   "glutes"
+  ],
+  "secondary": [
+   "adductors"
+  ],
+  "equipment": [
+   [
+    "smith_machine"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "knee",
+   "hip",
+   "lower_back"
+  ],
+  "setup": [
+   "Bar across your upper back, feet slightly in front of the bar.",
+   "Set the stops just below your lowest point."
+  ],
+  "execution": [
+   "Unhook the bar and sit down until your thighs are about parallel.",
+   "Stand up, keeping your back against the bar path."
+  ],
+  "breathing": "Brace before descending; exhale near the top.",
+  "mistakes": [
+   "Feet directly under the bar, which pushes the knees far forward.",
+   "Forgetting to re-hook the bar."
+  ],
+  "safety": "Always set the stops. Twist the bar to hook it at the end of the set.",
+  "source": "Smith_Machine_Squat"
+ },
+ {
+  "id": "bodyweight_squat",
+  "name": "Bodyweight squat",
+  "pattern": "squat",
+  "kind": "accessory",
+  "primary": [
+   "quads",
+   "glutes"
+  ],
+  "secondary": [
+   "adductors"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "knee",
+   "hip"
+  ],
+  "setup": [
+   "Feet shoulder-width, arms out in front for balance."
+  ],
+  "execution": [
+   "Sit down as low as you comfortably can with your heels down.",
+   "Stand up and squeeze your glutes at the top."
+  ],
+  "breathing": "In on the way down, out on the way up.",
+  "mistakes": [
+   "Rushing reps.",
+   "Knees collapsing inward."
+  ],
+  "safety": "Slow the lowering phase to make it harder without load.",
+  "source": "Bodyweight_Squat"
+ },
+ {
+  "id": "deadlift",
+  "name": "Barbell deadlift",
+  "pattern": "hinge",
+  "kind": "main",
+  "primary": [
+   "glutes",
+   "hamstrings",
+   "lower_back"
+  ],
+  "secondary": [
+   "quads",
+   "upper_back",
+   "traps",
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "barbell"
+   ]
+  ],
+  "difficulty": 3,
+  "unilateral": false,
+  "loads": [
+   "lower_back",
+   "hip"
+  ],
+  "setup": [
+   "Bar over your mid-foot, feet hip-width.",
+   "Grip just outside your legs, shins touch the bar, back flat."
+  ],
+  "execution": [
+   "Pull the slack out of the bar, then push the floor away.",
+   "Bar stays close to your legs the whole way.",
+   "Finish standing tall with hips through, then lower the same path."
+  ],
+  "breathing": "Brace before every rep; reset your breath at the bottom.",
+  "mistakes": [
+   "Rounding the lower back off the floor.",
+   "Bar drifting forward from the legs.",
+   "Leaning back at the top."
+  ],
+  "safety": "Stop the set when your back can't stay neutral. Form breaks first, injuries follow.",
+  "source": "Barbell_Deadlift"
+ },
+ {
+  "id": "romanian_deadlift",
+  "name": "Romanian deadlift",
+  "pattern": "hinge",
+  "kind": "main",
+  "primary": [
+   "hamstrings",
+   "glutes"
+  ],
+  "secondary": [
+   "lower_back",
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "barbell"
+   ],
+   [
+    "dumbbells"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "lower_back",
+   "hip"
+  ],
+  "setup": [
+   "Start standing, weight in front of your thighs, knees soft."
+  ],
+  "execution": [
+   "Push your hips back while the weight slides down your thighs.",
+   "Stop when your hamstrings are fully stretched, usually mid-shin.",
+   "Drive your hips forward to stand."
+  ],
+  "breathing": "Breathe in as you hinge; out as you stand.",
+  "mistakes": [
+   "Bending the knees into a squat.",
+   "Rounding the back to reach lower."
+  ],
+  "safety": "Range ends where your back stays flat, not where the weight hits the floor.",
+  "source": "Romanian_Deadlift"
+ },
+ {
+  "id": "trap_bar_deadlift",
+  "name": "Trap bar deadlift",
+  "pattern": "hinge",
+  "kind": "main",
+  "primary": [
+   "glutes",
+   "quads",
+   "hamstrings"
+  ],
+  "secondary": [
+   "lower_back",
+   "traps",
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "trap_bar"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "lower_back",
+   "hip",
+   "knee"
+  ],
+  "setup": [
+   "Stand in the centre of the bar, feet hip-width.",
+   "Grip the handles, hips lower than in a straight-bar deadlift."
+  ],
+  "execution": [
+   "Push the floor away and stand up tall.",
+   "Lower under control along the same path."
+  ],
+  "breathing": "Brace before each rep.",
+  "mistakes": [
+   "Standing off-centre, so the bar tilts.",
+   "Rounding the back."
+  ],
+  "safety": "Friendlier on the lower back than a straight bar; a good first deadlift.",
+  "source": "Trap_Bar_Deadlift"
+ },
+ {
+  "id": "hip_thrust",
+  "name": "Hip thrust",
+  "pattern": "hinge",
+  "kind": "main",
+  "primary": [
+   "glutes"
+  ],
+  "secondary": [
+   "hamstrings",
+   "quads"
+  ],
+  "equipment": [
+   [
+    "barbell",
+    "flat_bench"
+   ],
+   [
+    "hip_thrust_machine"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "hip"
+  ],
+  "setup": [
+   "Upper back against the bench edge, bar padded across your hips.",
+   "Feet flat, about hip-width, shins vertical at the top."
+  ],
+  "execution": [
+   "Drive through your heels and lift your hips until your body is flat.",
+   "Pause and squeeze your glutes, then lower."
+  ],
+  "breathing": "Breathe out as you lift.",
+  "mistakes": [
+   "Arching the lower back instead of extending the hips.",
+   "Feet too far away, so hamstrings take over."
+  ],
+  "safety": "Use a bar pad: the load sits directly on your hip bones.",
+  "source": "Barbell_Hip_Thrust"
+ },
+ {
+  "id": "kettlebell_swing",
+  "name": "Kettlebell swing",
+  "pattern": "hinge",
+  "kind": "accessory",
+  "primary": [
+   "glutes",
+   "hamstrings"
+  ],
+  "secondary": [
+   "lower_back",
+   "abs",
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "kettlebells"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "lower_back",
+   "hip"
+  ],
+  "setup": [
+   "Kettlebell a foot in front of you, feet a bit wider than hips."
+  ],
+  "execution": [
+   "Hike the bell back between your legs like a football snap.",
+   "Snap your hips forward so the bell floats to chest height.",
+   "Let it fall back and hinge to meet it."
+  ],
+  "breathing": "Sharp exhale as your hips snap forward.",
+  "mistakes": [
+   "Lifting with the arms.",
+   "Squatting instead of hinging."
+  ],
+  "safety": "The power comes from the hips. Your arms are just ropes.",
+  "source": "One-Arm_Kettlebell_Swings"
+ },
+ {
+  "id": "glute_bridge",
+  "name": "Glute bridge",
+  "pattern": "hinge",
+  "kind": "accessory",
+  "primary": [
+   "glutes"
+  ],
+  "secondary": [
+   "hamstrings"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "hip"
+  ],
+  "setup": [
+   "Lie on your back, knees bent, feet flat near your glutes."
+  ],
+  "execution": [
+   "Press through your heels and lift your hips.",
+   "Hold for a second at the top, then lower slowly."
+  ],
+  "breathing": "Out on the way up.",
+  "mistakes": [
+   "Arching the lower back at the top."
+  ],
+  "safety": "Gentle on the back; a good option when hinges are off the table.",
+  "source": "Butt_Lift_Bridge"
+ },
+ {
+  "id": "single_leg_rdl",
+  "name": "Single-leg Romanian deadlift",
+  "pattern": "hinge",
+  "kind": "accessory",
+  "primary": [
+   "hamstrings",
+   "glutes"
+  ],
+  "secondary": [
+   "lower_back",
+   "abs"
+  ],
+  "equipment": [
+   [
+    "dumbbells"
+   ],
+   [
+    "kettlebells"
+   ],
+   []
+  ],
+  "difficulty": 2,
+  "unilateral": true,
+  "loads": [
+   "hip",
+   "ankle"
+  ],
+  "setup": [
+   "Stand on one leg, slight bend in the knee, weight in the opposite hand."
+  ],
+  "execution": [
+   "Hinge forward as the free leg reaches back, hips square to the floor.",
+   "Return to standing by driving the hip forward."
+  ],
+  "breathing": "In as you hinge, out as you stand.",
+  "mistakes": [
+   "Hips rotating open.",
+   "Rounding the back."
+  ],
+  "safety": "Touch a wall or rack with your free hand if balance limits you.",
+  "source": "Kettlebell_One-Legged_Deadlift"
+ },
+ {
+  "id": "walking_lunge",
+  "name": "Walking lunge",
+  "pattern": "lunge",
+  "kind": "accessory",
+  "primary": [
+   "quads",
+   "glutes"
+  ],
+  "secondary": [
+   "hamstrings",
+   "adductors"
+  ],
+  "equipment": [
+   [
+    "dumbbells"
+   ],
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [
+   "knee",
+   "hip"
+  ],
+  "setup": [
+   "Stand tall, dumbbells at your sides if using them."
+  ],
+  "execution": [
+   "Take a long step and lower until your back knee nearly touches the floor.",
+   "Push through the front heel and step through into the next lunge."
+  ],
+  "breathing": "In as you lower, out as you rise.",
+  "mistakes": [
+   "Steps too short, so the front knee shoots forward.",
+   "Leaning the torso forward."
+  ],
+  "safety": "Clear the walkway first.",
+  "source": "Bodyweight_Walking_Lunge"
+ },
+ {
+  "id": "bulgarian_split_squat",
+  "name": "Bulgarian split squat",
+  "pattern": "lunge",
+  "kind": "accessory",
+  "primary": [
+   "quads",
+   "glutes"
+  ],
+  "secondary": [
+   "adductors",
+   "hamstrings"
+  ],
+  "equipment": [
+   [
+    "dumbbells",
+    "flat_bench"
+   ],
+   [
+    "flat_bench"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": true,
+  "loads": [
+   "knee",
+   "hip"
+  ],
+  "setup": [
+   "Rear foot laces-down on a bench, front foot about two feet ahead."
+  ],
+  "execution": [
+   "Lower straight down until the front thigh is near parallel.",
+   "Drive up through the front heel."
+  ],
+  "breathing": "In on the way down, out on the way up.",
+  "mistakes": [
+   "Front foot too close to the bench.",
+   "Pushing off the back leg."
+  ],
+  "safety": "Find your foot position with bodyweight before adding load.",
+  "source": "Split_Squat_with_Dumbbells"
+ },
+ {
+  "id": "step_up",
+  "name": "Step-up",
+  "pattern": "lunge",
+  "kind": "accessory",
+  "primary": [
+   "quads",
+   "glutes"
+  ],
+  "secondary": [
+   "hamstrings"
+  ],
+  "equipment": [
+   [
+    "plyo_box"
+   ],
+   [
+    "flat_bench"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [
+   "knee",
+   "hip"
+  ],
+  "setup": [
+   "Face a sturdy box or bench about knee height."
+  ],
+  "execution": [
+   "Place one whole foot on the box and drive up through that heel.",
+   "Lower slowly with control; switch legs after the set."
+  ],
+  "breathing": "Out as you step up.",
+  "mistakes": [
+   "Pushing off the bottom foot.",
+   "Box too high, so the hips tip."
+  ],
+  "safety": "Make sure the box can't slide.",
+  "source": "Dumbbell_Step_Ups"
+ },
+ {
+  "id": "reverse_lunge",
+  "name": "Reverse lunge",
+  "pattern": "lunge",
+  "kind": "accessory",
+  "primary": [
+   "quads",
+   "glutes"
+  ],
+  "secondary": [
+   "hamstrings",
+   "adductors"
+  ],
+  "equipment": [
+   [
+    "dumbbells"
+   ],
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [
+   "knee",
+   "hip"
+  ],
+  "setup": [
+   "Stand tall, feet hip-width."
+  ],
+  "execution": [
+   "Step one foot back and lower until both knees are bent about 90 degrees.",
+   "Push through the front heel to return."
+  ],
+  "breathing": "In as you step back, out as you return.",
+  "mistakes": [
+   "Short steps.",
+   "Front knee collapsing inward."
+  ],
+  "safety": "Kinder to the knees than forward lunges.",
+  "source": "Dumbbell_Rear_Lunge"
+ },
+ {
+  "id": "leg_extension",
+  "name": "Leg extension",
+  "pattern": "knee_extension",
+  "kind": "accessory",
+  "primary": [
+   "quads"
+  ],
+  "secondary": [],
+  "equipment": [
+   [
+    "leg_extension"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "knee"
+  ],
+  "setup": [
+   "Line your knee up with the machine's pivot, pad on your lower shin."
+  ],
+  "execution": [
+   "Straighten your legs fully and pause.",
+   "Lower slowly over two to three seconds."
+  ],
+  "breathing": "Out as you lift.",
+  "mistakes": [
+   "Swinging the weight up.",
+   "Hips lifting off the seat."
+  ],
+  "safety": "Use moderate loads and controlled reps if your knees are sensitive.",
+  "source": "Leg_Extensions"
+ },
+ {
+  "id": "lying_leg_curl",
+  "name": "Lying leg curl",
+  "pattern": "knee_flexion",
+  "kind": "accessory",
+  "primary": [
+   "hamstrings"
+  ],
+  "secondary": [
+   "calves"
+  ],
+  "equipment": [
+   [
+    "leg_curl"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "knee"
+  ],
+  "setup": [
+   "Lie face down, knees just off the pad, roller above your heels."
+  ],
+  "execution": [
+   "Curl your heels toward your glutes.",
+   "Lower slowly to almost straight."
+  ],
+  "breathing": "Out as you curl.",
+  "mistakes": [
+   "Hips lifting off the bench.",
+   "Dropping the weight."
+  ],
+  "safety": "Keep hips pressed down to protect the lower back.",
+  "source": "Lying_Leg_Curls"
+ },
+ {
+  "id": "standing_calf_raise",
+  "name": "Standing calf raise",
+  "pattern": "calf_raise",
+  "kind": "accessory",
+  "primary": [
+   "calves"
+  ],
+  "secondary": [],
+  "equipment": [
+   [
+    "calf_raise_machine"
+   ],
+   [
+    "smith_machine"
+   ],
+   [
+    "dumbbells"
+   ],
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "ankle"
+  ],
+  "setup": [
+   "Balls of your feet on a step or platform, heels hanging off."
+  ],
+  "execution": [
+   "Rise as high as you can and pause.",
+   "Lower slowly into a deep stretch."
+  ],
+  "breathing": "Steady breathing.",
+  "mistakes": [
+   "Bouncing at the bottom.",
+   "Bending the knees to help."
+  ],
+  "safety": "Pause in the stretch; calves respond to full range.",
+  "source": "Standing_Calf_Raises"
+ },
+ {
+  "id": "bench_press",
+  "name": "Barbell bench press",
+  "pattern": "horizontal_push",
+  "kind": "main",
+  "primary": [
+   "chest"
+  ],
+  "secondary": [
+   "triceps",
+   "front_delts"
+  ],
+  "equipment": [
+   [
+    "barbell",
+    "flat_bench",
+    "squat_rack"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow",
+   "wrist"
+  ],
+  "setup": [
+   "Eyes under the bar, feet flat, shoulder blades squeezed together.",
+   "Grip so forearms are vertical at the bottom."
+  ],
+  "execution": [
+   "Lower the bar to your lower chest with elbows about 45 degrees from your body.",
+   "Press up and slightly back toward your face."
+  ],
+  "breathing": "Breath and brace before lowering; exhale after the hardest part.",
+  "mistakes": [
+   "Elbows flared out to 90 degrees.",
+   "Bouncing the bar off the chest.",
+   "Hips lifting off the bench."
+  ],
+  "safety": "Use safety arms or a spotter for heavy sets. Never use a thumbless grip.",
+  "source": "Barbell_Bench_Press_-_Medium_Grip"
+ },
+ {
+  "id": "incline_bench_press",
+  "name": "Incline barbell press",
+  "pattern": "horizontal_push",
+  "kind": "main",
+  "primary": [
+   "chest",
+   "front_delts"
+  ],
+  "secondary": [
+   "triceps"
+  ],
+  "equipment": [
+   [
+    "barbell",
+    "adjustable_bench",
+    "squat_rack"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow",
+   "wrist"
+  ],
+  "setup": [
+   "Bench at about 30 degrees, shoulder blades pinched."
+  ],
+  "execution": [
+   "Lower the bar to your upper chest.",
+   "Press straight up over your shoulders."
+  ],
+  "breathing": "Brace before lowering; exhale near the top.",
+  "mistakes": [
+   "Bench too steep, so it becomes a shoulder press.",
+   "Lifting the hips."
+  ],
+  "safety": "Use safety arms set just below chest height.",
+  "source": "Barbell_Incline_Bench_Press_-_Medium_Grip"
+ },
+ {
+  "id": "dumbbell_bench_press",
+  "name": "Dumbbell bench press",
+  "pattern": "horizontal_push",
+  "kind": "main",
+  "primary": [
+   "chest"
+  ],
+  "secondary": [
+   "triceps",
+   "front_delts"
+  ],
+  "equipment": [
+   [
+    "dumbbells",
+    "flat_bench"
+   ],
+   [
+    "dumbbells",
+    "adjustable_bench"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow"
+  ],
+  "setup": [
+   "Sit with the dumbbells on your thighs, then kick them up as you lie back."
+  ],
+  "execution": [
+   "Lower until the dumbbells are beside your chest.",
+   "Press up and slightly together."
+  ],
+  "breathing": "In on the way down, out as you press.",
+  "mistakes": [
+   "Letting the dumbbells drift toward your face.",
+   "Dropping them out wide at the end."
+  ],
+  "safety": "Bring the dumbbells back to your thighs as you sit up; don't drop them beside you.",
+  "source": "Dumbbell_Bench_Press"
+ },
+ {
+  "id": "incline_dumbbell_press",
+  "name": "Incline dumbbell press",
+  "pattern": "horizontal_push",
+  "kind": "accessory",
+  "primary": [
+   "chest",
+   "front_delts"
+  ],
+  "secondary": [
+   "triceps"
+  ],
+  "equipment": [
+   [
+    "dumbbells",
+    "adjustable_bench"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow"
+  ],
+  "setup": [
+   "Bench at 30 to 45 degrees, dumbbells kicked up from your thighs."
+  ],
+  "execution": [
+   "Lower to the sides of your upper chest.",
+   "Press up over your shoulders."
+  ],
+  "breathing": "In on the way down, out as you press.",
+  "mistakes": [
+   "Arching hard off the bench.",
+   "Short range."
+  ],
+  "safety": "A shoulder-friendly alternative to the barbell incline.",
+  "source": "Incline_Dumbbell_Press"
+ },
+ {
+  "id": "push_up",
+  "name": "Push-up",
+  "pattern": "horizontal_push",
+  "kind": "accessory",
+  "primary": [
+   "chest"
+  ],
+  "secondary": [
+   "triceps",
+   "front_delts",
+   "abs"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "wrist",
+   "elbow"
+  ],
+  "setup": [
+   "Hands a bit wider than shoulders, body in one straight line."
+  ],
+  "execution": [
+   "Lower until your chest is a fist above the floor.",
+   "Push the floor away to straight arms."
+  ],
+  "breathing": "In on the way down, out as you push.",
+  "mistakes": [
+   "Hips sagging.",
+   "Head dropping toward the floor."
+  ],
+  "safety": "Elevate your hands on a bench to make it easier.",
+  "source": "Pushups"
+ },
+ {
+  "id": "machine_chest_press",
+  "name": "Machine chest press",
+  "pattern": "horizontal_push",
+  "kind": "accessory",
+  "primary": [
+   "chest"
+  ],
+  "secondary": [
+   "triceps",
+   "front_delts"
+  ],
+  "equipment": [
+   [
+    "chest_press_machine"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow"
+  ],
+  "setup": [
+   "Seat height so the handles are at mid-chest."
+  ],
+  "execution": [
+   "Press forward to almost straight arms.",
+   "Return slowly until you feel a chest stretch."
+  ],
+  "breathing": "Out as you press.",
+  "mistakes": [
+   "Shoulders rolling forward off the pad."
+  ],
+  "safety": "Easy to push close to failure safely.",
+  "source": "Machine_Bench_Press"
+ },
+ {
+  "id": "dip",
+  "name": "Dip",
+  "pattern": "horizontal_push",
+  "kind": "accessory",
+  "primary": [
+   "chest",
+   "triceps"
+  ],
+  "secondary": [
+   "front_delts"
+  ],
+  "equipment": [
+   [
+    "dip_station"
+   ],
+   [
+    "assisted_pull_up"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow"
+  ],
+  "setup": [
+   "Support yourself on straight arms, shoulders down away from your ears."
+  ],
+  "execution": [
+   "Lean slightly forward and lower until your upper arms are parallel to the floor.",
+   "Press back up to straight arms."
+  ],
+  "breathing": "In on the way down, out as you press.",
+  "mistakes": [
+   "Dropping too deep.",
+   "Shrugging the shoulders up."
+  ],
+  "safety": "Stop above any depth that pinches the front of your shoulder.",
+  "source": "Dips_-_Chest_Version"
+ },
+ {
+  "id": "cable_fly",
+  "name": "Cable fly",
+  "pattern": "chest_fly",
+  "kind": "accessory",
+  "primary": [
+   "chest"
+  ],
+  "secondary": [
+   "front_delts"
+  ],
+  "equipment": [
+   [
+    "cable_station"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Pulleys at shoulder height, one step forward, soft bend in the elbows."
+  ],
+  "execution": [
+   "Hug a big tree: bring your hands together in front of your chest.",
+   "Open slowly until you feel a stretch."
+  ],
+  "breathing": "Out as your hands come together.",
+  "mistakes": [
+   "Turning it into a press by bending the elbows more."
+  ],
+  "safety": "Keep the stretch comfortable, not forced.",
+  "source": "Cable_Crossover"
+ },
+ {
+  "id": "pec_deck_fly",
+  "name": "Pec deck fly",
+  "pattern": "chest_fly",
+  "kind": "accessory",
+  "primary": [
+   "chest"
+  ],
+  "secondary": [
+   "front_delts"
+  ],
+  "equipment": [
+   [
+    "pec_deck"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Seat so the handles are at chest height, back flat on the pad."
+  ],
+  "execution": [
+   "Bring the handles together in a wide arc.",
+   "Return slowly to a comfortable stretch."
+  ],
+  "breathing": "Out as you squeeze.",
+  "mistakes": [
+   "Letting the weight pull the arms too far back."
+  ],
+  "safety": "Set the start position so the stretch is comfortable.",
+  "source": "Butterfly"
+ },
+ {
+  "id": "dumbbell_fly",
+  "name": "Dumbbell fly",
+  "pattern": "chest_fly",
+  "kind": "accessory",
+  "primary": [
+   "chest"
+  ],
+  "secondary": [
+   "front_delts"
+  ],
+  "equipment": [
+   [
+    "dumbbells",
+    "flat_bench"
+   ],
+   [
+    "dumbbells",
+    "adjustable_bench"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Lie on a bench, dumbbells above your chest, palms facing each other."
+  ],
+  "execution": [
+   "Open your arms in a wide arc with a soft elbow bend.",
+   "Squeeze them back together over your chest."
+  ],
+  "breathing": "In as you open, out as you close.",
+  "mistakes": [
+   "Going too heavy and too deep."
+  ],
+  "safety": "Stop when your elbows reach about bench height.",
+  "source": "Dumbbell_Flyes"
+ },
+ {
+  "id": "overhead_press",
+  "name": "Overhead press",
+  "pattern": "vertical_push",
+  "kind": "main",
+  "primary": [
+   "front_delts"
+  ],
+  "secondary": [
+   "triceps",
+   "side_delts",
+   "upper_back",
+   "abs"
+  ],
+  "equipment": [
+   [
+    "barbell",
+    "squat_rack"
+   ],
+   [
+    "barbell"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow",
+   "wrist",
+   "lower_back"
+  ],
+  "setup": [
+   "Bar on the front of your shoulders, grip just outside them.",
+   "Squeeze your glutes and brace your stomach."
+  ],
+  "execution": [
+   "Press straight up, moving your head back out of the way.",
+   "Finish with the bar over your mid-foot, head through."
+  ],
+  "breathing": "Brace before each rep; exhale near lockout.",
+  "mistakes": [
+   "Leaning back into a standing incline press.",
+   "Pressing the bar out in front."
+  ],
+  "safety": "If you have to lean back to finish a rep, the weight is too heavy.",
+  "source": "Standing_Military_Press"
+ },
+ {
+  "id": "dumbbell_shoulder_press",
+  "name": "Dumbbell shoulder press",
+  "pattern": "vertical_push",
+  "kind": "accessory",
+  "primary": [
+   "front_delts"
+  ],
+  "secondary": [
+   "triceps",
+   "side_delts"
+  ],
+  "equipment": [
+   [
+    "dumbbells",
+    "adjustable_bench"
+   ],
+   [
+    "dumbbells"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow"
+  ],
+  "setup": [
+   "Seated with back support, dumbbells at shoulder height."
+  ],
+  "execution": [
+   "Press up until your arms are straight.",
+   "Lower to just below your chin."
+  ],
+  "breathing": "Out as you press.",
+  "mistakes": [
+   "Arching the back off the bench.",
+   "Clanking the dumbbells at the top."
+  ],
+  "safety": "A neutral grip (palms facing in) is gentler on the shoulders.",
+  "source": "Dumbbell_Shoulder_Press"
+ },
+ {
+  "id": "machine_shoulder_press",
+  "name": "Machine shoulder press",
+  "pattern": "vertical_push",
+  "kind": "accessory",
+  "primary": [
+   "front_delts"
+  ],
+  "secondary": [
+   "triceps",
+   "side_delts"
+  ],
+  "equipment": [
+   [
+    "shoulder_press_machine"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow"
+  ],
+  "setup": [
+   "Seat height so the handles start at shoulder level."
+  ],
+  "execution": [
+   "Press up to almost straight arms.",
+   "Lower slowly."
+  ],
+  "breathing": "Out as you press.",
+  "mistakes": [
+   "Lifting the hips off the seat."
+  ],
+  "safety": "Stable and simple to push hard safely.",
+  "source": "Machine_Shoulder_Military_Press"
+ },
+ {
+  "id": "pike_push_up",
+  "name": "Pike push-up",
+  "pattern": "vertical_push",
+  "kind": "accessory",
+  "primary": [
+   "front_delts"
+  ],
+  "secondary": [
+   "triceps",
+   "upper_back"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "wrist",
+   "elbow"
+  ],
+  "setup": [
+   "Start in a push-up, walk your feet in so your hips are high, like an upside-down V."
+  ],
+  "execution": [
+   "Bend your elbows and lower the top of your head toward the floor in front of your hands.",
+   "Press back up."
+  ],
+  "breathing": "In on the way down, out as you press.",
+  "mistakes": [
+   "Hips dropping, so it turns into a push-up."
+  ],
+  "safety": "Raise your feet on a box to make it harder.",
+  "source": null
+ },
+ {
+  "id": "dumbbell_lateral_raise",
+  "name": "Dumbbell lateral raise",
+  "pattern": "lateral_raise",
+  "kind": "accessory",
+  "primary": [
+   "side_delts"
+  ],
+  "secondary": [
+   "traps"
+  ],
+  "equipment": [
+   [
+    "dumbbells"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Stand tall, light dumbbells at your sides, slight bend in the elbows."
+  ],
+  "execution": [
+   "Raise your arms out to the sides to shoulder height.",
+   "Lower slowly over two seconds."
+  ],
+  "breathing": "Out as you lift.",
+  "mistakes": [
+   "Swinging the body.",
+   "Shrugging the shoulders up."
+  ],
+  "safety": "Light weight and strict form work best here.",
+  "source": "Side_Lateral_Raise"
+ },
+ {
+  "id": "cable_lateral_raise",
+  "name": "Cable lateral raise",
+  "pattern": "lateral_raise",
+  "kind": "accessory",
+  "primary": [
+   "side_delts"
+  ],
+  "secondary": [
+   "traps"
+  ],
+  "equipment": [
+   [
+    "cable_station"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Low pulley, handle in the far hand, cable crossing in front of your body."
+  ],
+  "execution": [
+   "Raise your arm out to the side to shoulder height.",
+   "Lower under control."
+  ],
+  "breathing": "Out as you lift.",
+  "mistakes": [
+   "Leaning away to cheat the weight up."
+  ],
+  "safety": "Keeps tension at the bottom, where dumbbells don't.",
+  "source": "Cable_Seated_Lateral_Raise"
+ },
+ {
+  "id": "face_pull",
+  "name": "Face pull",
+  "pattern": "rear_delt_fly",
+  "kind": "accessory",
+  "primary": [
+   "rear_delts",
+   "upper_back"
+  ],
+  "secondary": [
+   "traps"
+  ],
+  "equipment": [
+   [
+    "cable_station"
+   ],
+   [
+    "resistance_bands"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Rope at upper-chest height, thumbs pointing back toward you."
+  ],
+  "execution": [
+   "Pull the rope toward your face, splitting the ends apart.",
+   "Finish with your hands beside your ears, then return slowly."
+  ],
+  "breathing": "Out as you pull.",
+  "mistakes": [
+   "Using too much weight and leaning back."
+  ],
+  "safety": "Light and controlled; this is posture work, not a max lift.",
+  "source": "Face_Pull"
+ },
+ {
+  "id": "reverse_pec_deck",
+  "name": "Reverse pec deck",
+  "pattern": "rear_delt_fly",
+  "kind": "accessory",
+  "primary": [
+   "rear_delts"
+  ],
+  "secondary": [
+   "upper_back"
+  ],
+  "equipment": [
+   [
+    "pec_deck"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Face the pad, handles at shoulder height."
+  ],
+  "execution": [
+   "Sweep your arms back in a wide arc.",
+   "Return slowly."
+  ],
+  "breathing": "Out as you open.",
+  "mistakes": [
+   "Squeezing the shoulder blades instead of moving the arms."
+  ],
+  "safety": "Keep the weight light enough to control.",
+  "source": "Reverse_Machine_Flyes"
+ },
+ {
+  "id": "dumbbell_rear_delt_fly",
+  "name": "Dumbbell rear delt fly",
+  "pattern": "rear_delt_fly",
+  "kind": "accessory",
+  "primary": [
+   "rear_delts"
+  ],
+  "secondary": [
+   "upper_back"
+  ],
+  "equipment": [
+   [
+    "dumbbells"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "lower_back"
+  ],
+  "setup": [
+   "Hinge forward with a flat back, light dumbbells hanging below your chest."
+  ],
+  "execution": [
+   "Raise your arms out to the sides, leading with the elbows.",
+   "Lower slowly."
+  ],
+  "breathing": "Out as you lift.",
+  "mistakes": [
+   "Standing up as you lift."
+  ],
+  "safety": "Rest your chest on an incline bench to spare the lower back.",
+  "source": "Seated_Bent-Over_Rear_Delt_Raise"
+ },
+ {
+  "id": "band_pull_apart",
+  "name": "Band pull-apart",
+  "pattern": "rear_delt_fly",
+  "kind": "accessory",
+  "primary": [
+   "rear_delts",
+   "upper_back"
+  ],
+  "secondary": [],
+  "equipment": [
+   [
+    "resistance_bands"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [],
+  "setup": [
+   "Hold a band at shoulder height, arms straight, hands shoulder-width."
+  ],
+  "execution": [
+   "Pull the band apart until it touches your chest.",
+   "Return slowly."
+  ],
+  "breathing": "Out as you pull.",
+  "mistakes": [
+   "Bending the elbows."
+  ],
+  "safety": "A gentle warm-up for any pressing day.",
+  "source": "Band_Pull_Apart"
+ },
+ {
+  "id": "barbell_row",
+  "name": "Barbell row",
+  "pattern": "horizontal_pull",
+  "kind": "main",
+  "primary": [
+   "lats",
+   "upper_back"
+  ],
+  "secondary": [
+   "biceps",
+   "rear_delts",
+   "lower_back"
+  ],
+  "equipment": [
+   [
+    "barbell"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "lower_back",
+   "elbow"
+  ],
+  "setup": [
+   "Hinge forward to about 45 degrees, back flat, bar hanging at arm's length."
+  ],
+  "execution": [
+   "Pull the bar to your lower ribs, elbows travelling back.",
+   "Lower under control without standing up."
+  ],
+  "breathing": "Brace, pull, exhale at the top.",
+  "mistakes": [
+   "Jerking the torso up to move the weight.",
+   "Rounding the back."
+  ],
+  "safety": "If your lower back tires first, switch to a chest-supported row.",
+  "source": "Bent_Over_Barbell_Row"
+ },
+ {
+  "id": "dumbbell_row",
+  "name": "One-arm dumbbell row",
+  "pattern": "horizontal_pull",
+  "kind": "accessory",
+  "primary": [
+   "lats",
+   "upper_back"
+  ],
+  "secondary": [
+   "biceps",
+   "rear_delts"
+  ],
+  "equipment": [
+   [
+    "dumbbells",
+    "flat_bench"
+   ],
+   [
+    "dumbbells"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [
+   "elbow"
+  ],
+  "setup": [
+   "One knee and hand on a bench, back flat, dumbbell in the other hand."
+  ],
+  "execution": [
+   "Pull the dumbbell toward your hip.",
+   "Lower to a full stretch."
+  ],
+  "breathing": "Out as you pull.",
+  "mistakes": [
+   "Rotating the torso to heave the weight."
+  ],
+  "safety": "Supporting yourself on the bench keeps the lower back out of it.",
+  "source": "One-Arm_Dumbbell_Row"
+ },
+ {
+  "id": "seated_cable_row",
+  "name": "Seated cable row",
+  "pattern": "horizontal_pull",
+  "kind": "accessory",
+  "primary": [
+   "lats",
+   "upper_back"
+  ],
+  "secondary": [
+   "biceps",
+   "rear_delts"
+  ],
+  "equipment": [
+   [
+    "cable_row"
+   ],
+   [
+    "cable_station"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "elbow"
+  ],
+  "setup": [
+   "Sit tall, feet on the platform, knees slightly bent."
+  ],
+  "execution": [
+   "Pull the handle to your stomach, chest up.",
+   "Let your arms extend fully and your shoulder blades spread."
+  ],
+  "breathing": "Out as you pull.",
+  "mistakes": [
+   "Rocking far back and forth."
+  ],
+  "safety": "Keep your torso still; let your arms and back do the work.",
+  "source": "Seated_Cable_Rows"
+ },
+ {
+  "id": "chest_supported_row",
+  "name": "Chest-supported row",
+  "pattern": "horizontal_pull",
+  "kind": "accessory",
+  "primary": [
+   "upper_back",
+   "lats"
+  ],
+  "secondary": [
+   "biceps",
+   "rear_delts"
+  ],
+  "equipment": [
+   [
+    "row_machine"
+   ],
+   [
+    "dumbbells",
+    "adjustable_bench"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "elbow"
+  ],
+  "setup": [
+   "Chest against the pad or an incline bench, arms hanging."
+  ],
+  "execution": [
+   "Row the handles or dumbbells back, squeezing your shoulder blades.",
+   "Lower to a full stretch."
+  ],
+  "breathing": "Out as you pull.",
+  "mistakes": [
+   "Lifting the chest off the pad."
+  ],
+  "safety": "Zero lower-back load: the go-to row when your back needs a break.",
+  "source": "Dumbbell_Incline_Row"
+ },
+ {
+  "id": "inverted_row",
+  "name": "Inverted row",
+  "pattern": "horizontal_pull",
+  "kind": "accessory",
+  "primary": [
+   "upper_back",
+   "lats"
+  ],
+  "secondary": [
+   "biceps",
+   "rear_delts",
+   "abs"
+  ],
+  "equipment": [
+   [
+    "barbell",
+    "squat_rack"
+   ],
+   [
+    "suspension_trainer"
+   ],
+   [
+    "smith_machine"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "elbow",
+   "shoulder"
+  ],
+  "setup": [
+   "Hang under a bar set at waist height, body straight, heels on the floor."
+  ],
+  "execution": [
+   "Pull your chest to the bar.",
+   "Lower until your arms are straight."
+  ],
+  "breathing": "Out as you pull.",
+  "mistakes": [
+   "Hips sagging."
+  ],
+  "safety": "Bend your knees to make it easier.",
+  "source": "Inverted_Row"
+ },
+ {
+  "id": "pull_up",
+  "name": "Pull-up",
+  "pattern": "vertical_pull",
+  "kind": "main",
+  "primary": [
+   "lats"
+  ],
+  "secondary": [
+   "biceps",
+   "upper_back",
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "pull_up_bar"
+   ]
+  ],
+  "difficulty": 3,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow"
+  ],
+  "setup": [
+   "Hang from the bar with an overhand grip a bit wider than your shoulders."
+  ],
+  "execution": [
+   "Pull your elbows down toward your ribs until your chin clears the bar.",
+   "Lower all the way to a full hang."
+  ],
+  "breathing": "Out as you pull up.",
+  "mistakes": [
+   "Kicking or swinging.",
+   "Half reps from a bent-arm start."
+  ],
+  "safety": "Use bands or the assisted machine until you can do 5 clean reps.",
+  "source": "Pullups"
+ },
+ {
+  "id": "chin_up",
+  "name": "Chin-up",
+  "pattern": "vertical_pull",
+  "kind": "main",
+  "primary": [
+   "lats",
+   "biceps"
+  ],
+  "secondary": [
+   "upper_back",
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "pull_up_bar"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow"
+  ],
+  "setup": [
+   "Hang with palms facing you, hands shoulder-width."
+  ],
+  "execution": [
+   "Pull your chest toward the bar.",
+   "Lower to a full hang."
+  ],
+  "breathing": "Out as you pull.",
+  "mistakes": [
+   "Craning the neck to get the chin over."
+  ],
+  "safety": "Usually a little easier than pull-ups.",
+  "source": "Chin-Up"
+ },
+ {
+  "id": "lat_pulldown",
+  "name": "Lat pulldown",
+  "pattern": "vertical_pull",
+  "kind": "main",
+  "primary": [
+   "lats"
+  ],
+  "secondary": [
+   "biceps",
+   "upper_back"
+  ],
+  "equipment": [
+   [
+    "lat_pulldown"
+   ],
+   [
+    "cable_station"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow"
+  ],
+  "setup": [
+   "Thighs locked under the pad, grip a bit wider than shoulders."
+  ],
+  "execution": [
+   "Pull the bar to your upper chest, elbows driving down.",
+   "Let it rise until your arms are straight."
+  ],
+  "breathing": "Out as you pull.",
+  "mistakes": [
+   "Leaning far back.",
+   "Pulling the bar behind the neck."
+  ],
+  "safety": "Always pull to the front of your body.",
+  "source": "Wide-Grip_Lat_Pulldown"
+ },
+ {
+  "id": "assisted_pull_up",
+  "name": "Assisted pull-up",
+  "pattern": "vertical_pull",
+  "kind": "accessory",
+  "primary": [
+   "lats"
+  ],
+  "secondary": [
+   "biceps",
+   "upper_back"
+  ],
+  "equipment": [
+   [
+    "assisted_pull_up"
+   ],
+   [
+    "pull_up_bar",
+    "resistance_bands"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "elbow"
+  ],
+  "setup": [
+   "Knees on the assist pad, or one foot in a band looped over the bar."
+  ],
+  "execution": [
+   "Pull up until your chin clears the bar.",
+   "Lower all the way."
+  ],
+  "breathing": "Out as you pull.",
+  "mistakes": [
+   "Using so much assistance the reps are too easy."
+  ],
+  "safety": "Reduce assistance gradually as you get stronger.",
+  "source": "Band_Assisted_Pull-Up"
+ },
+ {
+  "id": "straight_arm_pulldown",
+  "name": "Straight-arm pulldown",
+  "pattern": "vertical_pull",
+  "kind": "accessory",
+  "primary": [
+   "lats"
+  ],
+  "secondary": [
+   "triceps",
+   "abs"
+  ],
+  "equipment": [
+   [
+    "cable_station"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "High pulley, straight bar or rope, hinge forward slightly."
+  ],
+  "execution": [
+   "Keeping arms almost straight, sweep the bar down to your thighs.",
+   "Let it rise slowly overhead."
+  ],
+  "breathing": "Out as you pull down.",
+  "mistakes": [
+   "Bending the elbows into a pushdown."
+  ],
+  "safety": "Light to moderate weight, full range.",
+  "source": "Straight-Arm_Pulldown"
+ },
+ {
+  "id": "barbell_curl",
+  "name": "Barbell curl",
+  "pattern": "elbow_flexion",
+  "kind": "accessory",
+  "primary": [
+   "biceps"
+  ],
+  "secondary": [
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "barbell"
+   ],
+   [
+    "ez_bar"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "elbow",
+   "wrist"
+  ],
+  "setup": [
+   "Stand tall, bar at arm's length, underhand grip."
+  ],
+  "execution": [
+   "Curl the bar up, elbows pinned to your sides.",
+   "Lower all the way down slowly."
+  ],
+  "breathing": "Out as you curl.",
+  "mistakes": [
+   "Swinging the body.",
+   "Elbows drifting forward."
+  ],
+  "safety": "An EZ bar is easier on the wrists.",
+  "source": "Barbell_Curl"
+ },
+ {
+  "id": "dumbbell_curl",
+  "name": "Dumbbell curl",
+  "pattern": "elbow_flexion",
+  "kind": "accessory",
+  "primary": [
+   "biceps"
+  ],
+  "secondary": [
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "dumbbells"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "elbow"
+  ],
+  "setup": [
+   "Dumbbells at your sides, palms forward."
+  ],
+  "execution": [
+   "Curl up without moving your elbows.",
+   "Lower slowly to a full stretch."
+  ],
+  "breathing": "Out as you curl.",
+  "mistakes": [
+   "Swinging.",
+   "Cutting the bottom of the rep short."
+  ],
+  "safety": "Simple and safe; control the lowering.",
+  "source": "Dumbbell_Bicep_Curl"
+ },
+ {
+  "id": "hammer_curl",
+  "name": "Hammer curl",
+  "pattern": "elbow_flexion",
+  "kind": "accessory",
+  "primary": [
+   "biceps",
+   "forearms"
+  ],
+  "secondary": [],
+  "equipment": [
+   [
+    "dumbbells"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "elbow"
+  ],
+  "setup": [
+   "Dumbbells at your sides, palms facing in."
+  ],
+  "execution": [
+   "Curl up keeping your palms facing each other.",
+   "Lower slowly."
+  ],
+  "breathing": "Out as you curl.",
+  "mistakes": [
+   "Swinging the dumbbells across the body."
+  ],
+  "safety": "Often comfortable when regular curls bother the wrists.",
+  "source": "Hammer_Curls"
+ },
+ {
+  "id": "cable_curl",
+  "name": "Cable curl",
+  "pattern": "elbow_flexion",
+  "kind": "accessory",
+  "primary": [
+   "biceps"
+  ],
+  "secondary": [
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "cable_station"
+   ],
+   [
+    "resistance_bands"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "elbow"
+  ],
+  "setup": [
+   "Low pulley with a straight bar, or a band under your feet."
+  ],
+  "execution": [
+   "Curl up, elbows still.",
+   "Lower slowly."
+  ],
+  "breathing": "Out as you curl.",
+  "mistakes": [
+   "Leaning back."
+  ],
+  "safety": "Constant tension makes lighter loads feel hard.",
+  "source": "Standing_Biceps_Cable_Curl"
+ },
+ {
+  "id": "triceps_pushdown",
+  "name": "Triceps pushdown",
+  "pattern": "elbow_extension",
+  "kind": "accessory",
+  "primary": [
+   "triceps"
+  ],
+  "secondary": [],
+  "equipment": [
+   [
+    "cable_station"
+   ],
+   [
+    "resistance_bands"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "elbow"
+  ],
+  "setup": [
+   "High pulley, rope or bar, elbows tucked to your sides."
+  ],
+  "execution": [
+   "Push down until your arms are straight.",
+   "Let the handle rise to about chest height."
+  ],
+  "breathing": "Out as you push.",
+  "mistakes": [
+   "Elbows flaring out and the shoulders helping."
+  ],
+  "safety": "Keep the upper arms still.",
+  "source": "Triceps_Pushdown"
+ },
+ {
+  "id": "overhead_triceps_extension",
+  "name": "Overhead triceps extension",
+  "pattern": "elbow_extension",
+  "kind": "accessory",
+  "primary": [
+   "triceps"
+  ],
+  "secondary": [],
+  "equipment": [
+   [
+    "dumbbells"
+   ],
+   [
+    "cable_station"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "elbow",
+   "shoulder"
+  ],
+  "setup": [
+   "Hold one dumbbell overhead with both hands, elbows pointing forward."
+  ],
+  "execution": [
+   "Lower the weight behind your head.",
+   "Extend back to straight arms."
+  ],
+  "breathing": "Out as you extend.",
+  "mistakes": [
+   "Elbows flaring wide.",
+   "Arching the lower back."
+  ],
+  "safety": "Trains the long head of the triceps in a stretch.",
+  "source": "Standing_Dumbbell_Triceps_Extension"
+ },
+ {
+  "id": "skull_crusher",
+  "name": "Skull crusher",
+  "pattern": "elbow_extension",
+  "kind": "accessory",
+  "primary": [
+   "triceps"
+  ],
+  "secondary": [],
+  "equipment": [
+   [
+    "ez_bar",
+    "flat_bench"
+   ],
+   [
+    "barbell",
+    "flat_bench"
+   ],
+   [
+    "dumbbells",
+    "flat_bench"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "elbow",
+   "wrist"
+  ],
+  "setup": [
+   "Lie on a bench, bar held above your chest with straight arms."
+  ],
+  "execution": [
+   "Bend the elbows to lower the bar toward your forehead.",
+   "Extend back up."
+  ],
+  "breathing": "Out as you extend.",
+  "mistakes": [
+   "Elbows flaring.",
+   "Going too heavy."
+  ],
+  "safety": "Lower to just behind your head rather than to your face.",
+  "source": "EZ-Bar_Skullcrusher"
+ },
+ {
+  "id": "close_grip_bench_press",
+  "name": "Close-grip bench press",
+  "pattern": "horizontal_push",
+  "kind": "accessory",
+  "primary": [
+   "triceps",
+   "chest"
+  ],
+  "secondary": [
+   "front_delts"
+  ],
+  "equipment": [
+   [
+    "barbell",
+    "flat_bench",
+    "squat_rack"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "elbow",
+   "wrist",
+   "shoulder"
+  ],
+  "setup": [
+   "Grip at shoulder-width, elbows tucked."
+  ],
+  "execution": [
+   "Lower to your lower chest.",
+   "Press up, keeping elbows close."
+  ],
+  "breathing": "Brace before lowering; exhale near the top.",
+  "mistakes": [
+   "Grip so narrow the wrists bend."
+  ],
+  "safety": "Use safety arms just like the regular bench press.",
+  "source": "Close-Grip_Barbell_Bench_Press"
+ },
+ {
+  "id": "diamond_push_up",
+  "name": "Close-grip push-up",
+  "pattern": "horizontal_push",
+  "kind": "accessory",
+  "primary": [
+   "triceps"
+  ],
+  "secondary": [
+   "chest",
+   "front_delts"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "elbow",
+   "wrist",
+   "shoulder"
+  ],
+  "setup": [
+   "Push-up position with hands close together under your chest."
+  ],
+  "execution": [
+   "Lower with elbows close to your sides.",
+   "Push back to straight arms."
+  ],
+  "breathing": "In on the way down, out as you push.",
+  "mistakes": [
+   "Elbows flaring wide."
+  ],
+  "safety": "Do them from your knees to make them easier.",
+  "source": "Push-Ups_-_Close_Triceps_Position"
+ },
+ {
+  "id": "plank",
+  "name": "Plank",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "obliques",
+   "front_delts"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Forearms on the floor, elbows under shoulders, body in a straight line."
+  ],
+  "execution": [
+   "Squeeze your glutes and pull your ribs down.",
+   "Hold without letting your hips sag."
+  ],
+  "breathing": "Slow, steady breaths through the hold.",
+  "mistakes": [
+   "Hips sagging or piking up."
+  ],
+  "safety": "A shorter perfect hold beats a long sloppy one.",
+  "source": "Plank"
+ },
+ {
+  "id": "side_plank",
+  "name": "Side plank",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "obliques"
+  ],
+  "secondary": [
+   "abs",
+   "glutes"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Lie on your side, elbow under your shoulder, feet stacked."
+  ],
+  "execution": [
+   "Lift your hips so your body is straight.",
+   "Hold, then switch sides."
+  ],
+  "breathing": "Steady breathing.",
+  "mistakes": [
+   "Hips drooping toward the floor."
+  ],
+  "safety": "Bend the bottom knee to make it easier.",
+  "source": "Side_Bridge"
+ },
+ {
+  "id": "dead_bug",
+  "name": "Dead bug",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "obliques"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [],
+  "setup": [
+   "Lie on your back, arms up, hips and knees bent to 90 degrees."
+  ],
+  "execution": [
+   "Lower the opposite arm and leg toward the floor, lower back pressed down.",
+   "Return and switch sides."
+  ],
+  "breathing": "Breathe out as you extend.",
+  "mistakes": [
+   "Lower back arching off the floor."
+  ],
+  "safety": "Very back-friendly; the core option when other areas need rest.",
+  "source": "Dead_Bug"
+ },
+ {
+  "id": "hanging_leg_raise",
+  "name": "Hanging leg raise",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "obliques",
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "pull_up_bar"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "lower_back"
+  ],
+  "setup": [
+   "Hang from a bar, shoulders engaged."
+  ],
+  "execution": [
+   "Raise your knees or straight legs by curling your pelvis up.",
+   "Lower slowly without swinging."
+  ],
+  "breathing": "Out as you raise.",
+  "mistakes": [
+   "Swinging for momentum."
+  ],
+  "safety": "Start with bent knees.",
+  "source": "Hanging_Leg_Raise"
+ },
+ {
+  "id": "cable_crunch",
+  "name": "Cable crunch",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "obliques"
+  ],
+  "equipment": [
+   [
+    "cable_station"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [],
+  "setup": [
+   "Kneel facing a high pulley, rope held beside your head."
+  ],
+  "execution": [
+   "Crunch your ribs toward your hips, rounding your spine.",
+   "Return slowly."
+  ],
+  "breathing": "Out as you crunch.",
+  "mistakes": [
+   "Pulling with the arms or hinging at the hips."
+  ],
+  "safety": "Move from the spine, not the hips.",
+  "source": "Cable_Crunch"
+ },
+ {
+  "id": "ab_wheel_rollout",
+  "name": "Ab wheel rollout",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "lats",
+   "obliques"
+  ],
+  "equipment": [
+   [
+    "ab_wheel"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "lower_back",
+   "shoulder"
+  ],
+  "setup": [
+   "Kneel holding the wheel under your shoulders."
+  ],
+  "execution": [
+   "Roll forward as far as you can without your lower back sagging.",
+   "Pull back with your abs."
+  ],
+  "breathing": "In as you roll out, out as you return.",
+  "mistakes": [
+   "Lower back sagging at the far point."
+  ],
+  "safety": "Roll toward a wall to limit the range at first.",
+  "source": "Ab_Roller"
+ },
+ {
+  "id": "pallof_press",
+  "name": "Pallof press",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "obliques",
+   "abs"
+  ],
+  "secondary": [],
+  "equipment": [
+   [
+    "cable_station"
+   ],
+   [
+    "resistance_bands"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [],
+  "setup": [
+   "Stand side-on to a cable at chest height, handle at your chest."
+  ],
+  "execution": [
+   "Press the handle straight out and resist the pull to rotate.",
+   "Hold, then bring it back."
+  ],
+  "breathing": "Breathe out as you press.",
+  "mistakes": [
+   "Letting the torso twist."
+  ],
+  "safety": "Trains your core to resist rotation, which protects your back.",
+  "source": "Pallof_Press"
+ },
+ {
+  "id": "farmers_carry",
+  "name": "Farmer's carry",
+  "pattern": "carry",
+  "kind": "accessory",
+  "primary": [
+   "forearms",
+   "traps"
+  ],
+  "secondary": [
+   "abs",
+   "obliques",
+   "glutes"
+  ],
+  "equipment": [
+   [
+    "dumbbells"
+   ],
+   [
+    "kettlebells"
+   ],
+   [
+    "trap_bar"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "wrist",
+   "lower_back"
+  ],
+  "setup": [
+   "Pick up heavy weights in each hand like a deadlift."
+  ],
+  "execution": [
+   "Walk with short, quick steps, standing tall.",
+   "Set the weights down with a flat back."
+  ],
+  "breathing": "Short steady breaths, stay braced.",
+  "mistakes": [
+   "Leaning to one side.",
+   "Shrugging up."
+  ],
+  "safety": "Clear the path before you start.",
+  "source": "Farmers_Walk"
+ },
+ {
+  "id": "dumbbell_shrug",
+  "name": "Shrug",
+  "pattern": "shrug",
+  "kind": "accessory",
+  "primary": [
+   "traps"
+  ],
+  "secondary": [
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "dumbbells"
+   ],
+   [
+    "barbell"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "neck"
+  ],
+  "setup": [
+   "Stand tall, weights at your sides."
+  ],
+  "execution": [
+   "Lift your shoulders straight up toward your ears.",
+   "Pause, then lower slowly."
+  ],
+  "breathing": "Out as you lift.",
+  "mistakes": [
+   "Rolling the shoulders in circles."
+  ],
+  "safety": "Straight up and down only.",
+  "source": "Dumbbell_Shrug"
+ },
+ {
+  "id": "single_leg_calf_raise",
+  "name": "Single-leg calf raise",
+  "pattern": "calf_raise",
+  "kind": "accessory",
+  "primary": [
+   "calves"
+  ],
+  "secondary": [],
+  "equipment": [
+   [
+    "dumbbells"
+   ],
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [
+   "ankle"
+  ],
+  "setup": [
+   "Stand on one foot on the edge of a step, holding a rail or wall for balance."
+  ],
+  "execution": [
+   "Rise onto the ball of your foot as high as you can.",
+   "Lower slowly until your heel is below the step."
+  ],
+  "breathing": "Steady breathing.",
+  "mistakes": [
+   "Bouncing out of the stretch."
+  ],
+  "safety": "Hold a dumbbell in the free hand to make it harder.",
+  "source": "Calf_Raise_On_A_Dumbbell"
+ },
+ {
+  "id": "leg_press_calf_raise",
+  "name": "Leg press calf raise",
+  "pattern": "calf_raise",
+  "kind": "accessory",
+  "primary": [
+   "calves"
+  ],
+  "secondary": [],
+  "equipment": [
+   [
+    "leg_press"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "ankle"
+  ],
+  "setup": [
+   "Sit in the leg press with only the balls of your feet on the bottom edge of the platform.",
+   "Keep the safety stops engaged."
+  ],
+  "execution": [
+   "Push the platform away by pointing your toes.",
+   "Return slowly into a deep stretch."
+  ],
+  "breathing": "Steady breathing.",
+  "mistakes": [
+   "Bending the knees to move the weight."
+  ],
+  "safety": "Never take the safety stops off for this one: your feet can slip.",
+  "source": "Calf_Press_On_The_Leg_Press_Machine"
+ },
+ {
+  "id": "band_lateral_raise",
+  "name": "Band lateral raise",
+  "pattern": "lateral_raise",
+  "kind": "accessory",
+  "primary": [
+   "side_delts"
+  ],
+  "secondary": [
+   "traps"
+  ],
+  "equipment": [
+   [
+    "resistance_bands"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Stand on the middle of a band, one end in each hand."
+  ],
+  "execution": [
+   "Raise your arms out to the sides to shoulder height.",
+   "Lower slowly against the band."
+  ],
+  "breathing": "Out as you lift.",
+  "mistakes": [
+   "Shrugging toward the ears."
+  ],
+  "safety": "Easy to travel with; a lighter band is usually enough.",
+  "source": "Lateral_Raise_-_With_Bands"
+ },
+ {
+  "id": "dumbbell_y_raise",
+  "name": "Y-raise",
+  "pattern": "lateral_raise",
+  "kind": "accessory",
+  "primary": [
+   "side_delts"
+  ],
+  "secondary": [
+   "traps",
+   "rear_delts"
+  ],
+  "equipment": [
+   [
+    "dumbbells",
+    "adjustable_bench"
+   ],
+   [
+    "dumbbells"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Lie chest-down on an incline bench, or stand, holding light dumbbells, thumbs up."
+  ],
+  "execution": [
+   "Raise your arms up and out into a Y shape.",
+   "Lower slowly."
+  ],
+  "breathing": "Out as you lift.",
+  "mistakes": [
+   "Going too heavy, so the back arches."
+  ],
+  "safety": "Very light dumbbells are plenty.",
+  "source": null
+ },
+ {
+  "id": "prone_y_raise",
+  "name": "Prone rear delt raise",
+  "pattern": "rear_delt_fly",
+  "kind": "accessory",
+  "primary": [
+   "rear_delts",
+   "upper_back"
+  ],
+  "secondary": [
+   "traps"
+  ],
+  "equipment": [
+   [
+    "dumbbells",
+    "adjustable_bench"
+   ],
+   [
+    "dumbbells",
+    "flat_bench"
+   ],
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Lie face down on a bench or the floor, arms hanging or stretched out."
+  ],
+  "execution": [
+   "Lift your arms out to the sides, squeezing your shoulder blades.",
+   "Lower slowly."
+  ],
+  "breathing": "Out as you lift.",
+  "mistakes": [
+   "Lifting the chest instead of the arms."
+  ],
+  "safety": "Chest support keeps the lower back completely out of it.",
+  "source": "Dumbbell_Lying_Rear_Lateral_Raise"
+ },
+ {
+  "id": "cable_shrug",
+  "name": "Cable shrug",
+  "pattern": "shrug",
+  "kind": "accessory",
+  "primary": [
+   "traps"
+  ],
+  "secondary": [
+   "forearms"
+  ],
+  "equipment": [
+   [
+    "cable_station"
+   ]
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "neck"
+  ],
+  "setup": [
+   "Low pulley with a straight bar, stand tall holding it at arm's length."
+  ],
+  "execution": [
+   "Lift your shoulders straight up.",
+   "Pause and lower slowly."
+  ],
+  "breathing": "Out as you lift.",
+  "mistakes": [
+   "Rolling the shoulders."
+  ],
+  "safety": "Straight up and down only.",
+  "source": "Cable_Shrugs"
+ },
+ {
+  "id": "decline_push_up",
+  "name": "Feet-elevated push-up",
+  "pattern": "horizontal_push",
+  "kind": "accessory",
+  "primary": [
+   "chest",
+   "front_delts"
+  ],
+  "secondary": [
+   "triceps",
+   "abs"
+  ],
+  "equipment": [
+   [],
+   [
+    "flat_bench"
+   ],
+   [
+    "plyo_box"
+   ]
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "wrist",
+   "elbow"
+  ],
+  "setup": [
+   "Push-up position with your feet on a bench or step."
+  ],
+  "execution": [
+   "Lower until your chest nearly touches the floor.",
+   "Push back up, body in a straight line."
+  ],
+  "breathing": "In on the way down, out as you push.",
+  "mistakes": [
+   "Hips sagging."
+  ],
+  "safety": "The higher the feet, the more it works the shoulders.",
+  "source": "Decline_Push-Up"
+ }
+]
