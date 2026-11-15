@@ -16,6 +16,13 @@ const Seat = ({ x }: { x: number }) => (
 );
 
 const ART: Record<string, ReactNode> = {
+  // a figure, for bodyweight exercises
+  bodyweight: (
+    <>
+      <circle cx="32" cy="12" r="6" {...F} />
+      <path d="M32 19V38M32 24L20 32M32 24L44 32M32 38L23 56M32 38L41 56" />
+    </>
+  ),
   barbell: (
     <>
       <path d="M3 32H61" />

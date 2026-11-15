@@ -4,8 +4,10 @@ import type { ReactElement } from "react";
 
 import { AuthProvider, useAuth } from "./auth";
 import { AuthPage } from "./pages/AuthPage";
+import { ExercisePage } from "./pages/ExercisePage";
 import { GymsPage } from "./pages/GymsPage";
 import { HomePage } from "./pages/HomePage";
+import { LibraryPage } from "./pages/LibraryPage";
 import { OnboardingPage } from "./pages/OnboardingPage";
 import { ProfilePage } from "./pages/ProfilePage";
 
@@ -25,6 +27,8 @@ export function App() {
           <Route path="/" element={<Gate need="authenticated"><HomePage /></Gate>} />
           <Route path="/onboarding" element={<Gate need="authenticated"><OnboardingPage /></Gate>} />
           <Route path="/gyms" element={<Gate need="authenticated"><GymsPage /></Gate>} />
+          <Route path="/library" element={<Gate need="authenticated"><LibraryPage /></Gate>} />
+          <Route path="/exercises/:id" element={<Gate need="authenticated"><ExercisePage /></Gate>} />
           <Route path="/profile" element={<Gate need="authenticated"><ProfilePage /></Gate>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

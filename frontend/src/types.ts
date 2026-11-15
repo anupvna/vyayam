@@ -35,6 +35,36 @@ export type Catalog = {
   equipment: Equipment[];
   presets: Preset[];
   body_parts: CatalogItem[];
+  muscles: CatalogItem[];
+  patterns: CatalogItem[];
 };
 
 export type Gym = { id: string; name: string; equipment: string[]; is_active: boolean };
+
+export type Preference = "favorite" | "hidden" | "none";
+
+export type ExerciseSummary = {
+  id: string;
+  name: string;
+  pattern: string;
+  kind: "main" | "accessory";
+  primary: string[];
+  secondary: string[];
+  equipment: string[][]; // any one of these sets is enough; [] = bodyweight
+  difficulty: number;
+  unilateral: boolean;
+  available: boolean;
+  safe: boolean;
+  preference: Preference;
+};
+
+export type ExerciseDetail = ExerciseSummary & {
+  loads: string[];
+  injury_conflicts: string[];
+  setup: string[];
+  execution: string[];
+  breathing: string;
+  mistakes: string[];
+  safety: string;
+  alternatives: ExerciseSummary[];
+};

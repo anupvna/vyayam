@@ -123,3 +123,52 @@ BODY_PARTS: tuple[Item, ...] = (
 )
 
 BODY_PART_IDS: frozenset[str] = frozenset(b.id for b in BODY_PARTS)
+
+
+MUSCLES: tuple[Item, ...] = (
+    Item("chest", "Chest"),
+    Item("front_delts", "Front shoulders"),
+    Item("side_delts", "Side shoulders"),
+    Item("rear_delts", "Rear shoulders"),
+    Item("lats", "Lats"),
+    Item("upper_back", "Upper back"),
+    Item("traps", "Traps"),
+    Item("biceps", "Biceps"),
+    Item("triceps", "Triceps"),
+    Item("forearms", "Forearms"),
+    Item("abs", "Abs"),
+    Item("obliques", "Obliques"),
+    Item("lower_back", "Lower back"),
+    Item("glutes", "Glutes"),
+    Item("quads", "Quads"),
+    Item("hamstrings", "Hamstrings"),
+    Item("adductors", "Inner thighs"),
+    Item("calves", "Calves"),
+)
+
+MUSCLE_IDS: frozenset[str] = frozenset(m.id for m in MUSCLES)
+
+# Movement patterns: how a body moves, not which muscle works. Alternatives are
+# ranked by pattern first, so a squat is swapped for another squat.
+PATTERNS: tuple[Item, ...] = (
+    Item("squat", "Squat"),
+    Item("hinge", "Hinge"),
+    Item("lunge", "Lunge"),
+    Item("horizontal_push", "Horizontal push"),
+    Item("vertical_push", "Vertical push"),
+    Item("horizontal_pull", "Horizontal pull"),
+    Item("vertical_pull", "Vertical pull"),
+    Item("chest_fly", "Chest fly"),
+    Item("lateral_raise", "Lateral raise"),
+    Item("rear_delt_fly", "Rear delt fly"),
+    Item("elbow_flexion", "Curl"),
+    Item("elbow_extension", "Triceps extension"),
+    Item("knee_extension", "Knee extension"),
+    Item("knee_flexion", "Knee flexion"),
+    Item("calf_raise", "Calf raise"),
+    Item("shrug", "Shrug"),
+    Item("core", "Core"),
+    Item("carry", "Carry"),
+)
+
+PATTERN_IDS: frozenset[str] = frozenset(p.id for p in PATTERNS)

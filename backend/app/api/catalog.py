@@ -8,7 +8,7 @@ from dataclasses import asdict
 
 from fastapi import APIRouter
 
-from app.catalog import BODY_PARTS, CATEGORIES, EQUIPMENT, PRESETS
+from app.catalog import BODY_PARTS, CATEGORIES, EQUIPMENT, MUSCLES, PATTERNS, PRESETS
 
 router = APIRouter(tags=["catalog"])
 
@@ -20,4 +20,6 @@ async def get_catalog() -> dict:
         "equipment": [asdict(e) for e in EQUIPMENT],
         "presets": [asdict(p) | {"equipment": list(p.equipment)} for p in PRESETS],
         "body_parts": [asdict(b) for b in BODY_PARTS],
+        "muscles": [asdict(m) for m in MUSCLES],
+        "patterns": [asdict(p) for p in PATTERNS],
     }

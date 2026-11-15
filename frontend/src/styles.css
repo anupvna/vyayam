@@ -750,3 +750,193 @@ textarea:focus {
   gap: 1.25rem;
   flex-wrap: wrap;
 }
+
+/* ---------- library ---------- */
+
+input[type="search"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.scroll-row {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin: 0 -1.25rem;
+  padding: 0 1.25rem 0.25rem;
+  scrollbar-width: none;
+}
+
+.scroll-row .pill {
+  flex: 0 0 auto;
+}
+
+.ex-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ex-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--ivory);
+  text-decoration: none;
+}
+
+.ex-row.dim {
+  opacity: 0.55;
+}
+
+.ex-art {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  background: var(--raised);
+  color: var(--brass);
+}
+
+.ex-text {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.ex-text strong {
+  font-weight: 600;
+}
+
+.ex-text small {
+  color: var(--muted);
+}
+
+.star {
+  color: var(--brass);
+}
+
+.empty {
+  padding: 2rem 0.5rem;
+  text-align: center;
+}
+
+/* ---------- exercise detail ---------- */
+
+.detail {
+  gap: 1.25rem;
+  padding-bottom: 3rem;
+}
+
+.detail-head {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.mm-card {
+  justify-items: center;
+  padding-top: 1.5rem;
+}
+
+.muscle-map {
+  max-width: 100%;
+  height: auto;
+}
+
+.muscle-map .mm-body > * {
+  fill: #313963;
+}
+
+.muscle-map .mm-primary > * {
+  fill: var(--brass);
+}
+
+.muscle-map .mm-secondary > * {
+  fill: var(--brass);
+  fill-opacity: 0.35;
+}
+
+.muscle-map text {
+  fill: var(--faint);
+  font-size: 7px;
+  font-family: var(--sans);
+}
+
+.mm-legend {
+  justify-self: stretch;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 0.55rem;
+  vertical-align: 0.05em;
+}
+
+.dot.primary {
+  background: var(--brass);
+}
+
+.dot.secondary {
+  background: rgba(205, 163, 94, 0.35);
+}
+
+.need {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.need li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.need .ex-art {
+  width: 40px;
+  height: 40px;
+}
+
+.how ul,
+.how ol {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.how h3 {
+  font-size: 1rem;
+  color: var(--brass);
+  margin-top: 0.3rem;
+}
+
+.how ol li::marker {
+  color: var(--brass);
+  font-weight: 650;
+}
+
+.safety {
+  padding: 0.8rem 0.95rem;
+  border-radius: 14px;
+  background: var(--brass-wash);
+  font-size: 0.93rem;
+}
+
+.stack-tight {
+  display: grid;
+  gap: 0.6rem;
+}
