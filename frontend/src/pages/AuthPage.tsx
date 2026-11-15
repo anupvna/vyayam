@@ -1,4 +1,4 @@
-// One screen for both "Log in" and "Create account", switched by a toggle.
+// One screen for both "Log in" and "Create account", switched by a link.
 import { useState } from "react";
 import type { FormEvent } from "react";
 
@@ -22,7 +22,7 @@ export function AuthPage() {
     e.preventDefault();
     setError(null);
     if (isSignup && password.length < MIN_PASSWORD) {
-      setError(`Password must be at least ${MIN_PASSWORD} characters.`);
+      setError(`Use at least ${MIN_PASSWORD} characters for your password.`);
       return;
     }
     setBusy(true);
@@ -35,21 +35,18 @@ export function AuthPage() {
     }
   }
 
-  function switchMode() {
-    setMode(isSignup ? "login" : "signup");
-    setError(null);
-  }
-
   return (
     <main className="auth">
-      <div className="brand">
-        <img src="/icons/icon-192.png" alt="" width={56} height={56} />
+      <header className="brand">
+        <span className="script" lang="kn">
+          ವ್ಯಾಯಾಮ
+        </span>
         <h1>Vyayam</h1>
-        <p className="muted">Your personal gym coach</p>
-      </div>
+        <p className="muted">A coach that plans each training day around you.</p>
+      </header>
 
-      <form className="card" onSubmit={onSubmit} noValidate>
-        <h2>{isSignup ? "Create account" : "Log in"}</h2>
+      <form className="panel" onSubmit={onSubmit} noValidate>
+        <h2>{isSignup ? "Create your account" : "Welcome back"}</h2>
 
         <label>
           Email
@@ -75,14 +72,14 @@ export function AuthPage() {
             />
             <button
               type="button"
-              className="ghost"
+              className="secondary"
               onClick={() => setShowPassword((v) => !v)}
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
-          {isSignup && <small className="muted">At least {MIN_PASSWORD} characters</small>}
+          {isSignup && <span className="hint">At least {MIN_PASSWORD} characters.</span>}
         </label>
 
         {error && (
@@ -92,15 +89,22 @@ export function AuthPage() {
         )}
 
         <button type="submit" className="primary" disabled={busy}>
-          {busy ? "Please wait…" : isSignup ? "Create account" : "Log in"}
+          {busy ? "One moment…" : isSignup ? "Create account" : "Log in"}
         </button>
 
-        <button type="button" className="link" onClick={switchMode}>
-          {isSignup ? "Already have an account? Log in" : "New here? Create an account"}
+        <button
+          type="button"
+          className="link"
+          onClick={() => {
+            setMode(isSignup ? "login" : "signup");
+            setError(null);
+          }}
+        >
+          {isSignup ? "I already have an account" : "Create an account"}
         </button>
       </form>
 
-      <p className="disclaimer muted">A training aid, not medical advice.</p>
+      <p className="footnote">A training aid, not medical advice.</p>
     </main>
   );
 }

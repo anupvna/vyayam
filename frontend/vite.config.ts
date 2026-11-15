@@ -15,8 +15,8 @@ export default defineConfig({
         name: "Vyayam",
         short_name: "Vyayam",
         description: "Your personal gym coach",
-        theme_color: "#0f1115",
-        background_color: "#0f1115",
+        theme_color: "#141830",
+        background_color: "#141830",
         display: "standalone",
         start_url: "/",
         icons: [

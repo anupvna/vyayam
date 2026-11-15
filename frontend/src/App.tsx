@@ -4,7 +4,10 @@ import type { ReactElement } from "react";
 
 import { AuthProvider, useAuth } from "./auth";
 import { AuthPage } from "./pages/AuthPage";
+import { GymsPage } from "./pages/GymsPage";
 import { HomePage } from "./pages/HomePage";
+import { OnboardingPage } from "./pages/OnboardingPage";
+import { ProfilePage } from "./pages/ProfilePage";
 
 function Gate({ need, children }: { need: "authenticated" | "anonymous"; children: ReactElement }) {
   const { state } = useAuth();
@@ -20,6 +23,9 @@ export function App() {
         <Routes>
           <Route path="/login" element={<Gate need="anonymous"><AuthPage /></Gate>} />
           <Route path="/" element={<Gate need="authenticated"><HomePage /></Gate>} />
+          <Route path="/onboarding" element={<Gate need="authenticated"><OnboardingPage /></Gate>} />
+          <Route path="/gyms" element={<Gate need="authenticated"><GymsPage /></Gate>} />
+          <Route path="/profile" element={<Gate need="authenticated"><ProfilePage /></Gate>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
