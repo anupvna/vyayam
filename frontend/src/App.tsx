@@ -9,7 +9,9 @@ import { GymsPage } from "./pages/GymsPage";
 import { HomePage } from "./pages/HomePage";
 import { LibraryPage } from "./pages/LibraryPage";
 import { OnboardingPage } from "./pages/OnboardingPage";
+import { PlanPage } from "./pages/PlanPage";
 import { ProfilePage } from "./pages/ProfilePage";
+import { SplitPage } from "./pages/SplitPage";
 
 function Gate({ need, children }: { need: "authenticated" | "anonymous"; children: ReactElement }) {
   const { state } = useAuth();
@@ -27,6 +29,8 @@ export function App() {
           <Route path="/" element={<Gate need="authenticated"><HomePage /></Gate>} />
           <Route path="/onboarding" element={<Gate need="authenticated"><OnboardingPage /></Gate>} />
           <Route path="/gyms" element={<Gate need="authenticated"><GymsPage /></Gate>} />
+          <Route path="/plan" element={<Gate need="authenticated"><PlanPage /></Gate>} />
+          <Route path="/plan/split" element={<Gate need="authenticated"><SplitPage /></Gate>} />
           <Route path="/library" element={<Gate need="authenticated"><LibraryPage /></Gate>} />
           <Route path="/exercises/:id" element={<Gate need="authenticated"><ExercisePage /></Gate>} />
           <Route path="/profile" element={<Gate need="authenticated"><ProfilePage /></Gate>} />

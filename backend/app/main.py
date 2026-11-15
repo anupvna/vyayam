@@ -13,7 +13,7 @@ from pathlib import Path
 
 from fastapi import FastAPI
 
-from app.api import auth, catalog, exercises, gyms, health, profile
+from app.api import auth, catalog, exercises, gyms, health, plan, profile
 from app.auth.ratelimit import FailureLimiter
 from app.config import get_settings
 from app.db import create_pool
@@ -37,7 +37,7 @@ def create_app(*, use_lifespan: bool = True, frontend_dist: Path | None = None) 
     app.state.email_limiter = FailureLimiter(s.login_max_failures_per_email, s.login_window_seconds)
     app.state.ip_limiter = FailureLimiter(s.login_max_failures_per_ip, s.login_window_seconds)
 
-    for module in (health, auth, catalog, profile, gyms, exercises):
+    for module in (health, auth, catalog, profile, gyms, exercises, plan):
         app.include_router(module.router, prefix="/api")
 
     # Registered last, so every /api route above wins over the catch-all.

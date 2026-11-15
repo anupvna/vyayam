@@ -4,12 +4,14 @@ import { NavLink } from "react-router";
 const ICONS: Record<string, string> = {
   today: "M4 9h16M8 3v4M16 3v4M5 6h14v14H5z",
   gym: "M3 10v4M6 8v8M18 8v8M21 10v4M6 12h12",
+  plan: "M4 6h16M4 12h16M4 18h10",
   library: "M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h10M9 8h5",
   profile: "M12 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8zM4 21c1-4 4-6 8-6s7 2 8 6",
 };
 
 const TABS = [
   { to: "/", label: "Today", icon: "today" },
+  { to: "/plan", label: "Plan", icon: "plan" },
   { to: "/library", label: "Library", icon: "library" },
   { to: "/gyms", label: "Gym", icon: "gym" },
   { to: "/profile", label: "Profile", icon: "profile" },

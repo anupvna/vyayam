@@ -68,3 +68,50 @@ export type ExerciseDetail = ExerciseSummary & {
   safety: string;
   alternatives: ExerciseSummary[];
 };
+
+export type PlannedExercise = {
+  exercise_id: string;
+  name: string;
+  kind: "main" | "accessory";
+  primary: string[];
+  sets: number;
+  reps: [number, number];
+  rir: number; // reps in reserve: how many more reps you could do at the end of a set
+  rest_seconds: number;
+  light: boolean;
+};
+
+export type PlanDay = {
+  date: string; // YYYY-MM-DD
+  status: "rest" | "planned" | "skipped";
+  session_key: string | null;
+  session_name: string | null;
+  focus: string[];
+  minutes: number;
+  exercises: PlannedExercise[];
+  notes: string[];
+  swapped: boolean;
+  moved: boolean;
+};
+
+export type SplitSession = { key: string; name: string; focus: string[] };
+
+export type Split = {
+  id: string;
+  name: string;
+  blurb: string;
+  designed_for: number[];
+  sessions: SplitSession[];
+  fit_note: string | null;
+};
+
+export type Splits = { recommended: string; reason: string; current: string | null; splits: Split[] };
+
+export type Week = {
+  start: string;
+  week_index: number;
+  deload: boolean;
+  notes: string[];
+  split: Split;
+  days: PlanDay[];
+};

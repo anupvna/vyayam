@@ -647,7 +647,8 @@ textarea:focus {
   text-align: center;
 }
 
-.week div {
+.week div,
+.week a {
   display: grid;
   justify-items: center;
   gap: 0.35rem;
@@ -939,4 +940,169 @@ input[type="search"] {
 .stack-tight {
   display: grid;
   gap: 0.6rem;
+}
+
+.week a {
+  text-decoration: none;
+}
+
+.week .skipped i {
+  border-style: dashed;
+  border-color: var(--sindoor);
+}
+
+/* ---------- workout ---------- */
+
+.workout {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+  counter-reset: ex;
+}
+
+.workout-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.2rem 0.75rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 16px;
+  background: var(--raised);
+  color: var(--ivory);
+  text-decoration: none;
+}
+
+.workout-name {
+  font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.workout-sets {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  color: var(--brass);
+  white-space: nowrap;
+}
+
+.workout-meta {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.badge.quiet {
+  background: rgba(156, 161, 191, 0.15);
+  color: var(--muted);
+}
+
+.time-row {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.change-panel {
+  display: grid;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.change-panel h3 {
+  font-size: 1.05rem;
+}
+
+/* ---------- week plan ---------- */
+
+.days {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.day {
+  border-radius: 18px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.day.is-today {
+  outline: 1px solid var(--brass);
+}
+
+.day-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  min-height: 60px;
+  border-radius: 0;
+}
+
+.day-head:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.day-date {
+  display: grid;
+  width: 6.2rem;
+}
+
+.day-date small {
+  color: var(--faint);
+}
+
+.day-title {
+  display: grid;
+  font-weight: 600;
+}
+
+.day-title small {
+  color: var(--muted);
+  font-weight: 450;
+}
+
+.day.rest .day-title,
+.day.skipped .day-title {
+  color: var(--faint);
+}
+
+.day-title .changed {
+  color: var(--brass);
+}
+
+.day-body {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0 1rem 1rem;
+}
+
+/* ---------- split chooser ---------- */
+
+.split-choice strong {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.split-choice .sessions {
+  color: var(--ivory);
+  opacity: 0.8;
+}
+
+.split-choice .fit {
+  color: var(--brass);
+}
+
+.custom-session input {
+  font-weight: 600;
 }
