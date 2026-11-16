@@ -82,6 +82,16 @@ export function ProfilePage() {
           </section>
         )}
 
+        <section className="card">
+          <div className="card-head">
+            <h2>Your gyms</h2>
+            <Link to="/gyms" className="link small">
+              Manage
+            </Link>
+          </div>
+          <p className="muted small">Switch gyms or edit equipment. Your plan only uses what's there.</p>
+        </section>
+
         <button className="secondary" onClick={() => void logout()}>
           Log out
         </button>

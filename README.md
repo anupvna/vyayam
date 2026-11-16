@@ -40,4 +40,19 @@ cd backend && pytest                 # API, auth, migrations
 cd frontend && npm test              # frontend unit tests
 ```
 
+## What's in it so far
+
+- Email sign-up and sign-in, onboarding (body, goal, experience, schedule, gyms and equipment)
+- Exercise library with alternatives, favorites and hidden exercises
+- Weekly planner for every common split, with skip and swap
+- Workout logging, progression, readiness check-in and a safety layer
+- Progress: weight trend and goal date, body fat and measurements, sets per muscle,
+  strength curves, a recovery map, consistency, and progress photos that never leave
+  the phone
+
+## Docs
+
+- [Planner](docs/PLANNER.md) · [Training](docs/TRAINING.md) · [Progress](docs/PROGRESS.md)
+- [Deploying](docs/DEPLOY.md) · [Licenses](docs/LICENSES.md) · [Backlog](docs/BACKLOG.md)
+
 _Full README (architecture, design decisions, evaluation results) to come._

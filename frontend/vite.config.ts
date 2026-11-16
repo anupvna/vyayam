@@ -37,6 +37,9 @@ export default defineConfig({
       },
     }),
   ],
+  // The Progress tab's chart chunk (~190 KB gzipped) is lazy-loaded, so it doesn't
+  // slow the first screen. Raise the warning threshold to match.
+  build: { chunkSizeWarningLimit: 700 },
   server: {
     // In dev, the browser talks only to Vite (5173), which forwards /api to FastAPI.
     // Same origin means cookies just work, with no CORS setup.

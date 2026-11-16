@@ -1,0 +1,17 @@
+# Render blueprint: one free web service built from the Dockerfile.
+# The database is Neon (free Postgres); paste its connection string as DATABASE_URL
+# in the Render dashboard. It is never stored in this file or in Git.
+services:
+  - type: web
+    name: vyayam
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: false
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: ENVIRONMENT
+        value: production

@@ -55,9 +55,9 @@ function Silhouette({ dx }: { dx: number }) {
   );
 }
 
-function Region({ shapes, level }: { shapes: Shape[]; level: "primary" | "secondary" }) {
+function Region({ shapes, level, color }: { shapes: Shape[]; level: "primary" | "secondary"; color?: string }) {
   return (
-    <g className={`mm-${level}`}>
+    <g className={color ? undefined : `mm-${level}`} fill={color}>
       {shapes.map((s, i) =>
         "e" in s ? (
           <ellipse key={i} cx={s.e[0]} cy={s.e[1]} rx={s.e[2]} ry={s.e[3]} />
@@ -69,9 +69,14 @@ function Region({ shapes, level }: { shapes: Shape[]; level: "primary" | "second
   );
 }
 
-type Props = { primary: string[]; secondary: string[]; size?: number };
+type Props = {
+  primary: string[];
+  secondary: string[];
+  size?: number;
+  colors?: Record<string, string>; // per-muscle fill, e.g. for the recovery map
+};
 
-export function MuscleMap({ primary, secondary, size = 220 }: Props) {
+export function MuscleMap({ primary, secondary, size = 220, colors }: Props) {
   const layer = (ids: string[], level: "primary" | "secondary") =>
     ids.flatMap((id) => [
       FRONT[id] && <Region key={`f-${id}`} shapes={FRONT[id]} level={level} />,
@@ -85,12 +90,21 @@ export function MuscleMap({ primary, secondary, size = 220 }: Props) {
       width={size}
       height={(size * 190) / 200}
       role="img"
-      aria-label={`Works ${primary.join(", ")}${secondary.length ? `; also ${secondary.join(", ")}` : ""}`}
+      aria-label={
+        colors
+          ? "Recovery state of each muscle"
+          : `Works ${primary.join(", ")}${secondary.length ? `; also ${secondary.join(", ")}` : ""}`
+      }
     >
       <Silhouette dx={0} />
       <Silhouette dx={100} />
       {layer(secondary, "secondary")}
       {layer(primary, "primary")}
+      {colors &&
+        Object.entries(colors).flatMap(([id, color]) => [
+          FRONT[id] && <Region key={`cf-${id}`} shapes={FRONT[id]} level="primary" color={color} />,
+          BACK[id] && <Region key={`cb-${id}`} shapes={BACK[id]} level="primary" color={color} />,
+        ])}
       <text x="50" y="186" textAnchor="middle">
         Front
       </text>

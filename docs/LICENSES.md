@@ -42,4 +42,15 @@ offline.
 
 Backend and frontend dependencies are standard open-source packages (MIT, BSD,
 Apache-2.0 and similar), listed in `backend/pyproject.toml` and
-`frontend/package.json`.
+`frontend/package.json`. The ones worth naming:
+
+| Package | Used for | License |
+|---|---|---|
+| [Apache ECharts](https://echarts.apache.org) (`echarts`) | Progress charts, bundled into the app | Apache-2.0 (its NOTICE: "This product includes software developed at The Apache Software Foundation") |
+| [ZRender](https://github.com/ecomfe/zrender) (`zrender`, ECharts' renderer) | Drawing the charts | BSD-3-Clause |
+| [fake-indexeddb](https://github.com/dumbmatter/fakeIndexedDB) | Tests only, not shipped | Apache-2.0 |
+
+## Chart colors
+
+The chart palette and recovery colors are chosen for Vyayam and checked for
+contrast and color-blind separation on the app's dark background.

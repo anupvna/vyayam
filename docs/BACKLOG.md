@@ -11,6 +11,8 @@ Add to this list any time.
 
 - Exercise photos or animations for every exercise (v2 3D viewer covers the 12 main lifts)
 - Per-side injury marking (left knee vs right knee)
+- Progress photos: optional encrypted backup the user controls (today they stay on the phone)
+- Calendar: remember past schedules, so changing training days doesn't rewrite old weeks
 
 ## Tech
 

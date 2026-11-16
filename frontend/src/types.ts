@@ -153,3 +153,61 @@ export type TrainingToday = {
   readiness: Assessment | null;
   exercises: { exercise_id: string; target: Target; logged: LoggedSet[] }[];
 };
+
+export type WeightPoint = { day: string; weight_kg: number; trend_kg: number };
+export type FatPoint = { day: string; pct: number; method: string };
+export type Measurement = {
+  day: string;
+  neck_cm: number | null;
+  waist_cm: number | null;
+  hips_cm: number | null;
+  chest_cm: number | null;
+  arm_cm: number | null;
+  thigh_cm: number | null;
+  body_fat_pct: number | null;
+  body_fat_source: string | null;
+};
+export type ProjectionInfo = {
+  status: "reached" | "on_track" | "wrong_way" | "flat" | "not_enough_data";
+  message: string;
+  earliest: string | null;
+  latest: string | null;
+  target: number;
+  unit: "kg" | "%";
+};
+export type BodySummary = {
+  weights: WeightPoint[];
+  latest_weight_kg: number | null;
+  trend_kg: number | null;
+  rate_kg_per_week: number | null;
+  bmi: number | null;
+  bmi_note: string;
+  body_fat: FatPoint[];
+  measurements: Measurement[];
+  weight_projection: ProjectionInfo | null;
+  body_fat_projection: ProjectionInfo | null;
+  advice: string[];
+};
+
+export type VolumeStats = {
+  weeks: string[];
+  muscles: { muscle: string; weekly: number[]; target_low: number; target_high: number }[];
+  push_sets: number;
+  pull_sets: number;
+};
+export type CalendarDay = { day: string; status: "done" | "missed" | "skipped" | "rest" | "upcoming" };
+export type RecoveryState = "fresh" | "recovering" | "fatigued";
+export type MuscleRecovery = { muscle: string; state: RecoveryState; last_trained: string | null };
+export type WeeklySummary = {
+  week_start: string;
+  sessions_done: number;
+  sessions_planned: number;
+  sets: number;
+  sets_last_week: number;
+  prs: string[];
+  under_target: string[];
+  weight_change_kg: number | null;
+  lines: string[];
+};
+export type LoggedExercise = { exercise_id: string; name: string; sessions: number; best_e1rm: number | null; last_day: string };
+export type HistoryPoint = { day: string; best_e1rm: number | null; top_weight_kg: number; total_reps: number; pr: boolean };
