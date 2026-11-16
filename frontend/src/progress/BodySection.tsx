@@ -2,7 +2,8 @@
 // BMI, body fat estimates, measurements, and when you'll reach your goal (a range).
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { ApiError, api } from "../api";
+import { ApiError, QUEUED, api } from "../api";
+import { SYNCED_EVENT, syncEvents } from "../offline/status";
 import { cmToDisplay, displayToCm, displayToKg, kgToDisplay, lengthUnit, parseOptional, rateLabel } from "../body";
 import { Chart } from "../charts/Chart";
 import { ACCENT, ACCENT_WASH, INK, SERIES, baseOption } from "../charts/theme";
@@ -32,6 +33,7 @@ export function BodySection({ today, profile }: Props) {
   const wUnit = u === "metric" ? "kg" : "lb";
   const [data, setData] = useState<BodySummary | null>(null);
   const [weight, setWeight] = useState("");
+  const [savedOffline, setSavedOffline] = useState(false);
   const [showMeasure, setShowMeasure] = useState(false);
   const [measure, setMeasure] = useState<Record<string, string>>({});
   const [fat, setFat] = useState("");
@@ -50,15 +52,30 @@ export function BodySection({ today, profile }: Props) {
     void load();
   }, [load]);
 
+  // Charts catch up once changes made offline reach the server.
+  useEffect(() => {
+    const onSynced = () => {
+      setSavedOffline(false);
+      void load();
+    };
+    syncEvents.addEventListener(SYNCED_EVENT, onSynced);
+    return () => syncEvents.removeEventListener(SYNCED_EVENT, onSynced);
+  }, [load]);
+
   async function saveWeight() {
     const v = Number(weight);
     if (!weight.trim() || !Number.isFinite(v)) return setError(`Enter your weight in ${wUnit}.`);
     setBusy(true);
     setError(null);
     try {
-      await api(`/body/weights/${today}`, { method: "PUT", body: { weight_kg: displayToKg(v, u) } });
+      const r = await api(`/body/weights/${today}`, {
+        method: "PUT",
+        body: { weight_kg: displayToKg(v, u) },
+        offline: () => QUEUED,
+      });
       setWeight("");
-      await load();
+      if (r === QUEUED) setSavedOffline(true);
+      else await load();
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Couldn't save. Try again.");
     } finally {
@@ -80,11 +97,12 @@ export function BodySection({ today, profile }: Props) {
     setBusy(true);
     setError(null);
     try {
-      await api(`/body/measurements/${today}`, { method: "PUT", body });
+      const r = await api(`/body/measurements/${today}`, { method: "PUT", body, offline: () => QUEUED });
       setMeasure({});
       setFat("");
       setShowMeasure(false);
-      await load();
+      if (r === QUEUED) setSavedOffline(true);
+      else await load();
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Enter at least one measurement.");
     } finally {
@@ -229,6 +247,11 @@ export function BodySection({ today, profile }: Props) {
           </button>
         </div>
         <p className="hint">Weigh in the morning, after the bathroom, before eating. Daily swings are normal; the trend is what counts.</p>
+        {savedOffline && (
+          <p className="muted small" role="status">
+            Saved on this phone. Your charts update once it syncs.
+          </p>
+        )}
         {error && (
           <p className="error" role="alert">
             {error}

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 
-import { ApiError, api } from "../api";
+import { ApiError, QUEUED, api } from "../api";
 import { EquipmentArt } from "../components/EquipmentArt";
 import { MuscleMap } from "../components/MuscleMap";
 import { artFor } from "../library";
@@ -42,7 +42,7 @@ export function ExercisePage() {
     if (!ex) return;
     setSaving(true);
     try {
-      await api(`/exercises/${ex.id}/preference`, { method: "PUT", body: { preference: next } });
+      await api(`/exercises/${ex.id}/preference`, { method: "PUT", body: { preference: next }, offline: () => QUEUED });
       setEx({ ...ex, preference: next });
     } finally {
       setSaving(false);

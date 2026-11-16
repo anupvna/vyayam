@@ -13,6 +13,13 @@ export function parseISO(iso: string): Date {
   return new Date(y, m - 1, d);
 }
 
+/** "2026-11-15" plus n days, in local time. */
+export function addDaysISO(iso: string, n: number): string {
+  const d = parseISO(iso);
+  d.setDate(d.getDate() + n);
+  return localISO(d);
+}
+
 export function formatRest(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;

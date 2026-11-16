@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 import { ApiError, api } from "../api";
+import { offlineAssessment } from "../offline/queue";
 import type { Assessment, Catalog } from "../types";
 
 const SCALES = [
@@ -39,12 +40,9 @@ export function CheckInCard({ today, catalog, onDone, onSkip }: Props) {
     setBusy(true);
     setError(null);
     try {
-      onDone(
-        await api<Assessment>("/readiness", {
-          method: "POST",
-          body: { today, ...values, sore_areas: sore, pain_areas: hurts ? pain : [], red_flags: flags },
-        }),
-      );
+      const body = { today, ...values, sore_areas: sore, pain_areas: hurts ? pain : [], red_flags: flags };
+      // Offline, red flags still stop training; the rest of the advice waits for the sync.
+      onDone(await api<Assessment>("/readiness", { method: "POST", body, offline: () => offlineAssessment(body) }));
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Couldn't save. Try again.");
     } finally {

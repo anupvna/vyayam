@@ -49,10 +49,12 @@ cd frontend && npm test              # frontend unit tests
 - Progress: weight trend and goal date, body fat and measurements, sets per muscle,
   strength curves, a recovery map, consistency, and progress photos that never leave
   the phone
+- Works offline: opens with no signal, logs sets and check-ins on the phone, and syncs
+  them when the connection is back
 
 ## Docs
 
-- [Planner](docs/PLANNER.md) · [Training](docs/TRAINING.md) · [Progress](docs/PROGRESS.md)
+- [Planner](docs/PLANNER.md) · [Training](docs/TRAINING.md) · [Progress](docs/PROGRESS.md) · [Offline](docs/OFFLINE.md)
 - [Deploying](docs/DEPLOY.md) · [Licenses](docs/LICENSES.md) · [Backlog](docs/BACKLOG.md)
 
 _Full README (architecture, design decisions, evaluation results) to come._

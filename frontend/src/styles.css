@@ -1730,3 +1730,40 @@ figcaption {
 .balance-track.empty {
   background: var(--raised);
 }
+
+/* ---------- offline / sync banner ---------- */
+
+.syncbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: calc(0.45rem + env(safe-area-inset-top)) 1rem 0.45rem;
+  background: var(--raised);
+  color: var(--ivory);
+  font-size: 0.84rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.syncbar .dot {
+  flex: none;
+  margin: 0;
+  background: var(--muted);
+}
+
+.syncbar.offline {
+  color: var(--muted);
+}
+
+.syncbar.ok {
+  color: var(--brass);
+}
+
+.syncbar.warn {
+  background: rgba(226, 102, 76, 0.16);
+  color: var(--ivory);
+}

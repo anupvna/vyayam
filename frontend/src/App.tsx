@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import type { ReactElement } from "react";
 
 import { AuthProvider, useAuth } from "./auth";
+import { SyncBar } from "./components/SyncBar";
 import { AuthPage } from "./pages/AuthPage";
 import { ExercisePage } from "./pages/ExercisePage";
 import { GymsPage } from "./pages/GymsPage";
@@ -28,6 +29,7 @@ export function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <SyncBar />
         <Routes>
           <Route path="/login" element={<Gate need="anonymous"><AuthPage /></Gate>} />
           <Route path="/" element={<Gate need="authenticated"><HomePage /></Gate>} />

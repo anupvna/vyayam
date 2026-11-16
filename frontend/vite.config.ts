@@ -31,6 +31,9 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Everything the app needs to open with no connection, fonts and icons included.
+        // (Screen data is saved separately, per user: see src/offline/.)
+        globPatterns: ["**/*.{js,css,html,woff2,png,svg,webmanifest}"],
         // Any page URL (e.g. /today) opens the cached app; API calls never use this.
         navigateFallback: "/index.html",
         navigateFallbackDenylist: [/^\/api\//],

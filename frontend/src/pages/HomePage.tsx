@@ -10,9 +10,10 @@ import { EquipmentArt } from "../components/EquipmentArt";
 import { ExerciseLogger } from "../components/ExerciseLogger";
 import { RestTimer } from "../components/RestTimer";
 import { TabBar } from "../components/TabBar";
+import { SYNCED_EVENT, getStatus, syncEvents } from "../offline/status";
 import { goalName } from "../labels";
 import { formatWeight } from "../logging";
-import { WEEKDAY, WEEKDAY_FULL, localISO, parseISO } from "../plan";
+import { WEEKDAY, WEEKDAY_FULL, addDaysISO, localISO, parseISO } from "../plan";
 import type { Catalog, Gym, LoggedSet, Profile, TrainingToday, Week } from "../types";
 import { kgToLb, round1 } from "../units";
 
@@ -88,6 +89,25 @@ export function HomePage() {
     void refresh();
   }, [refresh]);
 
+  // After offline sets sync, reload so records (PRs) worked out by the server show up.
+  useEffect(() => {
+    const onSynced = () => void loadTraining(minutes).catch(() => undefined);
+    syncEvents.addEventListener(SYNCED_EVENT, onSynced);
+    return () => syncEvents.removeEventListener(SYNCED_EVENT, onSynced);
+  }, [loadTraining, minutes]);
+
+  // Save tomorrow's workout on the phone too, so it opens at a gym with no signal.
+  useEffect(() => {
+    if (load.state !== "ready" || !getStatus().online) return;
+    const tomorrow = addDaysISO(today, 1);
+    const id = window.setTimeout(() => {
+      api(`/plan/week?today=${tomorrow}`)
+        .then(() => api(`/training/today?today=${tomorrow}`))
+        .catch(() => undefined);
+    }, 2000);
+    return () => window.clearTimeout(id);
+  }, [load.state, today]);
+
   useEffect(() => {
     if (!toast) return;
     const id = window.setTimeout(() => setToast(null), 4000);
@@ -100,7 +120,13 @@ export function HomePage() {
   if (load.state === "needs-onboarding") return <Navigate to="/onboarding" replace />;
   if (load.state === "needs-split") return <Navigate to="/plan/split" replace />;
   if (load.state === "error" || !training)
-    return <div className="splash">Couldn't load. Check your connection and refresh.</div>;
+    return (
+      <div className="splash">
+        {getStatus().online
+          ? "Couldn't load. Check your connection and refresh."
+          : "You're offline, and today's workout isn't saved on this phone yet. Open the app once with a connection before you head to the gym."}
+      </div>
+    );
 
   const { profile: p, gym, week, catalog } = load;
   const units = p.unit_system;

@@ -4,7 +4,8 @@
 import { useState } from "react";
 import { Link } from "react-router";
 
-import { ApiError, api } from "../api";
+import { ApiError, QUEUED, api } from "../api";
+import { offlineSet } from "../offline/queue";
 import { formatWeight, nextSetDefaults, parseSet, targetLine, unitLabel } from "../logging";
 import { effortLabel, formatRest, formatSets } from "../plan";
 import type { LoggedSet, PlannedExercise, Target, UnitSystem } from "../types";
@@ -43,17 +44,16 @@ export function ExerciseLogger({ exercise: e, target, logged, units, day, onLogg
     setBusy(true);
     setError(null);
     try {
-      const saved = await api<LoggedSet>("/logs", {
-        method: "POST",
-        body: {
-          id: crypto.randomUUID(),
-          day,
-          exercise_id: e.exercise_id,
-          set_index: logged.length + 1,
-          ...parsed,
-          rir,
-        },
-      });
+      const body = {
+        id: crypto.randomUUID(),
+        day,
+        exercise_id: e.exercise_id,
+        set_index: logged.length + 1,
+        ...parsed,
+        rir,
+      };
+      // No signal: the set is kept on the phone and synced later (shown the same way).
+      const saved = await api<LoggedSet>("/logs", { method: "POST", body, offline: () => offlineSet(body) });
       onLogged(saved);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Couldn't save the set. Try again.");
@@ -63,8 +63,12 @@ export function ExerciseLogger({ exercise: e, target, logged, units, day, onLogg
   }
 
   async function remove(id: string) {
-    await api(`/logs/${id}`, { method: "DELETE" });
-    onDeleted(id);
+    try {
+      await api(`/logs/${id}`, { method: "DELETE", offline: () => QUEUED });
+      onDeleted(id);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Couldn't undo the set. Try again.");
+    }
   }
 
   return (
