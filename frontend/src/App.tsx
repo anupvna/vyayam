@@ -14,6 +14,7 @@ import { OnboardingPage } from "./pages/OnboardingPage";
 import { PlanPage } from "./pages/PlanPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { SplitPage } from "./pages/SplitPage";
+import { CoachPage } from "./pages/CoachPage";
 
 // Loaded on demand: the chart library is only needed on this tab.
 const ProgressPage = lazy(() => import("./pages/ProgressPage"));
@@ -47,6 +48,7 @@ export function App() {
               </Gate>
             }
           />
+          <Route path="/coach" element={<Gate need="authenticated"><CoachPage /></Gate>} />
           <Route path="/library" element={<Gate need="authenticated"><LibraryPage /></Gate>} />
           <Route path="/exercises/:id" element={<Gate need="authenticated"><ExercisePage /></Gate>} />
           <Route path="/profile" element={<Gate need="authenticated"><ProfilePage /></Gate>} />

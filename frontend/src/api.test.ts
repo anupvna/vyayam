@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { ApiError, api, errorMessage, setCsrfToken } from "./api";
+import { ApiError, SERVER_UNREACHABLE, api, errorMessage, setCsrfToken } from "./api";
 
 function mockFetch(status: number, body?: unknown) {
   const fn = vi.fn().mockResolvedValue(
@@ -65,5 +65,16 @@ describe("errorMessage", () => {
 
   it("falls back when there is no detail", () => {
     expect(errorMessage(undefined, "fallback")).toBe("fallback");
+  });
+});
+
+describe("server unreachable", () => {
+  it("explains a 502 from the proxy in plain words", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("Bad Gateway", { status: 502 })));
+    await expect(api("/auth/login", { method: "POST", body: {} })).rejects.toMatchObject({
+      status: 502,
+      message: SERVER_UNREACHABLE,
+    });
+    vi.unstubAllGlobals();
   });
 });

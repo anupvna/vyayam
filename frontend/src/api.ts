@@ -22,6 +22,7 @@ export class ApiError extends Error {
 export class NetworkError extends Error {}
 
 export const OFFLINE_NEEDS_CONNECTION = "You're offline. This needs a connection, so try again once you're back online.";
+export const SERVER_UNREACHABLE = "Can't reach the Vyayam server right now. Try again in a minute.";
 export const OFFLINE_NOT_SAVED = "You're offline, and this screen isn't saved on this phone yet.";
 
 /** Returned in place of the server's answer when a change was saved to send later. */
@@ -91,7 +92,9 @@ export async function request<T>(method: string, path: string, body?: unknown): 
     } catch {
       // body wasn't JSON
     }
-    throw new ApiError(res.status, errorMessage(detail, `Request failed (${res.status})`));
+    // 502-504 come from a proxy or host in front of the API, not from the app itself.
+    const fallback = res.status >= 502 && res.status <= 504 ? SERVER_UNREACHABLE : `Request failed (${res.status})`;
+    throw new ApiError(res.status, errorMessage(detail, fallback));
   }
   return (res.status === 204 ? undefined : await res.json()) as T;
 }

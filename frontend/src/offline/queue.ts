@@ -4,7 +4,7 @@
 // - how waiting changes show on screens loaded from the saved copy
 // - the stand-in answers shown until the server replies
 import type { Method, OutboxItem } from "./store";
-import type { Assessment, LoggedSet, TrainingToday } from "../types";
+import type { Activity, ActivityToday, ActivityWeek, Assessment, LoggedSet, TrainingToday } from "../types";
 
 const DAY = String.raw`\d{4}-\d{2}-\d{2}`;
 const QUEUEABLE: [Method, RegExp][] = [
@@ -14,6 +14,8 @@ const QUEUEABLE: [Method, RegExp][] = [
   ["PUT", new RegExp(`^/body/(weights|measurements)/${DAY}$`)],
   ["DELETE", new RegExp(`^/body/(weights|measurements)/${DAY}$`)],
   ["PUT", /^\/exercises\/[\w-]+\/preference$/],
+  ["POST", /^\/activities$/], // cardio and floor work: also carry their own id
+  ["DELETE", /^\/activities\/[\w-]+$/],
 ];
 
 export function isQueueable(method: string, path: string): method is Method {
@@ -26,10 +28,11 @@ const bodyOf = (i: OutboxItem) => (i.body ?? {}) as Record<string, unknown>;
 export function merge(pending: OutboxItem[], next: OutboxItem): { remove: number[]; add: OutboxItem | null } {
   const seqs = (pred: (i: OutboxItem) => boolean) => pending.filter(pred).map((i) => i.seq as number);
 
-  const logDelete = /^\/logs\/([\w-]+)$/.exec(next.path);
+  const logDelete = /^\/(logs|activities)\/([\w-]+)$/.exec(next.path);
   if (next.method === "DELETE" && logDelete) {
-    // Undoing a set that never reached the server: just forget both.
-    const unsent = seqs((i) => i.method === "POST" && i.path === "/logs" && bodyOf(i).id === logDelete[1]);
+    // Undoing a set (or activity) that never reached the server: just forget both.
+    const created = `/${logDelete[1]}`;
+    const unsent = seqs((i) => i.method === "POST" && i.path === created && bodyOf(i).id === logDelete[2]);
     if (unsent.length) return { remove: unsent, add: null };
     return { remove: [], add: next };
   }
@@ -79,7 +82,9 @@ export function offlineAssessment(b: CheckInBody): Assessment {
 
 /** Show waiting changes on top of a screen's data (saved copy or fresh), so nothing seems lost. */
 export function applyPending<T>(path: string, data: T, pending: OutboxItem[]): T {
-  if (!pending.length || !path.startsWith("/training/today")) return data;
+  if (!pending.length) return data;
+  if (path.startsWith("/activities/today") || path.startsWith("/activities/week")) return applyActivities(path, data, pending);
+  if (!path.startsWith("/training/today")) return data;
   const day = new URLSearchParams(path.split("?")[1] ?? "").get("today");
   const t = data as unknown as TrainingToday;
   const added = pending.filter((i) => i.method === "POST" && i.path === "/logs" && bodyOf(i).day === day);
@@ -105,4 +110,58 @@ export function applyPending<T>(path: string, data: T, pending: OutboxItem[]): T
     readiness,
     stop: t.stop || readiness?.verdict === "stop",
   } as unknown as T;
+}
+
+// Cardio and floor work waiting to sync. Each queued body carries a `preview` (how it
+// shows on screen); the server ignores that field.
+type Preview = Activity & { preview?: Activity };
+// Same rule as the server: stretching and mat (floor strength) work are logged, not cardio.
+const cardioMinutes = (a: Activity) =>
+  a.activity !== "stretching" && a.activity !== "mat_workout" && a.part !== "cooldown" ? a.minutes : 0;
+
+function applyActivities<T>(path: string, data: T, pending: OutboxItem[]): T {
+  const day = new URLSearchParams(path.split("?")[1] ?? "").get("today") ?? "";
+  const weekly = path.startsWith("/activities/week");
+  const inRange = (d: string) => (weekly ? d >= mondayOf(day) && d <= addDays(mondayOf(day), 6) : d === day);
+  const added = pending
+    .filter((i) => i.method === "POST" && i.path === "/activities")
+    .map((i) => (bodyOf(i) as Preview).preview)
+    .filter((a): a is Activity => !!a && inRange(a.day));
+  const deleted = new Set(
+    pending.filter((i) => i.method === "DELETE" && i.path.startsWith("/activities/")).map((i) => i.path.slice("/activities/".length)),
+  );
+  if (weekly) {
+    const w = data as unknown as ActivityWeek;
+    const known = new Set(w.activities.map((a) => a.id));
+    const activities = [...w.activities, ...added.filter((a) => !known.has(a.id))].filter((a) => !deleted.has(a.id));
+    const days = w.days.map((d) => ({
+      ...d,
+      minutes: Math.round(activities.filter((a) => a.day === d.date).reduce((n, a) => n + cardioMinutes(a), 0)),
+    }));
+    return { ...w, activities, days, done_minutes: days.reduce((n, d) => n + d.minutes, 0) } as unknown as T;
+  }
+  const t = data as unknown as ActivityToday;
+  const known = new Set(t.activities.map((a) => a.id));
+  const fresh = added.filter((a) => !known.has(a.id));
+  const activities = [...t.activities, ...fresh].filter((a) => !deleted.has(a.id));
+  const parts = new Set(activities.map((a) => a.part));
+  return {
+    ...t,
+    activities,
+    warmup: t.warmup && { ...t.warmup, done: parts.has("warmup") },
+    finisher: t.finisher && { ...t.finisher, done: parts.has("finisher") },
+    week_done: t.week_done + fresh.reduce((n, a) => n + cardioMinutes(a), 0),
+  } as unknown as T;
+}
+
+function mondayOf(iso: string): string {
+  const d = new Date(`${iso}T12:00:00`);
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return d.toISOString().slice(0, 10);
+}
+
+function addDays(iso: string, n: number): string {
+  const d = new Date(`${iso}T12:00:00`);
+  d.setDate(d.getDate() + n);
+  return d.toISOString().slice(0, 10);
 }

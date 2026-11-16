@@ -25,6 +25,16 @@ class Settings(BaseSettings):
     login_max_failures_per_ip: int = 20
     login_window_seconds: int = 15 * 60
 
+    # AI coach. Keys live only in .env (never in Git). With no keys, the coach answers
+    # from the engine's rules alone.
+    groq_api_key: str = ""
+    groq_model: str = "openai/gpt-oss-120b"
+    gemini_api_key: str = ""
+    gemini_model: str = "gemini-flash-latest"  # alias: Google gives 2 weeks' notice before it moves
+    coach_timeout_seconds: float = 20
+    coach_messages_per_10_min: int = 20
+    coach_messages_per_day: int = 100
+
 
 @lru_cache
 def get_settings() -> Settings:

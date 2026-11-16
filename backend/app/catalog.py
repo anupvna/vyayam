@@ -65,11 +65,14 @@ EQUIPMENT: tuple[Equipment, ...] = (
     Equipment("ab_wheel", "Ab wheel", "accessories"),
     Equipment("medicine_ball", "Medicine ball", "accessories"),
     Equipment("plyo_box", "Plyo box / step", "accessories"),
+    Equipment("mat", "Exercise mat", "accessories"),
+    Equipment("jump_rope", "Jump rope", "accessories"),
     # cardio
     Equipment("treadmill", "Treadmill", "cardio"),
     Equipment("rower", "Rowing machine", "cardio"),
     Equipment("bike", "Exercise bike", "cardio"),
     Equipment("elliptical", "Elliptical", "cardio"),
+    Equipment("stair_climber", "Stair climber", "cardio"),
 )
 
 EQUIPMENT_IDS: frozenset[str] = frozenset(e.id for e in EQUIPMENT)
@@ -101,6 +104,12 @@ PRESETS: tuple[Preset, ...] = (
         "Barbell garage gym",
         "A rack, barbell, bench and dumbbells.",
         ("barbell", "squat_rack", "flat_bench", "dumbbells", "pull_up_bar"),
+    ),
+    Preset(
+        "mat",
+        "Home: mat only",
+        "Just an exercise mat. For days you train at home on the floor.",
+        ("mat",),
     ),
     Preset(
         "bodyweight",

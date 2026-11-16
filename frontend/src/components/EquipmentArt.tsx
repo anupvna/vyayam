@@ -298,6 +298,30 @@ const ART: Record<string, ReactNode> = {
       <path d="M16 56H54M22 56L26 22M19 22H31M26 35L44 44M44 44L48 16M43 16H55" />
     </>
   ),
+  // a rolled-out mat, seen at an angle, with the rolled end
+  mat: (
+    <>
+      <path d="M8 44L40 30L58 38L26 52Z" {...F} />
+      <path d="M12 46L44 32" opacity={0.4} />
+      <ellipse cx="11" cy="45.5" rx="4" ry="6.5" transform="rotate(-24 11 45.5)" {...F} />
+      <path d="M26 52L26 55M58 38V41" opacity={0.35} />
+    </>
+  ),
+  jump_rope: (
+    <>
+      <rect x="10" y="10" width="7" height="16" rx="3.5" {...F} />
+      <rect x="47" y="10" width="7" height="16" rx="3.5" {...F} />
+      <path d="M13.5 26C13 44 20 56 32 56C44 56 51 44 50.5 26" />
+    </>
+  ),
+  stair_climber: (
+    <>
+      <path d="M6 56H58" />
+      <path d="M12 56V44H24V34H36V24H48V56" {...F} />
+      <path d="M48 24V12M44 12H52M40 18H48" />
+      <rect x="49" y="8" width="9" height="6" rx="2" {...F} />
+    </>
+  ),
   elliptical: (
     <>
       <path d="M6 56H58" />

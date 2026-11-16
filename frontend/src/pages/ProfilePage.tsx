@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router";
 
 import { ApiError, api } from "../api";
-import { unsyncedChanges, useAuth } from "../auth";
+import { useAuth } from "../auth";
+import { unsyncedChanges } from "../offline/status";
 import { AdviceList } from "../components/AdviceList";
+import { CardioLevelCard } from "../components/CardioLevelCard";
 import { TabBar } from "../components/TabBar";
 import { DAY_NAMES, EXPERIENCE, goalName } from "../labels";
-import type { Profile } from "../types";
+import type { Catalog, Profile } from "../types";
 import { cmToFtIn, kgToLb, round1 } from "../units";
 
 export function ProfilePage() {
@@ -15,6 +17,13 @@ export function ProfilePage() {
   const [profile, setProfile] = useState<Profile | null | "missing">(null);
   const [error, setError] = useState(false);
   const [logoutError, setLogoutError] = useState<string | null>(null);
+  const [levels, setLevels] = useState<Catalog["cardio_levels"]>([]);
+
+  useEffect(() => {
+    api<Catalog>("/catalog")
+      .then((c) => setLevels(c.cardio_levels))
+      .catch(() => undefined);
+  }, []);
 
   async function onLogout() {
     const n = unsyncedChanges();
@@ -104,6 +113,8 @@ export function ProfilePage() {
           </div>
           <p className="muted small">Switch gyms or edit equipment. Your plan only uses what's there.</p>
         </section>
+
+        {levels.length > 0 && <CardioLevelCard levels={levels} />}
 
         <button className="secondary" onClick={() => void onLogout()}>
           Log out

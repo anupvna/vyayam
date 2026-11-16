@@ -1,4 +1,5 @@
-"""Read-only reference data for the app: equipment, gym presets, body parts.
+"""Read-only reference data for the app: equipment, gym presets, body parts, and the
+cardio activities and floor moves that can be logged.
 
 Public (no login needed): it contains nothing personal, and the app caches it for
 offline use.
@@ -8,6 +9,7 @@ from dataclasses import asdict
 
 from fastapi import APIRouter
 
+from app.api.activities import catalog as activity_catalog
 from app.catalog import BODY_PARTS, CATEGORIES, EQUIPMENT, MUSCLES, PATTERNS, PRESETS
 
 router = APIRouter(tags=["catalog"])
@@ -22,4 +24,4 @@ async def get_catalog() -> dict:
         "body_parts": [asdict(b) for b in BODY_PARTS],
         "muscles": [asdict(m) for m in MUSCLES],
         "patterns": [asdict(p) for p in PATTERNS],
-    }
+    } | activity_catalog()

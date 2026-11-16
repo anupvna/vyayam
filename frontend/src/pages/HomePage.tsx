@@ -5,19 +5,23 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, Navigate } from "react-router";
 
 import { ApiError, api } from "../api";
+import { savedMinutes, saveMinutes } from "../coach";
 import { CheckInCard } from "../components/CheckInCard";
 import { EquipmentArt } from "../components/EquipmentArt";
 import { ExerciseLogger } from "../components/ExerciseLogger";
 import { RestTimer } from "../components/RestTimer";
+import { ActivityCard, AfterWorkout, WarmupCard } from "../components/TodayExtras";
 import { TabBar } from "../components/TabBar";
 import { SYNCED_EVENT, getStatus, syncEvents } from "../offline/status";
 import { goalName } from "../labels";
 import { formatWeight } from "../logging";
 import { WEEKDAY, WEEKDAY_FULL, addDaysISO, localISO, parseISO } from "../plan";
-import type { Catalog, Gym, LoggedSet, Profile, TrainingToday, Week } from "../types";
+import type { ActivityToday, Catalog, Gym, LoggedSet, Profile, TrainingToday, Week } from "../types";
 import { kgToLb, round1 } from "../units";
 
-type Base = { profile: Profile; gym: Gym | undefined; week: Week; catalog: Catalog };
+type Base = { profile: Profile; gym: Gym | undefined; gyms: Gym[]; week: Week; catalog: Catalog };
+
+const MAT_PLACE = "home (mat only)";
 type Load =
   | { state: "loading" }
   | { state: "needs-onboarding" }
@@ -57,6 +61,15 @@ export function HomePage() {
   const [toast, setToast] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [extras, setExtras] = useState<ActivityToday | null>(null);
+
+  const loadExtras = useCallback(async () => {
+    try {
+      setExtras(await api<ActivityToday>(`/activities/today?today=${today}`));
+    } catch {
+      setExtras(null); // optional extras: the workout still works without them
+    }
+  }, [today]);
 
   const loadTraining = useCallback(
     async (m: number | null) => {
@@ -77,13 +90,15 @@ export function HomePage() {
         if (err instanceof ApiError && err.status === 404) return setLoad({ state: "needs-split" });
         throw err;
       }
-      await loadTraining(null);
-      setMinutes(null);
-      setLoad({ state: "ready", profile, gym: gyms.find((g) => g.is_active), week, catalog });
+      const kept = savedMinutes(today); // "shorten today" survives a reload
+      await loadTraining(kept);
+      setMinutes(kept);
+      setLoad({ state: "ready", profile, gym: gyms.find((g) => g.is_active), gyms, week, catalog });
+      void loadExtras();
     } catch (err) {
       setLoad(err instanceof ApiError && err.status === 404 ? { state: "needs-onboarding" } : { state: "error" });
     }
-  }, [today, loadTraining]);
+  }, [today, loadTraining, loadExtras]);
 
   useEffect(() => {
     void refresh();
@@ -91,10 +106,13 @@ export function HomePage() {
 
   // After offline sets sync, reload so records (PRs) worked out by the server show up.
   useEffect(() => {
-    const onSynced = () => void loadTraining(minutes).catch(() => undefined);
+    const onSynced = () => {
+      void loadTraining(minutes).catch(() => undefined);
+      void loadExtras();
+    };
     syncEvents.addEventListener(SYNCED_EVENT, onSynced);
     return () => syncEvents.removeEventListener(SYNCED_EVENT, onSynced);
-  }, [loadTraining, minutes]);
+  }, [loadTraining, loadExtras, minutes]);
 
   // Save tomorrow's workout on the phone too, so it opens at a gym with no signal.
   useEffect(() => {
@@ -128,7 +146,7 @@ export function HomePage() {
       </div>
     );
 
-  const { profile: p, gym, week, catalog } = load;
+  const { profile: p, gym, gyms, week, catalog } = load;
   const units = p.unit_system;
   const weight = (kg: number) => (units === "metric" ? `${round1(kg)} kg` : `${round1(kgToLb(kg))} lb`);
   const timeline = p.advice.find((a) => a.code === "timeline");
@@ -142,6 +160,18 @@ export function HomePage() {
   const planned = day.status === "planned" && !training.stop;
   const setsDone = training.exercises.reduce((n, e) => n + e.logged.length, 0);
   const setsTotal = day.exercises.reduce((n, e) => n + e.sets, 0);
+  const extraBase = { day: today, units, weightKg: p.weight_kg, catalog, onChange: () => void loadExtras() };
+  const placeGym = day.place && day.place !== MAT_PLACE ? gyms.find((g) => g.name === day.place) : undefined;
+  const placeValue = day.place === MAT_PLACE ? "mat" : (placeGym?.id ?? gym?.id ?? "");
+  const placeEquipment = day.place === MAT_PLACE ? ["mat"] : (placeGym ?? gym)?.equipment ?? [];
+
+  function choosePlace(value: string) {
+    void run(async () => {
+      if (value === "mat") await api(`/plan/days/${today}/place`, { method: "PUT", body: { today, mat: true } });
+      else if (value === gym?.id) await api(`/plan/days/${today}/place`, { method: "DELETE" });
+      else await api(`/plan/days/${today}/place`, { method: "PUT", body: { today, gym_id: value } });
+    });
+  }
 
   async function run(action: () => Promise<unknown>) {
     setBusy(true);
@@ -160,6 +190,7 @@ export function HomePage() {
 
   async function shorten(m: number | null) {
     setMinutes(m);
+    saveMinutes(today, m);
     await loadTraining(m);
   }
 
@@ -206,11 +237,24 @@ export function HomePage() {
             <p className="greeting">{greeting(now.getHours())}</p>
             <h1>Today</h1>
           </div>
-          {planned && setsDone > 0 && (
-            <span className="badge">
-              {setsDone}/{setsTotal} sets
-            </span>
-          )}
+          <div className="head-right">
+            {planned && setsDone > 0 && (
+              <span className="badge">
+                {setsDone}/{setsTotal} sets
+              </span>
+            )}
+            <Link to="/profile" className="avatar" aria-label="Profile and gyms">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <path
+                  d="M12 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8zM4 21c1-4 4-6 8-6s7 2 8 6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </Link>
+          </div>
         </header>
 
         {training.stop && (
@@ -274,6 +318,20 @@ export function HomePage() {
 
             {planned && (!training.suggest_rest || easyChosen) && (
               <>
+                {setsDone === 0 || day.place ? (
+                  <label className="place-row">
+                    <span className="muted small">Training at</span>
+                    <select className="select" value={placeValue} disabled={busy || setsDone > 0} onChange={(e) => choosePlace(e.target.value)}>
+                      {gyms.map((g) => (
+                        <option key={g.id} value={g.id}>
+                          {g.name}
+                          {g.is_active ? " (usual)" : ""}
+                        </option>
+                      ))}
+                      <option value="mat">Home, mat only</option>
+                    </select>
+                  </label>
+                ) : null}
                 <div className="time-row" role="group" aria-label="Time available">
                   <span className="muted small">Time today</span>
                   <div className="segmented">
@@ -292,6 +350,7 @@ export function HomePage() {
                     {n}
                   </p>
                 ))}
+                {extras?.warmup && <WarmupCard s={extras.warmup} base={extraBase} />}
                 <ol className="workout">
                   {day.exercises.map((e) => {
                     const t = training.exercises.find((x) => x.exercise_id === e.exercise_id);
@@ -309,6 +368,7 @@ export function HomePage() {
                     ) : null;
                   })}
                 </ol>
+                {extras && <AfterWorkout t={extras} base={extraBase} />}
                 {setsDone === 0 && (
                   <div className="actions">
                     <button type="button" className="secondary" onClick={() => setChanging(!changing)}>
@@ -426,6 +486,8 @@ export function HomePage() {
             </div>
           </section>
         )}
+
+        {!training.stop && extras && <ActivityCard t={extras} base={extraBase} equipment={placeEquipment} />}
 
         <section className="card">
           <div className="card-head">

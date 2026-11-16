@@ -54,3 +54,11 @@ Apache-2.0 and similar), listed in `backend/pyproject.toml` and
 
 The chart palette and recovery colors are chosen for Vyayam and checked for
 contrast and color-blind separation on the app's dark background.
+
+## Cardio, floor exercises and stretches
+
+The 15 floor exercises added for mat workouts, the 15 cool-down stretches, the HIIT move
+list and all their descriptions are original to Vyayam. Calorie estimates use published
+formulas (the ACSM metabolic equations) and MET values from the ranges in the
+Compendium of Physical Activities: facts and equations, written into our own code.
+The mat, jump rope and stair climber illustrations are original.

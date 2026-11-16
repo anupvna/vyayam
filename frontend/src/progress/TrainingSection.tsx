@@ -7,8 +7,10 @@ import { Chart } from "../charts/Chart";
 import { ACCENT, INK, STATUS, baseOption } from "../charts/theme";
 import { MuscleMap } from "../components/MuscleMap";
 import { kgToDisplay } from "../body";
-import { parseISO } from "../plan";
+import { WEEKDAY, parseISO } from "../plan";
+import { describe } from "../activity";
 import type {
+  ActivityWeek,
   CalendarDay,
   Catalog,
   HistoryPoint,
@@ -42,6 +44,13 @@ export function TrainingSection({ today, profile, catalog }: Props) {
   const [history, setHistory] = useState<HistoryPoint[]>([]);
   const [allMuscles, setAllMuscles] = useState(false);
   const [error, setError] = useState(false);
+  const [cardio, setCardio] = useState<ActivityWeek | null>(null);
+
+  useEffect(() => {
+    api<ActivityWeek>(`/activities/week?today=${today}`)
+      .then(setCardio)
+      .catch(() => setCardio(null));
+  }, [today]);
 
   useEffect(() => {
     Promise.all([
@@ -185,6 +194,45 @@ export function TrainingSection({ today, profile, catalog }: Props) {
           </p>
         )}
       </section>
+
+      {cardio && (
+        <section className="card">
+          <div className="card-head">
+            <h2>Cardio</h2>
+            <span className="muted small">
+              {cardio.done_minutes}
+              {cardio.target_minutes ? ` of ${cardio.target_minutes}` : ""} min this week
+            </span>
+          </div>
+          <div className="cardio-days" role="img" aria-label="Cardio minutes each day this week">
+            {cardio.days.map((d) => {
+              const max = Math.max(30, ...cardio.days.map((x) => x.minutes));
+              return (
+                <div key={d.date} className={d.date === today ? "is-today" : ""}>
+                  <span className="bar" style={{ height: `${(d.minutes / max) * 100}%` }} title={`${d.minutes} min`} />
+                  <small>{WEEKDAY[parseISO(d.date).getDay()].slice(0, 2)}</small>
+                </div>
+              );
+            })}
+          </div>
+          {cardio.activities.length ? (
+            <ul className="activity-list">
+              {[...cardio.activities].reverse().slice(0, 6).map((a) => (
+                <li key={a.id}>
+                  <div>
+                    <b>
+                      {a.name} <small>· {WEEKDAY[parseISO(a.day).getDay()]}</small>
+                    </b>
+                    <span className="muted small">{describe(a, profile.unit_system)}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="muted small">Nothing logged yet this week. Log cardio or a mat workout on Today.</p>
+          )}
+        </section>
+      )}
 
       <section className="card">
         <div className="card-head">

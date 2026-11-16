@@ -51,10 +51,15 @@ cd frontend && npm test              # frontend unit tests
   the phone
 - Works offline: opens with no signal, logs sets and check-ins on the phone, and syncs
   them when the connection is back
+- Cardio and mat work: log any activity (treadmill speed and incline, machine levels,
+  calories or an estimate, the floor moves you did), a weekly cardio target from your
+  goal, warm-up, finisher and cool-down stretches, and "train at home on a mat today"
+- AI coach: explains every target from your own data and proposes changes the engine
+  checks before you can apply them (Groq, Gemini as backup, rule-based without either)
 
 ## Docs
 
-- [Planner](docs/PLANNER.md) · [Training](docs/TRAINING.md) · [Progress](docs/PROGRESS.md) · [Offline](docs/OFFLINE.md)
+- [Planner](docs/PLANNER.md) · [Training](docs/TRAINING.md) · [Progress](docs/PROGRESS.md) · [Offline](docs/OFFLINE.md) · [Coach](docs/COACH.md) · [Cardio](docs/CARDIO.md)
 - [Deploying](docs/DEPLOY.md) · [Licenses](docs/LICENSES.md) · [Backlog](docs/BACKLOG.md)
 
 _Full README (architecture, design decisions, evaluation results) to come._

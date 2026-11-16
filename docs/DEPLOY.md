@@ -13,7 +13,8 @@ plan, with the database on Neon's free plan. Both cost $0.
 ## 2. App (Render)
 
 1. On render.com: New → Blueprint → pick the GitHub repo. Render reads `render.yaml`.
-2. When asked for `DATABASE_URL`, paste the Neon string.
+2. When asked for `DATABASE_URL`, paste the Neon string. For the AI coach, also paste
+   `GROQ_API_KEY` and `GEMINI_API_KEY` (or leave them empty for the rule-based coach).
 3. Deploy. On start the container applies migrations, then serves the app.
 4. Open `https://<your-service>.onrender.com/api/health`. It should show
    `{"status":"ok","database":"ok"}`.

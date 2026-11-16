@@ -137,6 +137,7 @@ class DayPlan:
     notes: list[str] = field(default_factory=list)
     swapped: bool = False
     moved: bool = False  # session changed because of a skip or swap elsewhere
+    place: str | None = None  # training somewhere other than the active gym (places.py)
 
     @property
     def minutes(self) -> int:

@@ -37,6 +37,66 @@ export type Catalog = {
   body_parts: CatalogItem[];
   muscles: CatalogItem[];
   patterns: CatalogItem[];
+  activities: ActivityKind[];
+  floor_moves: FloorMove[];
+  cardio_levels: CardioLevelInfo[];
+};
+
+export type ActivityField = "speed" | "incline" | "level" | "distance" | "intensity" | "items";
+export type ActivityKind = {
+  id: string;
+  name: string;
+  group: "machine" | "outdoor" | "floor" | "other";
+  fields: ActivityField[];
+  equipment: string | null;
+};
+export type FloorMove = { id: string; name: string; group: "core" | "legs" | "upper" | "hiit" | "stretch" };
+export type CardioLevel = "none" | "light" | "regular" | "lots";
+export type CardioLevelInfo = { id: CardioLevel; name: string; minutes: number };
+export type Intensity = "easy" | "moderate" | "hard";
+export type ActivityPart = "warmup" | "main" | "finisher" | "cooldown";
+
+export type ActivityIn = {
+  id: string;
+  day: string;
+  activity: string;
+  part: ActivityPart;
+  minutes: number;
+  intensity: Intensity;
+  speed_kmh: number | null;
+  incline_pct: number | null;
+  level: number | null;
+  distance_km: number | null;
+  calories: number | null;
+  items: string[];
+  note: string;
+};
+export type Activity = Omit<ActivityIn, "note"> & {
+  name: string;
+  note: string;
+  calories: number;
+  calories_estimated: boolean;
+  item_names: string[];
+};
+export type Suggestion = { activity: string; minutes: number; text: string; done: boolean };
+export type Stretch = { id: string; name: string; seconds: number; each_side: boolean; how: string };
+export type ActivityToday = {
+  warmup: Suggestion | null;
+  finisher: Suggestion | null;
+  cooldown: Stretch[];
+  cooldown_minutes: number;
+  rest_day: string | null;
+  activities: Activity[];
+  week_target: number;
+  week_done: number;
+};
+export type ActivityWeek = {
+  level: CardioLevel;
+  chosen: CardioLevel | null;
+  target_minutes: number;
+  done_minutes: number;
+  days: { date: string; minutes: number }[];
+  activities: Activity[];
 };
 
 export type Gym = { id: string; name: string; equipment: string[]; is_active: boolean };
@@ -93,6 +153,7 @@ export type PlanDay = {
   swapped: boolean;
   moved: boolean;
   logged_sets?: number;
+  place?: string | null; // e.g. "home (mat only)" when not at the usual gym
 };
 
 export type SplitSession = { key: string; name: string; focus: string[] };
@@ -211,3 +272,13 @@ export type WeeklySummary = {
 };
 export type LoggedExercise = { exercise_id: string; name: string; sessions: number; best_e1rm: number | null; last_day: string };
 export type HistoryPoint = { day: string; best_e1rm: number | null; top_weight_kg: number; total_reps: number; pr: boolean };
+
+export type CoachAction = { index: number; type: string; label: string; applied: boolean };
+export type CoachMessage = {
+  id: string;
+  role: "user" | "coach";
+  text: string;
+  actions: CoachAction[];
+  source: "groq" | "gemini" | "engine" | "safety" | null;
+  created_at: string;
+};

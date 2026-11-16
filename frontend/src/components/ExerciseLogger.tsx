@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 
 import { ApiError, QUEUED, api } from "../api";
+import { askWhy } from "../coach";
 import { offlineSet } from "../offline/queue";
 import { formatWeight, nextSetDefaults, parseSet, targetLine, unitLabel } from "../logging";
 import { effortLabel, formatRest, formatSets } from "../plan";
@@ -90,6 +91,9 @@ export function ExerciseLogger({ exercise: e, target, logged, units, day, onLogg
           <p className="target">
             <b>Target: {targetLine(target, units)}</b>
             <small>{target.reason}</small>
+            <Link className="link small ask" to={`/coach?ask=${encodeURIComponent(askWhy(e.name))}`}>
+              Ask the coach why
+            </Link>
           </p>
 
           {logged.length > 0 && (

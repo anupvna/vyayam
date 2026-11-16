@@ -48,6 +48,7 @@ async def pool(db_conn: asyncpg.Connection) -> AsyncIterator[asyncpg.Pool]:
 def app(pool: asyncpg.Pool) -> FastAPI:
     a = create_app(use_lifespan=False, frontend_dist=Path("/nonexistent"))
     a.state.pool = pool
+    a.state.coach_providers = []  # never call real AI providers from tests
     return a
 
 

@@ -1767,3 +1767,468 @@ figcaption {
   background: rgba(226, 102, 76, 0.16);
   color: var(--ivory);
 }
+
+/* ---------- coach ---------- */
+
+.head-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ivory);
+}
+
+.avatar:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+.target .ask {
+  justify-self: start;
+  margin-top: 0.2rem;
+}
+
+/* The tab bar is about 4.4rem tall; the composer sits on top of it. */
+.coach-page {
+  padding-bottom: calc(11rem + env(safe-area-inset-bottom));
+}
+
+.coach-intro {
+  display: grid;
+  gap: 0.6rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.chat {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.msg {
+  display: grid;
+  gap: 0.55rem;
+  max-width: 88%;
+  line-height: 1.5;
+}
+
+.msg p {
+  margin: 0;
+  white-space: pre-line;
+}
+
+.msg.user {
+  justify-self: end;
+  padding: 0.65rem 0.9rem;
+  border-radius: 18px 18px 4px 18px;
+  background: var(--raised);
+}
+
+/* Coach replies read like a page, marked by a brass rule rather than a bubble. */
+.msg.coach {
+  justify-self: start;
+  padding: 0.1rem 0 0.1rem 0.9rem;
+  border-left: 2px solid var(--brass);
+}
+
+.msg.coach.msg-safety {
+  border-left-color: var(--sindoor);
+}
+
+.msg-note {
+  color: var(--faint);
+  font-size: 0.78rem;
+}
+
+.msg-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.action {
+  min-height: 40px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--brass);
+  background: transparent;
+  color: var(--brass);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.action:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.action-done {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.typing {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.6rem 0 0.6rem 0.9rem;
+}
+
+.typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brass);
+  animation: typing 1.2s infinite ease-in-out;
+}
+
+.typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing span {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+.coach-notice {
+  color: var(--brass);
+  font-size: 0.9rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  min-height: 40px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ivory);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.composer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(4.4rem + env(safe-area-inset-bottom));
+  z-index: 19;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;
+  background: var(--bg);
+}
+
+.composer textarea {
+  flex: 1;
+  min-height: 46px;
+  max-height: 8rem;
+  resize: none;
+  field-sizing: content;
+  padding: 0.7rem 0.9rem;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ivory);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.composer textarea:focus {
+  outline: none;
+  border-color: var(--brass);
+}
+
+.send {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--brass);
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.send:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Scrolling to the newest message keeps it clear of the composer and tab bar. */
+.chat-end {
+  scroll-margin-bottom: calc(10rem + env(safe-area-inset-bottom));
+}
+
+/* ---------- cardio, mat work and the activity log ---------- */
+
+.place-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 450;
+}
+
+.extra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: 14px;
+  border: 1px dashed var(--line);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.extra p {
+  margin: 0.15rem 0 0;
+}
+
+.extra.done {
+  border-style: solid;
+  opacity: 0.7;
+}
+
+.extra-label {
+  display: block;
+  color: var(--brass);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.extra-done {
+  flex: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.extra .action {
+  flex: none;
+}
+
+.extra.cooldown {
+  display: block;
+}
+
+.extra.cooldown summary {
+  display: grid;
+  gap: 0.1rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.extra.cooldown summary::-webkit-details-marker {
+  display: none;
+}
+
+.extra.cooldown[open] summary {
+  margin-bottom: 0.6rem;
+}
+
+.stretches {
+  list-style: none;
+  margin: 0 0 0.8rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.stretches li {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.stretches small {
+  color: var(--muted);
+  font-weight: 450;
+}
+
+.stretches span {
+  color: var(--muted);
+}
+
+.cardio-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--raised);
+  overflow: hidden;
+}
+
+.cardio-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--brass);
+}
+
+.activity-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.activity-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.activity-list li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.activity-list li > div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.activity-list small {
+  color: var(--muted);
+  font-weight: 450;
+}
+
+.icon-btn {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.activity-form {
+  display: grid;
+  gap: 0.9rem;
+  padding-top: 0.4rem;
+}
+
+.activity-form h3 {
+  margin: 0;
+}
+
+.chip-group {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.chip[aria-pressed="true"] {
+  border-color: var(--brass);
+  background: var(--brass);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.small-chip {
+  min-height: 34px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.84rem;
+}
+
+.fields.compact {
+  gap: 0.9rem;
+}
+
+.moves {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.segmented.wrap {
+  flex-wrap: wrap;
+}
+
+.cardio-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+  height: 90px;
+  align-items: end;
+}
+
+.cardio-days > div {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+  justify-items: center;
+  gap: 0.3rem;
+}
+
+.cardio-days .bar {
+  align-self: end;
+  width: 70%;
+  min-height: 3px;
+  border-radius: 4px 4px 0 0;
+  background: var(--brass);
+}
+
+.cardio-days small {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.cardio-days .is-today small {
+  color: var(--ivory);
+  font-weight: 600;
+}
+
+/* The balance track is a span: make it a real 10px bar even when empty. */
+.balance-track {
+  display: block;
+  align-self: center;
+}

@@ -23,6 +23,9 @@ const listeners = new Set<() => void>();
 
 export const getStatus = (): SyncStatus => state;
 
+/** Unsent changes on this phone; logging out deletes them, so Profile asks first. */
+export const unsyncedChanges = (): number => state.pending;
+
 export function subscribe(fn: () => void): () => void {
   listeners.add(fn);
   return () => listeners.delete(fn);

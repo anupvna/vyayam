@@ -2949,5 +2949,523 @@
   ],
   "safety": "The higher the feet, the more it works the shoulders.",
   "source": "Decline_Push-Up"
+ },
+ {
+  "id": "crunch",
+  "name": "Crunch",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "obliques"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "neck"
+  ],
+  "setup": [
+   "Lie on your back, knees bent, feet flat. Fingertips lightly behind your ears."
+  ],
+  "execution": [
+   "Curl your shoulders off the floor by shortening the space between ribs and hips.",
+   "Pause, then lower slowly."
+  ],
+  "breathing": "Breathe out as you curl up.",
+  "mistakes": [
+   "Pulling on your head with your hands.",
+   "Swinging up with momentum."
+  ],
+  "safety": "Keep your chin a fist away from your chest to spare your neck.",
+  "source": null
+ },
+ {
+  "id": "reverse_crunch",
+  "name": "Reverse crunch",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "obliques"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "lower_back"
+  ],
+  "setup": [
+   "Lie on your back, hips and knees bent to 90 degrees, arms by your sides."
+  ],
+  "execution": [
+   "Curl your hips off the floor, bringing knees toward your chest.",
+   "Lower your hips slowly until your lower back is flat again."
+  ],
+  "breathing": "Breathe out as your hips lift.",
+  "mistakes": [
+   "Swinging the legs instead of curling the hips.",
+   "Dropping back down fast."
+  ],
+  "safety": "Small, controlled lifts are enough; no need to roll onto your neck.",
+  "source": null
+ },
+ {
+  "id": "bicycle_crunch",
+  "name": "Bicycle crunch",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "obliques"
+  ],
+  "secondary": [
+   "abs"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [
+   "neck"
+  ],
+  "setup": [
+   "Lie on your back, hands lightly behind your head, knees lifted."
+  ],
+  "execution": [
+   "Turn one shoulder toward the opposite knee as the other leg straightens.",
+   "Switch sides in a slow pedalling rhythm."
+  ],
+  "breathing": "Breathe out each time you turn.",
+  "mistakes": [
+   "Rushing the reps.",
+   "Moving only the elbows, not the shoulders."
+  ],
+  "safety": "Slow reps work the obliques far better than fast ones.",
+  "source": null
+ },
+ {
+  "id": "lying_leg_raise",
+  "name": "Lying leg raise",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "obliques"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "lower_back",
+   "hip"
+  ],
+  "setup": [
+   "Lie on your back, legs straight, hands under your hips or by your sides."
+  ],
+  "execution": [
+   "Keeping your lower back pressed down, raise your legs to vertical.",
+   "Lower them slowly, stopping before your back arches."
+  ],
+  "breathing": "Breathe out as your legs rise.",
+  "mistakes": [
+   "Lower back lifting off the floor.",
+   "Dropping the legs quickly."
+  ],
+  "safety": "Bend your knees to make it easier if your back starts to arch.",
+  "source": null
+ },
+ {
+  "id": "hollow_hold",
+  "name": "Hollow hold",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "obliques"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "lower_back"
+  ],
+  "setup": [
+   "Lie on your back, arms overhead, legs straight."
+  ],
+  "execution": [
+   "Press your lower back into the floor and lift shoulders and legs a few inches.",
+   "Hold the shallow banana shape."
+  ],
+  "breathing": "Short, steady breaths while holding.",
+  "mistakes": [
+   "Lower back lifting away from the floor."
+  ],
+  "safety": "Tuck your knees or bring your arms forward to make it easier.",
+  "source": null
+ },
+ {
+  "id": "bird_dog",
+  "name": "Bird dog",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "lower_back"
+  ],
+  "secondary": [
+   "glutes",
+   "abs"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [],
+  "setup": [
+   "On hands and knees, hands under shoulders, knees under hips, back flat."
+  ],
+  "execution": [
+   "Reach one arm forward and the opposite leg back until both are level with your body.",
+   "Pause, return, and switch sides."
+  ],
+  "breathing": "Breathe out as you reach.",
+  "mistakes": [
+   "Hips rotating or the lower back sagging.",
+   "Rushing from side to side."
+  ],
+  "safety": "One of the most back-friendly core exercises; good on sore days.",
+  "source": null
+ },
+ {
+  "id": "mountain_climber",
+  "name": "Mountain climber",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "quads",
+   "front_delts",
+   "obliques"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "wrist",
+   "shoulder"
+  ],
+  "setup": [
+   "Start in a high plank, hands under shoulders."
+  ],
+  "execution": [
+   "Drive one knee toward your chest, then switch legs.",
+   "Keep your hips level as the pace picks up."
+  ],
+  "breathing": "Breathe rhythmically; don't hold your breath.",
+  "mistakes": [
+   "Hips bouncing high.",
+   "Hands drifting forward of the shoulders."
+  ],
+  "safety": "Go slower, stepping instead of jumping, if your wrists or shoulders complain.",
+  "source": null
+ },
+ {
+  "id": "superman",
+  "name": "Superman",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "lower_back"
+  ],
+  "secondary": [
+   "glutes",
+   "upper_back"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "lower_back"
+  ],
+  "setup": [
+   "Lie face down, arms stretched ahead, legs straight."
+  ],
+  "execution": [
+   "Lift your arms, chest and legs a few inches off the floor.",
+   "Hold for a breath, then lower with control."
+  ],
+  "breathing": "Breathe out as you lift.",
+  "mistakes": [
+   "Cranking the neck back to look up.",
+   "Lifting too high and pinching the lower back."
+  ],
+  "safety": "A small lift is plenty; it should feel like effort, never pain.",
+  "source": null
+ },
+ {
+  "id": "flutter_kick",
+  "name": "Flutter kicks",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "abs"
+  ],
+  "secondary": [
+   "obliques"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "lower_back",
+   "hip"
+  ],
+  "setup": [
+   "Lie on your back, hands under your hips, legs straight and slightly raised."
+  ],
+  "execution": [
+   "Kick your legs up and down in small, quick alternating movements.",
+   "Keep your lower back pressed down."
+  ],
+  "breathing": "Steady breathing through the set.",
+  "mistakes": [
+   "Lower back arching off the floor.",
+   "Kicks getting big and sloppy."
+  ],
+  "safety": "Raise your legs higher to make it easier on your lower back.",
+  "source": null
+ },
+ {
+  "id": "russian_twist",
+  "name": "Russian twist",
+  "pattern": "core",
+  "kind": "accessory",
+  "primary": [
+   "obliques"
+  ],
+  "secondary": [
+   "abs"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [
+   "lower_back"
+  ],
+  "setup": [
+   "Sit with knees bent, heels on the floor, leaning back slightly with a straight back."
+  ],
+  "execution": [
+   "Rotate your chest to one side, then the other, hands moving together.",
+   "Turn from the ribs, not just the arms."
+  ],
+  "breathing": "Breathe out on each turn.",
+  "mistakes": [
+   "Rounding the back.",
+   "Swinging only the arms."
+  ],
+  "safety": "Keep your feet on the floor until the movement feels smooth.",
+  "source": null
+ },
+ {
+  "id": "single_leg_glute_bridge",
+  "name": "Single-leg glute bridge",
+  "pattern": "hinge",
+  "kind": "accessory",
+  "primary": [
+   "glutes"
+  ],
+  "secondary": [
+   "hamstrings"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": true,
+  "loads": [
+   "lower_back"
+  ],
+  "setup": [
+   "Lie on your back, one knee bent with the foot flat, the other leg straight."
+  ],
+  "execution": [
+   "Drive through the planted heel to lift your hips until your body is straight from shoulder to knee.",
+   "Lower slowly. Finish all reps, then switch legs."
+  ],
+  "breathing": "Breathe out as you lift.",
+  "mistakes": [
+   "Arching the lower back at the top.",
+   "Hips tilting to one side."
+  ],
+  "safety": "Squeeze the glute at the top instead of pushing higher with your back.",
+  "source": null
+ },
+ {
+  "id": "wall_sit",
+  "name": "Wall sit",
+  "pattern": "squat",
+  "kind": "accessory",
+  "primary": [
+   "quads"
+  ],
+  "secondary": [
+   "glutes"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "knee"
+  ],
+  "setup": [
+   "Back flat against a wall, slide down until your thighs are about level with the floor."
+  ],
+  "execution": [
+   "Hold with knees over your ankles and weight in your heels."
+  ],
+  "breathing": "Slow, steady breaths through the hold.",
+  "mistakes": [
+   "Knees drifting past the toes.",
+   "Hands pushing on the thighs."
+  ],
+  "safety": "Sit higher on the wall if your knees feel any pain.",
+  "source": null
+ },
+ {
+  "id": "jump_squat",
+  "name": "Jump squat",
+  "pattern": "squat",
+  "kind": "accessory",
+  "primary": [
+   "quads"
+  ],
+  "secondary": [
+   "glutes",
+   "calves"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 2,
+  "unilateral": false,
+  "loads": [
+   "knee",
+   "ankle"
+  ],
+  "setup": [
+   "Stand with feet shoulder-width apart."
+  ],
+  "execution": [
+   "Squat down, then jump up explosively.",
+   "Land softly with bent knees and go straight into the next rep."
+  ],
+  "breathing": "Breathe out as you jump.",
+  "mistakes": [
+   "Landing with straight, stiff legs.",
+   "Knees caving in on landing."
+  ],
+  "safety": "Skip it on sore knees; bodyweight squats work the same muscles without the impact.",
+  "source": null
+ },
+ {
+  "id": "incline_push_up",
+  "name": "Incline push-up",
+  "pattern": "horizontal_push",
+  "kind": "accessory",
+  "primary": [
+   "chest"
+  ],
+  "secondary": [
+   "triceps",
+   "front_delts"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder",
+   "wrist"
+  ],
+  "setup": [
+   "Hands on a sturdy raised surface (a bench, step or table edge), body in a straight line."
+  ],
+  "execution": [
+   "Lower your chest to the edge.",
+   "Push back up to straight arms."
+  ],
+  "breathing": "In on the way down, out as you push.",
+  "mistakes": [
+   "Hips sagging.",
+   "Elbows flaring straight out to the sides."
+  ],
+  "safety": "The higher your hands, the easier it gets: a great way to build up to floor push-ups.",
+  "source": null
+ },
+ {
+  "id": "prone_t_raise",
+  "name": "Prone T raise",
+  "pattern": "rear_delt_fly",
+  "kind": "accessory",
+  "primary": [
+   "rear_delts"
+  ],
+  "secondary": [
+   "upper_back",
+   "traps"
+  ],
+  "equipment": [
+   []
+  ],
+  "difficulty": 1,
+  "unilateral": false,
+  "loads": [
+   "shoulder"
+  ],
+  "setup": [
+   "Lie face down on a mat, arms out to the sides like a T, thumbs up."
+  ],
+  "execution": [
+   "Squeeze your shoulder blades together and lift your arms a few inches.",
+   "Pause, then lower slowly."
+  ],
+  "breathing": "Breathe out as you lift.",
+  "mistakes": [
+   "Shrugging toward the ears.",
+   "Lifting the chest high instead of the arms."
+  ],
+  "safety": "Light and slow: these small muscles tire quickly.",
+  "source": null
  }
 ]

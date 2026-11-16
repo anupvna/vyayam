@@ -6,7 +6,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import type { ReactNode } from "react";
 
 import { ApiError, api, setCsrfToken, setSessionUser } from "./api";
-import { SIGNED_OUT_EVENT, getStatus, syncEvents, updateStatus } from "./offline/status";
+import { SIGNED_OUT_EVENT, syncEvents, updateStatus } from "./offline/status";
 import { startSync } from "./offline/sync";
 import { clearUser } from "./offline/store";
 
@@ -48,8 +48,6 @@ function lastUser(): User | null {
   }
 }
 
-/** Unsent changes on this phone; logging out deletes them, so the screen asks first. */
-export const unsyncedChanges = (): number => getStatus().pending;
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AuthState>({ status: "loading" });

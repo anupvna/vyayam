@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { OFFLINE_CHECKIN_NOTE, applyPending, isQueueable, merge, offlineAssessment, offlineSet } from "./queue";
 import type { OutboxItem } from "./store";
-import type { TrainingToday } from "../types";
+import type { Activity, TrainingToday } from "../types";
 
 const item = (seq: number, method: OutboxItem["method"], path: string, body?: unknown): OutboxItem => ({
   seq,
@@ -133,5 +133,48 @@ describe("applyPending", () => {
   it("leaves other screens alone", () => {
     const data = { weights: [] };
     expect(applyPending("/body/summary?today=2026-11-16", data, [item(1, "POST", "/logs", set("a"))])).toBe(data);
+  });
+});
+
+describe("activities offline", () => {
+  const preview = (id: string, day = "2026-11-16", part = "main", minutes = 20, activity = "treadmill") => ({
+    id, day, part, minutes, activity, name: "Treadmill", intensity: "moderate", speed_kmh: null, incline_pct: null,
+    level: null, distance_km: null, calories: 100, calories_estimated: true, items: [], item_names: [], note: "",
+  });
+  const post = (seq: number, p: ReturnType<typeof preview>) => item(seq, "POST", "/activities", { id: p.id, day: p.day, preview: p });
+
+  it("queues activity logs and undo", () => {
+    expect(isQueueable("POST", "/activities")).toBe(true);
+    expect(isQueueable("DELETE", "/activities/abc-1")).toBe(true);
+    expect(merge([post(1, preview("x"))], item(0, "DELETE", "/activities/x"))).toEqual({ remove: [1], add: null });
+  });
+
+  it("shows waiting activities on today's card and ticks the warm-up", () => {
+    const today = {
+      warmup: { activity: "treadmill", minutes: 5, text: "", done: false },
+      finisher: null, cooldown: [], cooldown_minutes: 0, rest_day: null, activities: [] as Activity[], week_target: 150, week_done: 10,
+    };
+    const out = applyPending("/activities/today?today=2026-11-16", today, [
+      post(1, preview("w", "2026-11-16", "warmup", 5)),
+      post(2, preview("other-day", "2026-11-15")),
+    ]);
+    expect(out.activities.map((a) => a.id)).toEqual(["w"]);
+    expect(out.warmup?.done).toBe(true);
+    expect(out.week_done).toBe(15);
+  });
+
+  it("adds waiting minutes to the week, not stretching", () => {
+    const week = {
+      level: "regular", chosen: null, target_minutes: 150, done_minutes: 0, activities: [] as Activity[],
+      days: ["2026-11-16", "2026-11-17", "2026-11-18", "2026-11-19", "2026-11-20", "2026-11-21", "2026-11-22"].map((date) => ({ date, minutes: 0 })),
+    };
+    const out = applyPending("/activities/week?today=2026-11-18", week, [
+      post(1, preview("a", "2026-11-16", "main", 30)),
+      post(2, preview("s", "2026-11-17", "main", 10, "stretching")),
+      post(3, preview("next-week", "2026-11-23")),
+    ]);
+    expect(out.done_minutes).toBe(30);
+    expect(out.days[0].minutes).toBe(30);
+    expect(out.activities).toHaveLength(2);
   });
 });

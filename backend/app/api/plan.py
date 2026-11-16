@@ -12,13 +12,15 @@ import json
 from dataclasses import replace
 from datetime import date, timedelta
 from typing import Literal
+from uuid import UUID
 
 import asyncpg
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from app.auth.deps import CurrentUser, csrf_user, current_user, get_conn
 from app.catalog import MUSCLE_IDS
+from app.engine.places import MAT, substitute_day
 from app.engine.planner import (
     DayPlan,
     Override,
@@ -124,6 +126,7 @@ class DayOut(BaseModel):
     swapped: bool
     moved: bool
     logged_sets: int = 0
+    place: str | None = None  # e.g. "home (mat only)" when not at the active gym
 
 
 class WeekOut(BaseModel):
@@ -315,7 +318,48 @@ async def _week(
         week.notes.insert(
             0, "Your recent check-ins show you're run down, so this week is a deload."
         )
+    places = await _places(conn, user, start)
+    if places:
+        lib = load_library()
+        week.days = [
+            substitute_day(
+                d,
+                lib,
+                equipment=places[d.date][1],
+                place_name=places[d.date][0],
+                injured=ctx.injured,
+                hidden=ctx.hidden,
+                favorites=ctx.favorites,
+            )
+            if d.date in places
+            else d
+            for d in week.days
+        ]
+        for d in week.days:
+            if d.date in places and d.status == "planned":
+                d.place = places[d.date][0]
     return week, _split_out(split_id, custom, ctx.training_days)
+
+
+MAT_PLACE = "home (mat only)"
+
+
+async def _places(
+    conn: asyncpg.Connection, user: CurrentUser, start: date
+) -> dict[date, tuple[str, frozenset[str]]]:
+    """Days this week trained somewhere other than the active gym: name and equipment."""
+    rows = await conn.fetch(
+        """SELECT p.day, p.mat_only, g.name, g.equipment FROM day_places p
+           LEFT JOIN gyms g ON g.id = p.gym_id
+           WHERE p.user_id = $1 AND p.day BETWEEN $2 AND $3""",
+        user.id,
+        start,
+        start + timedelta(days=6),
+    )
+    return {
+        r["day"]: (MAT_PLACE, MAT) if r["mat_only"] else (r["name"], frozenset(r["equipment"]))
+        for r in rows
+    }
 
 
 def _day_out(d: DayPlan) -> DayOut:
@@ -343,6 +387,7 @@ def _day_out(d: DayPlan) -> DayOut:
         notes=d.notes,
         swapped=d.swapped,
         moved=d.moved,
+        place=d.place,
     )
 
 
@@ -505,6 +550,61 @@ async def swap_day(
         [] if body.session_key else body.muscles,
     )
     return await get_week(today=body.today, day=day, user=user, conn=conn)
+
+
+class PlaceIn(BaseModel):
+    today: date
+    gym_id: UUID | None = None  # one of your gyms...
+    mat: bool = False  # ...or at home with just a mat
+
+    @model_validator(mode="after")
+    def _one(self) -> "PlaceIn":
+        if self.mat == (self.gym_id is not None):
+            raise ValueError("Choose either a gym or the mat")
+        return self
+
+
+@router.put("/days/{day}/place", response_model=DayOut)
+async def set_place(
+    day: date,
+    body: PlaceIn,
+    user: CurrentUser = Depends(csrf_user),
+    conn: asyncpg.Connection = Depends(get_conn),
+) -> DayOut:
+    """Train somewhere else for one day; the active gym stays the default."""
+    if day < body.today or day > body.today + timedelta(days=13):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Pick today or a day in the next two weeks.")
+    if body.gym_id is not None:
+        gym = await conn.fetchrow(
+            "SELECT is_active FROM gyms WHERE id = $1 AND user_id = $2", body.gym_id, user.id
+        )
+        if gym is None:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "Gym not found")
+        if gym["is_active"]:  # back to the usual gym: nothing to override
+            await conn.execute(
+                "DELETE FROM day_places WHERE user_id = $1 AND day = $2", user.id, day
+            )
+            return await get_today(today=day, minutes=None, user=user, conn=conn)
+    await conn.execute(
+        """INSERT INTO day_places (user_id, day, gym_id, mat_only) VALUES ($1, $2, $3, $4)
+           ON CONFLICT (user_id, day) DO UPDATE SET gym_id = EXCLUDED.gym_id,
+           mat_only = EXCLUDED.mat_only""",
+        user.id,
+        day,
+        body.gym_id,
+        body.mat,
+    )
+    return await get_today(today=day, minutes=None, user=user, conn=conn)
+
+
+@router.delete("/days/{day}/place", status_code=status.HTTP_204_NO_CONTENT)
+async def reset_place(
+    day: date,
+    user: CurrentUser = Depends(csrf_user),
+    conn: asyncpg.Connection = Depends(get_conn),
+) -> Response:
+    await conn.execute("DELETE FROM day_places WHERE user_id = $1 AND day = $2", user.id, day)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.delete("/days/{day}", status_code=status.HTTP_204_NO_CONTENT)
