@@ -6,10 +6,10 @@ services:
     name: vyayam
     runtime: docker
     plan: free
-    region: singapore
+    region: virginia  # near New York; the Neon database should be in AWS US East too
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
-    autoDeploy: false
+    autoDeploy: true  # every push to main goes live
     envVars:
       - key: DATABASE_URL
         sync: false

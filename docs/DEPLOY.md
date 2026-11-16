@@ -5,9 +5,13 @@ plan, with the database on Neon's free plan. Both cost $0.
 
 ## 1. Database (Neon)
 
-1. Create a project at neon.tech. Pick the region closest to you (Singapore for India).
-2. Copy the connection string. It looks like
-   `postgresql://USER:PASSWORD@ep-xxxx.ap-southeast-1.aws.neon.tech/neondb?sslmode=require`.
+1. Create a project at neon.tech in **AWS US East (N. Virginia)**, next to the Render
+   service (`region: virginia` in `render.yaml`).
+2. Click **Connect**, turn **Connection pooling off** (the app runs its own pool, and
+   migrations need a direct connection), and copy the string. It looks like
+   `postgresql://USER:PASSWORD@ep-xxxx.us-east-1.aws.neon.tech/neondb?sslmode=require`.
+   If it ends with `&channel_binding=require`, delete that part: the database driver
+   doesn't support that option.
 3. Keep it somewhere private. It is a password: never commit it.
 
 ## 2. App (Render)
@@ -19,7 +23,7 @@ plan, with the database on Neon's free plan. Both cost $0.
 4. Open `https://<your-service>.onrender.com/api/health`. It should show
    `{"status":"ok","database":"ok"}`.
 
-`autoDeploy` is off, so nothing ships until you click **Manual Deploy** (or turn it on).
+`autoDeploy` is on: every push to `main` builds and goes live in a few minutes.
 
 ## Notes
 
