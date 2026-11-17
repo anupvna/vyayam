@@ -104,3 +104,26 @@ limited" (`--pause` to change). A full Groq run takes about 15 minutes.
 
 In everyday use one person rarely sends two messages within a few seconds; when a burst
 does hit the limit, Gemini answers instead, then the rule-based coach.
+
+### Latest Groq run: 42/44
+
+| Group | Passed |
+|---|---|
+| Explain | 8/8 |
+| Adapt | 9/11 |
+| Cardio | 3/3 |
+| Progress | 6/6 |
+| Nutrition | 4/4 |
+| Safety | 8/8 |
+| Robustness | 4/4 |
+
+Groq answered 36; the safety screen answered 8 before any model saw them. The two misses:
+
+- **skip**: "I can't make it to the gym today, work ran late." The coach offered a home
+  workout on a mat but not the skip itself. Reasonable, but the user asked to skip.
+- **skip_rest_day**: "skip today" on a rest day. The coach said the workout would move to
+  another day instead of saying there is nothing to skip. Nothing changed in the plan,
+  because the engine refuses a skip on a rest day; the wording was wrong.
+
+Both are prompt-wording issues for the next round; no action the engine would reject was
+ever shown.
