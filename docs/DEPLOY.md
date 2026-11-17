@@ -25,6 +25,21 @@ plan, with the database on Neon's free plan. Both cost $0.
 
 `autoDeploy` is on: every push to `main` builds and goes live in a few minutes.
 
+## Demo account
+
+The public demo (`demo@vyayam.app`, password in the README) is created from your Mac
+against the production database. It deletes and rebuilds **only** that account, with
+four weeks of data made through the app's own API:
+
+```sh
+cd backend
+DATABASE_URL='<the Neon connection string>' python -m app.demo
+```
+
+It asks for confirmation and shows the database host first. Run it again any time to
+wipe what visitors changed. The command uses the string from your shell only; don't
+save it to a file in the repo.
+
 ## Notes
 
 - **Cold starts.** Free Render services sleep after about 15 minutes idle; the first
