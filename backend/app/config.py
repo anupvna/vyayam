@@ -27,6 +27,10 @@ class Settings(BaseSettings):
 
     # AI coach. Keys live only in .env (never in Git). With no keys, the coach answers
     # from the engine's rules alone.
+    # The public demo account ("Try the demo" on the sign-in page). Created by
+    # `python -m app.demo`; the button only works once it exists.
+    demo_email: str = "demo@vyayam.app"
+
     groq_api_key: str = ""
     groq_model: str = "openai/gpt-oss-120b"
     gemini_api_key: str = ""

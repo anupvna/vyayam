@@ -21,6 +21,7 @@ type AuthState =
 type AuthContextValue = {
   state: AuthState;
   login: (email: string, password: string) => Promise<void>;
+  demo: () => Promise<void>; // the shared demo account, one tap
   signup: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 };
@@ -106,6 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             body: { email, password },
           }),
         ),
+      demo: async () => startSession(await api<SessionResponse>("/auth/demo", { method: "POST" })),
       signup: async (email, password) =>
         startSession(
           await api<SessionResponse>("/auth/signup", {

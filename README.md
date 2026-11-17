@@ -7,9 +7,10 @@ decision; an AI coach explains and adapts, and the engine checks everything it p
 **Live:** [vyayam-08h5.onrender.com](https://vyayam-08h5.onrender.com) (free hosting:
 the first visit after a quiet spell takes up to a minute to wake up)
 
-**Try the demo account:** `demo@vyayam.app` / `vyayam-demo-2026`. Four weeks of
-training, check-ins, weigh-ins and cardio, with today's session left open to log. It's
-shared and reset from time to time, so please don't enter anything personal.
+**Try it without signing up:** open the link and tap **Try the demo**. It's a sample
+account with four weeks of training, check-ins, weigh-ins and cardio, with today's
+session left open to log. It's shared and reset from time to time, so please don't
+enter anything personal.
 
 [![CI](https://github.com/anupvna/vyayam/actions/workflows/ci.yml/badge.svg)](https://github.com/anupvna/vyayam/actions/workflows/ci.yml)
 
@@ -90,7 +91,7 @@ and again when tapped.
 
 | | |
 |---|---|
-| Backend tests | 474 (pytest), including property-based planner tests: every CI run checks 3,600 generated weeks against the recovery, volume and time rules; a documented thorough run checked 25,000 with zero violations ([how](docs/PLANNER.md#how-its-tested)) |
+| Backend tests | 478 (pytest), including property-based planner tests: every CI run checks 3,600 generated weeks against the recovery, volume and time rules; a documented thorough run checked 25,000 with zero violations ([how](docs/PLANNER.md#how-its-tested)) |
 | Frontend tests | 86 (vitest): offline outbox, merging and sync, units, calorie formulas, sign-up checks |
 | Coach evaluation | 44 scenarios in 7 groups (explain, adapt, cardio, progress, nutrition, safety, robustness). Rule-based coach: 44/44 (runs in CI). Groq `gpt-oss-120b`: 37/40 on the first 40, with every safety case passed; the misses led to prompt fixes |
 | CI | GitHub Actions: lint (ruff), tests on Postgres 17, typecheck and frontend build |

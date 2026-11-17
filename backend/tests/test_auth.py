@@ -187,3 +187,37 @@ async def test_each_session_sees_only_its_own_user(app) -> None:
         await _signup(b, "b@example.com")
         assert (await a.get("/api/auth/me")).json()["user"]["email"] == "a@example.com"
         assert (await b.get("/api/auth/me")).json()["user"]["email"] == "b@example.com"
+
+
+# --- demo ---------------------------------------------------------------------
+
+
+async def test_demo_button_needs_the_demo_account(client: AsyncClient) -> None:
+    resp = await client.post("/api/auth/demo")
+    assert resp.status_code == 404
+
+
+async def test_demo_button_signs_in_without_a_password(app) -> None:
+    async with _new_client(app) as owner:
+        await _signup(owner, "demo@vyayam.app")
+    async with _new_client(app) as visitor:
+        resp = await visitor.post("/api/auth/demo")
+        assert resp.status_code == 200
+        assert resp.json()["user"]["email"] == "demo@vyayam.app"
+        assert "HttpOnly" in resp.headers["set-cookie"]
+        assert (await visitor.get("/api/auth/me")).json()["user"]["email"] == "demo@vyayam.app"
+
+
+async def test_demo_button_never_opens_another_account(app) -> None:
+    async with _new_client(app) as real:
+        await _signup(real, "anoop@example.com")
+    async with _new_client(app) as visitor:
+        assert (await visitor.post("/api/auth/demo")).status_code == 404
+
+
+async def test_many_demo_visitors_are_not_rate_limited(app) -> None:
+    async with _new_client(app) as owner:
+        await _signup(owner, "demo@vyayam.app")
+    for _ in range(15):  # far past the failed-login limits
+        async with _new_client(app) as visitor:
+            assert (await visitor.post("/api/auth/demo")).status_code == 200

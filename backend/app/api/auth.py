@@ -124,6 +124,23 @@ async def login(
     return SessionOut(user=UserOut(id=row["id"], email=email), csrf_token=csrf_token)
 
 
+@router.post("/demo", response_model=SessionOut)
+async def demo(
+    response: Response,
+    conn: asyncpg.Connection = Depends(get_conn),
+) -> SessionOut:
+    """One tap into the shared demo account, no password typed. Separate from /login so
+    many visitors trying the demo never trip the failed-login limits, and so this can't
+    open any other account."""
+    email = get_settings().demo_email
+    user_id = await conn.fetchval("SELECT id FROM users WHERE email = $1", email)
+    if user_id is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "The demo isn't available right now.")
+    await sessions.purge_expired(conn, user_id)
+    csrf_token = await _start_session(conn, response, user_id)
+    return SessionOut(user=UserOut(id=user_id, email=email), csrf_token=csrf_token)
+
+
 @router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
 async def logout(
     user: CurrentUser = Depends(csrf_user), conn: asyncpg.Connection = Depends(get_conn)

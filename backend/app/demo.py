@@ -27,9 +27,10 @@ from urllib.parse import urlparse
 import asyncpg
 from httpx import ASGITransport, AsyncClient
 
+from app.config import get_settings
 from app.main import create_app
 
-DEMO_EMAIL = "demo@vyayam.app"
+DEMO_EMAIL = get_settings().demo_email
 DEMO_PASSWORD = os.environ.get("DEMO_PASSWORD", "vyayam-demo-2026")
 WEEKS = 4  # intermediate deloads fall in week 5: keep the demo on a clean upward run
 # Equipment you put a number of kilos on. Everything else (pull-up bar, ab wheel, mat,

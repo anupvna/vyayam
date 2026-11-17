@@ -7,7 +7,7 @@ import { useAuth } from "../auth";
 import { MIN_PASSWORD, confirmHint, newPasswordProblem } from "../authForm";
 
 export function AuthPage() {
-  const { login, signup } = useAuth();
+  const { login, signup, demo } = useAuth();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,6 +33,18 @@ export function AuthPage() {
     setBusy(true);
     try {
       await (isSignup ? signup : login)(email, password);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Can't reach the server. Try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function tryDemo() {
+    setError(null);
+    setBusy(true);
+    try {
+      await demo();
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Can't reach the server. Try again.");
     } finally {
@@ -129,6 +141,16 @@ export function AuthPage() {
           {isSignup ? "I already have an account" : "Create an account"}
         </button>
       </form>
+
+      <section className="demo-box">
+        <p>
+          <b>Just looking?</b> Explore a sample account with four weeks of training. No sign-up, and it's shared,
+          so don't enter anything personal.
+        </p>
+        <button type="button" className="secondary" disabled={busy} onClick={tryDemo}>
+          Try the demo
+        </button>
+      </section>
 
       <p className="footnote">A training aid, not medical advice.</p>
     </main>
