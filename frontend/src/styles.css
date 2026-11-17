@@ -1727,7 +1727,7 @@ figcaption {
   font-size: 0.82rem;
 }
 
-.balance-track.empty {
+.balance-track.is-empty {
   background: var(--raised);
 }
 
@@ -2230,7 +2230,6 @@ figcaption {
 /* The balance track is a span: make it a real 10px bar even when empty. */
 .balance-track {
   display: block;
-  align-self: center;
 }
 
 .hint.ok {

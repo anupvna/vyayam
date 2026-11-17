@@ -66,7 +66,8 @@ export function TrainingSection({ today, profile, catalog }: Props) {
         setVolume(v);
         setCalendar(c);
         setExercises(e);
-        setPick(e[0]?.exercise_id ?? null);
+        // Open on a lift with a strength curve (bodyweight moves have no 1-rep max).
+        setPick((e.find((x) => x.best_e1rm !== null) ?? e[0])?.exercise_id ?? null);
       })
       .catch(() => setError(true));
   }, [today]);
@@ -183,7 +184,7 @@ export function TrainingSection({ today, profile, catalog }: Props) {
         <p className="hint">The shaded band is your weekly target. Half a set counts when a muscle helps but isn't the main mover.</p>
         <div className="balance">
           <span>Push {volume.push_sets}</span>
-          <span className={`balance-track ${total ? "" : "empty"}`}>
+          <span className={`balance-track ${total ? "" : "is-empty"}`}>
             <span style={{ width: total ? `${(volume.push_sets / total) * 100}%` : "0%" }} />
           </span>
           <span>Pull {volume.pull_sets}</span>

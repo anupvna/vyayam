@@ -42,7 +42,9 @@ export function baseOption() {
       type: "time" as const,
       axisLine: { lineStyle: { color: INK.grid } },
       axisTick: { show: false },
-      axisLabel: { color: INK.muted, fontSize: 11, hideOverlap: true },
+      // Dates, never clock times: points are a day or more apart.
+      minInterval: 24 * 3600 * 1000,
+      axisLabel: { color: INK.muted, fontSize: 11, hideOverlap: true, formatter: "{MMM} {d}" },
       splitLine: { show: false },
     },
     yAxis: {
