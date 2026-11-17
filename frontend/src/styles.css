@@ -2232,3 +2232,11 @@ figcaption {
   display: block;
   align-self: center;
 }
+
+.hint.ok {
+  color: var(--brass);
+}
+
+.hint.bad {
+  color: var(--sindoor);
+}

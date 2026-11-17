@@ -4,25 +4,30 @@ import type { FormEvent } from "react";
 
 import { ApiError } from "../api";
 import { useAuth } from "../auth";
-
-const MIN_PASSWORD = 10;
+import { MIN_PASSWORD, confirmHint, newPasswordProblem } from "../authForm";
 
 export function AuthPage() {
   const { login, signup } = useAuth();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [tried, setTried] = useState(false); // after a submit, show the mismatch even mid-typing
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   const isSignup = mode === "signup";
+  const hint = tried && password !== confirm ? "The passwords don't match." : confirmHint(password, confirm);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
-    if (isSignup && password.length < MIN_PASSWORD) {
-      setError(`Use at least ${MIN_PASSWORD} characters for your password.`);
+    const problem = isSignup ? newPasswordProblem(password, confirm) : null;
+    if (problem) {
+      setTried(true);
+      // A mismatch is already shown under the confirm field; don't say it twice.
+      setError(password.length < MIN_PASSWORD ? problem : null);
       return;
     }
     setBusy(true);
@@ -82,6 +87,25 @@ export function AuthPage() {
           {isSignup && <span className="hint">At least {MIN_PASSWORD} characters.</span>}
         </label>
 
+        {isSignup && (
+          <label>
+            Confirm password
+            <input
+              type={showPassword ? "text" : "password"}
+              autoComplete="new-password"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              aria-describedby="confirm-hint"
+              required
+            />
+            {hint && (
+              <span id="confirm-hint" className={`hint ${password === confirm ? "ok" : "bad"}`} aria-live="polite">
+                {hint}
+              </span>
+            )}
+          </label>
+        )}
+
         {error && (
           <p className="error" role="alert">
             {error}
@@ -97,6 +121,8 @@ export function AuthPage() {
           className="link"
           onClick={() => {
             setMode(isSignup ? "login" : "signup");
+            setConfirm("");
+            setTried(false);
             setError(null);
           }}
         >

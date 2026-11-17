@@ -1,11 +1,108 @@
-# Vyayam
+# Vyayam (ವ್ಯಾಯಾಮ)
 
-A personal gym coach that runs as an installable web app (PWA). A deterministic,
-tested engine decides training plans, progression, recovery and body calculations.
-An AI coach explains and adapts, and every change it proposes is checked by the
-engine's rules before it is shown.
+**A personal gym coach that plans each training day around you.** An installable web
+app (PWA) that works offline. A deterministic, tested engine makes every training
+decision; an AI coach explains and adapts, and the engine checks everything it proposes.
 
-> Training aid, not medical advice.
+**Live:** [vyayam-08h5.onrender.com](https://vyayam-08h5.onrender.com) (free hosting:
+the first visit after a quiet spell takes up to a minute to wake up)
+
+[![CI](https://github.com/anupvna/vyayam/actions/workflows/ci.yml/badge.svg)](https://github.com/anupvna/vyayam/actions/workflows/ci.yml)
+
+<p>
+  <img src="docs/screenshots/today.png" width="200" alt="Today's workout with a warm-up and per-exercise targets">
+  <img src="docs/screenshots/coach.png" width="200" alt="The coach offering a checked swap, and a fixed safety answer">
+  <img src="docs/screenshots/progress.png" width="200" alt="Progress: sets per muscle and cardio this week">
+  <img src="docs/screenshots/offline.png" width="200" alt="Logging sets with no connection">
+</p>
+
+> A training aid, not medical advice.
+
+## What it does
+
+- **Plans your week** for any split (full body, upper/lower, push/pull/legs and more, or
+  your own), around your training days, session length, gym equipment and injuries.
+  Skip or swap a day and the rest of the week rebalances.
+- **Coaches each set:** a target weight and reps from your last sessions (double
+  progression), estimated 1-rep max and records, a rest timer, and a daily check-in
+  that lightens the session when you're sore or under-slept and stops it on red-flag
+  symptoms.
+- **Tracks progress:** weight trend with a goal-date range, body fat and measurements,
+  sets per muscle against weekly targets, strength curves, a recovery body map,
+  consistency, and progress photos that never leave the phone.
+- **Cardio and floor work:** log any activity (treadmill speed and incline, machine
+  levels, the mat moves you did, calories or an estimate), a weekly cardio target from
+  your goal, warm-up, finisher and cool-down stretches, and "train at home on a mat
+  today", which swaps every exercise for a floor version.
+- **Works offline:** opens with no signal, logs sets, check-ins and cardio on the phone,
+  and syncs when the connection is back.
+- **AI coach:** answers from your own data ("why this weight today?", "I only have 30
+  minutes", "I'm at home today") and proposes changes as buttons you tap.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  subgraph Phone["Phone or browser (React PWA)"]
+    UI[Screens] --> API[API client]
+    API <--> Store[(IndexedDB: saved screens, outbox, photos)]
+  end
+  API <-->|HTTPS, session cookie + CSRF| App
+  subgraph Server["FastAPI (one container)"]
+    App[Routes] --> Engine[Training engine: pure functions]
+    App --> Coach[Coach pipeline]
+    Coach --> Engine
+  end
+  App <--> DB[(Postgres)]
+  Coach -->|JSON replies| Groq[Groq] -.->|fallback| Gemini[Gemini]
+```
+
+**The coach pipeline.** Every message goes through, in order: a safety screen (medical
+red flags, crisis, disordered eating, drugs and diagnosis questions get fixed answers
+and never reach an AI) → the user's data as context (no email or name) → Groq, then
+Gemini → checks on the reply (valid JSON schema, safety, **no invented numbers**: any
+weight, percentage or calorie figure must come from the user's data) → a rule-based
+coach if every provider fails. Proposed actions are checked by the engine when shown
+and again when tapped.
+
+## Design decisions
+
+- **The engine decides; the AI explains.** Planning, progression, recovery and body
+  maths are pure, unit-tested functions, so behaviour is predictable and auditable. The
+  AI can only propose a fixed set of actions, which the engine validates.
+- **Offline-first without conflicts.** Sets and activities get their id on the phone,
+  so the server can treat a resend as a no-op. Changes wait in an ordered outbox, merge
+  locally (undoing an unsent set cancels both), and replay when the connection returns.
+- **Privacy by design.** Progress photos stay in the browser's storage and are never
+  uploaded. The AI never receives identity. Saved data and the outbox are per user and
+  wiped on logout.
+- **Security basics done properly.** argon2id passwords, server-side sessions storing
+  only a token hash, HttpOnly + Secure + SameSite cookies, a CSRF header on every
+  change, login rate limiting, and secrets only in the environment.
+- **$0 to run.** Render's free web service, Neon's free Postgres, Groq's and Gemini's
+  free tiers. Requests are kept small to fit free-tier token limits.
+
+## Quality
+
+| | |
+|---|---|
+| Backend tests | 472 (pytest), including property-based planner tests: about 24,000 generated weeks checked against the recovery, volume and time rules with zero violations |
+| Frontend tests | 86 (vitest): offline outbox, merging and sync, units, calorie formulas, sign-up checks |
+| Coach evaluation | 44 scenarios in 7 groups (explain, adapt, cardio, progress, nutrition, safety, robustness). Rule-based coach: 44/44 (runs in CI). Groq `gpt-oss-120b`: 37/40 on the first 40, with every safety case passed; the misses led to prompt fixes |
+| CI | GitHub Actions: lint (ruff), tests on Postgres 17, typecheck and frontend build |
+
+Calorie estimates use the ACSM metabolic equations (walking and running, with incline)
+and MET values from the Compendium of Physical Activities.
+
+## Tech
+
+| Layer | Choice |
+|---|---|
+| Frontend | React 19, TypeScript, Vite, vite-plugin-pwa (Workbox), Apache ECharts |
+| Backend | Python 3.12, FastAPI, Pydantic v2, asyncpg with plain SQL and a small migration runner |
+| Data | PostgreSQL (Neon in production), IndexedDB on the device |
+| AI | Groq (`openai/gpt-oss-120b`, strict JSON schema), Gemini as backup, plain HTTPS via httpx |
+| Hosting | Docker on Render (one container serves the app and the API) |
 
 ## Run locally
 
@@ -30,36 +127,13 @@ npm install
 npm run dev                          # app on http://localhost:5173 (proxies /api to :8000)
 ```
 
-Production-style (one service): `npm run build` in `frontend/`, then FastAPI serves the
-app and the API together on http://localhost:8000.
-
-## Tests
-
-```bash
-cd backend && pytest                 # API, auth, migrations
-cd frontend && npm test              # frontend unit tests
-```
-
-## What's in it so far
-
-- Email sign-up and sign-in, onboarding (body, goal, experience, schedule, gyms and equipment)
-- Exercise library with alternatives, favorites and hidden exercises
-- Weekly planner for every common split, with skip and swap
-- Workout logging, progression, readiness check-in and a safety layer
-- Progress: weight trend and goal date, body fat and measurements, sets per muscle,
-  strength curves, a recovery map, consistency, and progress photos that never leave
-  the phone
-- Works offline: opens with no signal, logs sets and check-ins on the phone, and syncs
-  them when the connection is back
-- Cardio and mat work: log any activity (treadmill speed and incline, machine levels,
-  calories or an estimate, the floor moves you did), a weekly cardio target from your
-  goal, warm-up, finisher and cool-down stretches, and "train at home on a mat today"
-- AI coach: explains every target from your own data and proposes changes the engine
-  checks before you can apply them (Groq, Gemini as backup, rule-based without either)
+Tests: `pytest` in `backend/`, `npm test` in `frontend/`. Coach evaluation:
+`python -m app.coach.eval --provider engine` (or `groq` / `gemini` with keys in `.env`).
 
 ## Docs
 
 - [Planner](docs/PLANNER.md) · [Training](docs/TRAINING.md) · [Progress](docs/PROGRESS.md) · [Offline](docs/OFFLINE.md) · [Coach](docs/COACH.md) · [Cardio](docs/CARDIO.md)
 - [Deploying](docs/DEPLOY.md) · [Licenses](docs/LICENSES.md) · [Backlog](docs/BACKLOG.md)
 
-_Full README (architecture, design decisions, evaluation results) to come._
+Exercise facts come from the public-domain free-exercise-db; all illustrations, coaching
+cues, stretches and the muscle map are original. See [Licenses](docs/LICENSES.md).
