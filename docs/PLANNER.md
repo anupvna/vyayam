@@ -95,8 +95,21 @@ still no time. Session time is estimated as a 5-minute warm-up plus, per set,
 `check_week()` encodes every rule above and returns any violations. Property-based
 tests (Hypothesis) generate random people, gyms, injuries, favorites, hidden lists,
 built-in and custom splits, skips, swaps and freestyle sessions, and assert that
-`check_week()` returns nothing. **About 24,000 generated weeks have been checked
-with zero violations.** Along the way these tests found and fixed three real bugs:
+`check_week()` returns nothing.
+
+- **Every test run (CI):** 3,600 generated weeks: 3,000 in the main rule check
+  (`test_no_generated_week_ever_breaks_a_rule`), plus 300 each for determinism and
+  for skips never pushing volume past targets.
+- **Thorough run, recorded:** 25,000 generated weeks in the main rule check, **0
+  failing**, in 2 minutes 36 seconds (Hypothesis also discarded 2,564 invalid draws
+  before running them; they aren't counted). Reproduce it with:
+
+  ```bash
+  cd backend
+  PLANNER_EXAMPLES=25000 pytest tests/test_planner.py -k no_generated_week --hypothesis-show-statistics
+  ```
+
+Along the way these tests found and fixed three real bugs:
 
 1. A swap on a rest day created a workout on that rest day.
 2. Top-up sets could push one muscle past the per-session cap.

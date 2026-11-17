@@ -5,6 +5,7 @@ random (but valid) people, gyms, injuries, splits, skips and swaps, and assert t
 `check_week` finds zero rule violations in every single generated week.
 """
 
+import os
 from datetime import date, timedelta
 
 from hypothesis import HealthCheck, given, settings
@@ -260,6 +261,11 @@ SPLIT_IDS = sorted(SPLITS)
 MUSCLES = sorted(MUSCLE_PATTERNS)
 
 
+# CI checks 3,000 generated weeks per run. For a thorough run, raise it:
+#   PLANNER_EXAMPLES=25000 pytest tests/test_planner.py -k no_generated_week
+PLANNER_EXAMPLES = int(os.environ.get("PLANNER_EXAMPLES", "3000"))
+
+
 @st.composite
 def scenarios(draw):
     experience = draw(st.sampled_from(["beginner", "intermediate", "advanced"]))
@@ -311,7 +317,9 @@ def scenarios(draw):
     return c, cyc, overrides, today, previous_hard, draw(st.integers(0, 20))
 
 
-@settings(max_examples=3000, deadline=None, suppress_health_check=[HealthCheck.too_slow])
+@settings(
+    max_examples=PLANNER_EXAMPLES, deadline=None, suppress_health_check=[HealthCheck.too_slow]
+)
 @given(scenarios())
 def test_no_generated_week_ever_breaks_a_rule(scenario) -> None:
     """The headline property: across thousands of random people, gyms, injuries,
