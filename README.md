@@ -7,6 +7,10 @@ decision; an AI coach explains and adapts, and the engine checks everything it p
 **Live:** [vyayam-08h5.onrender.com](https://vyayam-08h5.onrender.com) (free hosting:
 the first visit after a quiet spell takes up to a minute to wake up)
 
+**Try the demo account:** `demo@vyayam.app` / `vyayam-demo-2026`. Four weeks of
+training, check-ins, weigh-ins and cardio, with today's session left open to log. It's
+shared and reset from time to time, so please don't enter anything personal.
+
 [![CI](https://github.com/anupvna/vyayam/actions/workflows/ci.yml/badge.svg)](https://github.com/anupvna/vyayam/actions/workflows/ci.yml)
 
 <p>
@@ -86,7 +90,7 @@ and again when tapped.
 
 | | |
 |---|---|
-| Backend tests | 472 (pytest), including property-based planner tests: about 24,000 generated weeks checked against the recovery, volume and time rules with zero violations |
+| Backend tests | 474 (pytest), including property-based planner tests: every CI run checks 3,600 generated weeks against the recovery, volume and time rules; a documented thorough run checked 25,000 with zero violations ([how](docs/PLANNER.md#how-its-tested)) |
 | Frontend tests | 86 (vitest): offline outbox, merging and sync, units, calorie formulas, sign-up checks |
 | Coach evaluation | 44 scenarios in 7 groups (explain, adapt, cardio, progress, nutrition, safety, robustness). Rule-based coach: 44/44 (runs in CI). Groq `gpt-oss-120b`: 37/40 on the first 40, with every safety case passed; the misses led to prompt fixes |
 | CI | GitHub Actions: lint (ruff), tests on Postgres 17, typecheck and frontend build |
@@ -133,7 +137,7 @@ Tests: `pytest` in `backend/`, `npm test` in `frontend/`. Coach evaluation:
 ## Docs
 
 - [Planner](docs/PLANNER.md) · [Training](docs/TRAINING.md) · [Progress](docs/PROGRESS.md) · [Offline](docs/OFFLINE.md) · [Coach](docs/COACH.md) · [Cardio](docs/CARDIO.md)
-- [Deploying](docs/DEPLOY.md) · [Licenses](docs/LICENSES.md) · [Backlog](docs/BACKLOG.md)
+- [Deploying](docs/DEPLOY.md) · [Licenses](docs/LICENSES.md) · [Roadmap](docs/ROADMAP.md)
 
 Exercise facts come from the public-domain free-exercise-db; all illustrations, coaching
 cues, stretches and the muscle map are original. See [Licenses](docs/LICENSES.md).
