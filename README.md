@@ -94,6 +94,9 @@ and again when tapped.
 | Backend tests | 478 (pytest), including property-based planner tests: every CI run checks 3,600 generated weeks against the recovery, volume and time rules; a documented thorough run checked 25,000 with zero violations ([how](docs/PLANNER.md#how-its-tested)) |
 | Frontend tests | 86 (vitest): offline outbox, merging and sync, units, calorie formulas, sign-up checks |
 | Coach evaluation | 44 scenarios in 7 groups (explain, adapt, cardio, progress, nutrition, safety, robustness). Rule-based coach: 44/44 (runs in CI). Groq `gpt-oss-120b`: 42/44, with every safety and robustness case passed |
+| Backend coverage | 95% of lines (pytest-cov, 478 tests); the engine's progression, readiness, cardio, splits and goals modules and the coach's safety screen are at 100% |
+| Lighthouse (mobile, live site) | Performance 98, Accessibility 95, Best Practices 96, SEO 91. Largest paint 1.8 s, layout shift 0, blocking time 10 ms |
+| API response time (live site) | Today's workout: p50 347 ms, p95 444 ms over 30 requests, all returning 200, from the US East Coast on Render's free tier. Timed from request sent to first byte; the health check takes 288 ms, so the app's own work adds about 60 ms |
 | CI | GitHub Actions: lint (ruff), tests on Postgres 17, typecheck and frontend build |
 
 Calorie estimates use the ACSM metabolic equations (walking and running, with incline)
