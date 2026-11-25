@@ -193,6 +193,37 @@ async def test_progression_carries_into_the_next_session(make_user: UserFactory)
     assert len(logged_monday["exercises"][0]["logged"]) == main["sets"]
 
 
+async def test_last_session_is_shown_set_by_set(make_user: UserFactory) -> None:
+    me = await make_user("a@example.com")
+    await _ready(me)
+    monday = await _today(me)
+    first = monday["exercises"][0]
+    assert first["last"] is None and first["load"] == "barbell_lower"
+    main = first["exercise_id"]
+    # A pyramid, plus one more set than planned: both are fine.
+    weights = [60, 65, 70, 72.5]
+    for i, w in enumerate(weights):
+        await me.post("/api/logs", json=_set(main, w, 8, i + 1))
+    friday = next(e for e in (await _today(me, FRIDAY))["exercises"] if e["exercise_id"] == main)
+    assert friday["last"]["day"] == MONDAY
+    assert [x["weight_kg"] for x in friday["last"]["sets"]] == weights
+    assert friday["target"]["weight_kg"] == 72.5  # progression follows the heaviest set
+
+
+async def test_load_tells_dumbbells_from_bodyweight(make_user: UserFactory) -> None:
+    me = await make_user("a@example.com")
+    await _ready(me)
+    loads = {e["load"] for e in (await _today(me))["exercises"]}
+    assert loads <= {
+        "barbell_lower",
+        "barbell_upper",
+        "dumbbell",
+        "machine_lower",
+        "machine_upper",
+        None,
+    }
+
+
 async def test_week_shows_logged_days_and_delete_works(make_user: UserFactory) -> None:
     me = await make_user("a@example.com")
     await _ready(me)

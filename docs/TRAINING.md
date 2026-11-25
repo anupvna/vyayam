@@ -43,6 +43,24 @@ Weights are rounded to loadable plates (2.5 kg or 5 lb steps). They're stored in
 kg at full precision, so 135 lb always comes back as 135 lb. Light days use about
 80% of the working weight; deload weeks about 90%.
 
+## On the workout screen
+
+- **Last time, set by set.** Each exercise shows the previous session ("Nov 21: 40 × 16,
+  45 × 16, 50 × 14 lb").
+- **A different weight on each set is fine.** If last time was a pyramid and the target
+  keeps the weight, set 1 starts from last time's set 1, set 2 from set 2, and so on.
+  Progression follows the heaviest sets.
+- **Choose today's sets.** A − / + control changes the number of sets for today, from
+  what's already logged (at least 1) up to 6, or the plan's number if that's higher.
+  Past about 6 hard sets of one exercise in a session, more sets add fatigue more than
+  growth, so the app suggests training it on another day instead. The choice is kept
+  on the device for that day.
+- **Clear weight labels.** Dumbbell weights are per dumbbell ("30 kg each"). Barbell
+  weights include the bar, so 0 isn't accepted there (a standard bar is 20 kg / 45 lb).
+  For bodyweight exercises the box is for added weight; leave it blank for bodyweight.
+- Reps in reserve isn't asked after each set any more (testers found it confusing). The
+  plan still says how hard to push ("stop 2 reps before failure").
+
 ## e1RM and PRs
 
 Estimated one-rep max uses the Epley formula: `weight × (1 + reps / 30)`, used only

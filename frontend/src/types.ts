@@ -212,8 +212,17 @@ export type TrainingToday = {
   suggest_rest: boolean;
   deload: boolean;
   readiness: Assessment | null;
-  exercises: { exercise_id: string; target: Target; logged: LoggedSet[] }[];
+  exercises: {
+    exercise_id: string;
+    target: Target;
+    logged: LoggedSet[];
+    load?: Load; // how it's loaded with today's gear (null: bodyweight or bands)
+    last?: LastSession | null; // the previous session of this exercise, set by set
+  }[];
 };
+
+export type Load = "barbell_lower" | "barbell_upper" | "dumbbell" | "machine_lower" | "machine_upper" | null;
+export type LastSession = { day: string; sets: { weight_kg: number; reps: number }[] };
 
 export type WeightPoint = { day: string; weight_kg: number; trend_kg: number };
 export type FatPoint = { day: string; pct: number; method: string };

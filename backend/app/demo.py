@@ -117,7 +117,11 @@ async def seed(database_url: str, today: date | None = None, seed: int = 7) -> d
                 machine = any({"cable_station", "lat_pulldown", "cable_row"} & set(o) or
                               any(e.endswith(("_machine", "press", "curl", "extension", "deck"))
                                   for e in o) for o in options)  # fmt: skip
-                return 50 if kind == "main" else 30 if machine else 15
+                if kind == "main":
+                    return 50
+                if any("barbell" in o for o in options):
+                    return 25  # never below an empty bar
+                return 30 if machine else 15
 
             skipped = start + timedelta(days=7 + 3)  # one missed Thursday, like real life
             day = start

@@ -296,10 +296,24 @@ class TargetOut(BaseModel):
     change: str
 
 
+class LastSet(BaseModel):
+    weight_kg: float
+    reps: int
+
+
+class LastSession(BaseModel):
+    day: date
+    sets: list[LastSet]
+
+
 class TodayExercise(BaseModel):
     exercise_id: str
     target: TargetOut
     logged: list[SetOut]
+    # How it's loaded with today's gear: barbell_*, dumbbell (weights are per dumbbell),
+    # machine_*, or None for bodyweight and bands. Lets the screen label the weight.
+    load: str | None
+    last: LastSession | None  # the previous session of this exercise, set by set
 
 
 class TodayOut(BaseModel):
@@ -382,10 +396,11 @@ async def training_today(
     exercises = []
     for e in day.exercises:
         history = await _history(conn, user, e.exercise_id, today)
+        load = load_type(library[e.exercise_id], equipment)
         t = next_target(
             history,
             e.reps,
-            load_type(library[e.exercise_id], equipment),
+            load,
             profile["unit_system"],
             rir=e.rir,
             light=e.light,
@@ -398,6 +413,13 @@ async def training_today(
                     weight_kg=t.weight_kg, reps=t.reps, reason=t.reason, change=t.change
                 ),
                 logged=logged.get(e.exercise_id, []),
+                load=load,
+                last=LastSession(
+                    day=history[0].day,
+                    sets=[LastSet(weight_kg=x.weight_kg, reps=x.reps) for x in history[0].sets],
+                )
+                if history
+                else None,
             )
         )
 

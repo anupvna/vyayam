@@ -360,6 +360,8 @@ export function HomePage() {
                         exercise={e}
                         target={t.target}
                         logged={t.logged}
+                        load={t.load}
+                        last={t.last}
                         units={units}
                         day={today}
                         onLogged={(s) => onLogged(e.exercise_id, s)}
